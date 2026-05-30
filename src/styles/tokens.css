@@ -1,0 +1,50 @@
+/*
+ * Design tokens derived from the Figma doc "[외주] 공성훈님 홈페이지".
+ * Desktop ref 1440x1024, mobile ref 390x844.
+ */
+:root {
+  /* Color */
+  --color-bg: #ffffff;
+  --color-fg: #000000;
+  --color-bg-invert: #000000;
+  --color-fg-invert: #ffffff;
+  --color-muted: #666666;
+  --color-line: #e5e5e5;
+
+  /* Typography families */
+  --font-mono: "Geist Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --font-display: "Geist", system-ui, sans-serif;
+  --font-body: "Pretendard", system-ui, sans-serif;
+
+  /* Type scale (px values from Figma) */
+  --fs-logo: 28px;
+  --fs-nav: 14px;
+  --fs-title: 28px;
+  --fs-body: 12px;
+  --lh-body: 24px;
+  --fs-caption: 10px;
+
+  /* Layout */
+  --content-max: 1000px;   /* content area on 1440 desktop */
+  --page-gutter: 8px;      /* 12-col gutter feel */
+  --columns: 12;
+
+  /* Spacing scale */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 16px;
+  --space-4: 24px;
+  --space-5: 40px;
+  --space-6: 64px;
+
+  /* Breakpoint reference (used in media queries below) */
+  --bp-mobile: 768px;
+}
+
+@media (max-width: 768px) {
+  :root {
+    --content-max: 100%;
+    --page-gutter: 4px;     /* 8-col gutter feel on mobile */
+    --columns: 8;
+  }
+}

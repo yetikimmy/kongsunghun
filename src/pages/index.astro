@@ -1,0 +1,58 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { LOGO_LABEL, MAIN_NAV } from "../lib/nav";
+---
+
+<BaseLayout title="KONG,SUNG-HUN" bare>
+  <section class="landing">
+    <div class="landing-media" aria-hidden="true">
+      <!-- Placeholder for landing video/image. Replaces the legacy kong.swf Flash movie. -->
+    </div>
+    <div class="landing-center">
+      <h1 class="landing-logo">{LOGO_LABEL}</h1>
+      <nav class="landing-nav" aria-label="주 메뉴">
+        <ul>
+          {MAIN_NAV.map((item) => <li><a href={item.href}>{item.label}</a></li>)}
+        </ul>
+      </nav>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .landing {
+    position: relative;
+    min-height: 100vh;
+    background: var(--color-bg-invert);
+    color: var(--color-fg-invert);
+    display: grid;
+    place-items: center;
+  }
+  .landing-media {
+    position: absolute;
+    inset: 0;
+    background: #111;
+  }
+  .landing-center {
+    position: relative;
+    text-align: center;
+    padding: var(--space-5);
+  }
+  .landing-logo {
+    font-family: var(--font-mono);
+    font-size: clamp(28px, 6vw, 56px);
+    letter-spacing: -0.01em;
+    color: var(--color-fg-invert);
+  }
+  .landing-nav ul {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: var(--space-4);
+    list-style: none;
+    margin: var(--space-5) 0 0;
+    padding: 0;
+    font-family: var(--font-mono);
+    font-size: var(--fs-nav);
+  }
+</style>

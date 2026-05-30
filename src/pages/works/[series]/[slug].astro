@@ -1,0 +1,50 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import WorkDetail from "../../../components/WorkDetail.astro";
+
+export async function getStaticPaths() {
+  const all = await getCollection("works");
+  return all.map((work) => {
+    const siblings = all
+      .filter((w) => w.data.series === work.data.series)
+      .sort((a, b) => a.data.order - b.data.order);
+    const i = siblings.findIndex((w) => w.data.slug === work.data.slug);
+    const prev = siblings[i - 1];
+    const next = siblings[i + 1];
+    const base = `/works/${work.data.series}`;
+    return {
+      params: { series: work.data.series, slug: work.data.slug },
+      props: {
+        work,
+        backHref: `${base}/`,
+        prevHref: prev ? `${base}/${prev.data.slug}/` : undefined,
+        nextHref: next ? `${base}/${next.data.slug}/` : undefined,
+        index: i + 1,
+        total: siblings.length,
+      },
+    };
+  });
+}
+
+const { work, backHref, prevHref, nextHref, index, total } = Astro.props;
+---
+
+<BaseLayout title={`${work.data.titleEn} — KONG,SUNG-HUN`} current="/works/">
+  <div class="container detail-page">
+    <WorkDetail
+      work={work}
+      backHref={backHref}
+      prevHref={prevHref}
+      nextHref={nextHref}
+      index={index}
+      total={total}
+    />
+  </div>
+</BaseLayout>
+
+<style>
+  .detail-page {
+    padding-block: var(--space-5);
+  }
+</style>

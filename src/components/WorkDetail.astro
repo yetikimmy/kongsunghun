@@ -1,0 +1,98 @@
+---
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+  work: CollectionEntry<"works">;
+  backHref: string;
+  prevHref?: string;
+  nextHref?: string;
+  index?: number;
+  total?: number;
+}
+const { work, backHref, prevHref, nextHref, index, total } = Astro.props;
+const d = work.data;
+---
+
+<article class="detail">
+  <header class="detail-head">
+    <h1 class="title">{d.titleEn}</h1>
+    {d.titleKo !== d.titleEn && <p class="title-ko">{d.titleKo}</p>}
+    <p class="caption">
+      {[d.year, d.medium, d.dimensions].filter(Boolean).join(" · ")}
+    </p>
+  </header>
+
+  <div class="media">
+    {
+      d.images.map((img) => (
+        <figure>
+          <img src={img.src} alt={img.alt} width={img.width} height={img.height} />
+        </figure>
+      ))
+    }
+  </div>
+
+  {
+    (d.descriptionKo || d.descriptionEn) && (
+      <div class="body-text">
+        {d.descriptionKo && <p>{d.descriptionKo}</p>}
+        {d.descriptionEn && <p lang="en">{d.descriptionEn}</p>}
+      </div>
+    )
+  }
+
+  {d.caption && <p class="caption work-caption">{d.caption}</p>}
+
+  <nav class="pager" aria-label="작업 탐색">
+    <a href={backHref}>Back</a>
+    <span class="pager-pos">
+      {prevHref ? <a href={prevHref}>Prev</a> : <span aria-hidden="true">Prev</span>}
+      {index && total ? <span>{index} / {total}</span> : null}
+      {nextHref ? <a href={nextHref}>Next</a> : <span aria-hidden="true">Next</span>}
+    </span>
+  </nav>
+</article>
+
+<style>
+  .detail-head {
+    margin-bottom: var(--space-5);
+  }
+  .title-ko {
+    font-family: var(--font-display);
+    font-size: 18px;
+    margin-top: var(--space-1);
+  }
+  .media {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+  .media figure {
+    margin: 0;
+  }
+  .body-text {
+    max-width: 56ch;
+    margin-top: var(--space-5);
+  }
+  .work-caption {
+    margin-top: var(--space-4);
+  }
+  .pager {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: var(--space-6);
+    padding-top: var(--space-3);
+    border-top: 1px solid var(--color-line);
+    font-family: var(--font-mono);
+    font-size: var(--fs-nav);
+  }
+  .pager-pos {
+    display: flex;
+    gap: var(--space-3);
+    align-items: center;
+  }
+  .pager-pos span[aria-hidden="true"] {
+    color: var(--color-line);
+  }
+</style>

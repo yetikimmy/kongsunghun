@@ -1,0 +1,47 @@
+---
+import { WORK_CATEGORIES } from "../lib/nav";
+
+interface Props {
+  currentSeries?: string;
+}
+const { currentSeries } = Astro.props;
+---
+
+<nav class="work-cats" aria-label="작업 카테고리">
+  <ul>
+    {
+      WORK_CATEGORIES.map((cat) => (
+        <li>
+          <a
+            href={cat.href}
+            aria-current={currentSeries === cat.series ? "page" : undefined}
+          >
+            {cat.label}
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</nav>
+
+<style>
+  .work-cats ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-4);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-family: var(--font-mono);
+    font-size: var(--fs-nav);
+  }
+  .work-cats a[aria-current="page"] {
+    text-decoration: underline;
+    font-weight: 600;
+  }
+  @media (max-width: 768px) {
+    .work-cats ul {
+      gap: var(--space-2) var(--space-3);
+    }
+  }
+</style>

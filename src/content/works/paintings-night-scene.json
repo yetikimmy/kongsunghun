@@ -1,0 +1,21 @@
+{
+  "slug": "paintings-night-scene",
+  "series": "paintings",
+  "titleKo": "야경",
+  "titleEn": "Night Scene",
+  "year": 2008,
+  "medium": "캔버스에 유채 (oil on canvas)",
+  "dimensions": "162×130cm",
+  "descriptionKo": "도시 외곽의 밤 풍경을 다룬 회화 연작 중 하나.",
+  "descriptionEn": "One of a series of paintings depicting nightscapes on the edge of the city.",
+  "images": [
+    {
+      "src": "/assets/works/web/paintings-night-scene-01.jpg",
+      "alt": "야경 회화 도판",
+      "width": 1000,
+      "height": 802
+    }
+  ],
+  "caption": "Night Scene, 2008, 캔버스에 유채, 162×130cm",
+  "order": 1
+}

@@ -1,0 +1,20 @@
+{
+  "name": "kongsunghun-site",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Modernized static site for artist Kong Sung-hun (Astro). Legacy HTML preserved at repo root.",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check"
+  },
+  "dependencies": {
+    "astro": "^5.7.0"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.4",
+    "typescript": "^5.8.0"
+  }
+}

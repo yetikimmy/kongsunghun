@@ -1,0 +1,41 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import WorksDropdown from "../../components/WorksDropdown.astro";
+---
+
+<BaseLayout title="WORKS — KONG,SUNG-HUN" current="/works/">
+  <div class="container works-overview">
+    <h1 class="title overview-title">
+      A BOY CALLED<br />THE 20TH CENTURY
+      <span class="overview-title-ko">20세기, 라는 소년</span>
+    </h1>
+
+    <div class="overview-body">
+      <p>
+        공성훈의 작업 세계를 BLIND WORK, INSTALLATION WORK, MULTI SLIDE PROJECTION,
+        PAINTINGS 네 갈래로 살펴봅니다.
+      </p>
+    </div>
+
+    <WorksDropdown />
+  </div>
+</BaseLayout>
+
+<style>
+  .works-overview {
+    padding-block: var(--space-6);
+  }
+  .overview-title {
+    line-height: 1.15;
+  }
+  .overview-title-ko {
+    display: block;
+    font-size: 16px;
+    color: var(--color-muted);
+    margin-top: var(--space-2);
+  }
+  .overview-body {
+    max-width: 56ch;
+    margin: var(--space-5) 0;
+  }
+</style>

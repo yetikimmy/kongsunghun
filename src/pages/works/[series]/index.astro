@@ -1,0 +1,49 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import WorksDropdown from "../../../components/WorksDropdown.astro";
+import WorkGrid from "../../../components/WorkGrid.astro";
+import { WORK_CATEGORIES } from "../../../lib/nav";
+
+export async function getStaticPaths() {
+  const all = await getCollection("works");
+  return WORK_CATEGORIES.map((cat) => ({
+    params: { series: cat.series },
+    props: {
+      label: cat.label,
+      series: cat.series,
+      works: all
+        .filter((w) => w.data.series === cat.series)
+        .sort((a, b) => a.data.order - b.data.order),
+    },
+  }));
+}
+
+const { label, series, works } = Astro.props;
+---
+
+<BaseLayout title={`${label} — KONG,SUNG-HUN`} current="/works/">
+  <div class="container cat-index">
+    <WorksDropdown currentSeries={series} />
+    <h1 class="title cat-title">{label}</h1>
+    {
+      works.length > 0 ? (
+        <WorkGrid works={works} />
+      ) : (
+        <p class="caption empty">아직 등록된 작업이 없습니다.</p>
+      )
+    }
+  </div>
+</BaseLayout>
+
+<style>
+  .cat-index {
+    padding-block: var(--space-5);
+  }
+  .cat-title {
+    margin-top: var(--space-5);
+  }
+  .empty {
+    margin-top: var(--space-5);
+  }
+</style>

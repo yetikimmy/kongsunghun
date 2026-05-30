@@ -1,0 +1,21 @@
+{
+  "slug": "blind-work-cork-boxes",
+  "series": "blind-work",
+  "titleKo": "art ∩ life ∩ medium ∩ science ∩ public ∩ technology ∩ work",
+  "titleEn": "art ∩ life ∩ medium ∩ science ∩ public ∩ technology ∩ work",
+  "year": 1992,
+  "medium": "코르크 박스, 실크스크린 (cork box, silk-screen)",
+  "dimensions": "40×40×3cm (each)",
+  "descriptionKo": "이 작업은 사전에 정의된 의미를 찾는 일로부터 시작된다. 서로 다른 단어들의 의미를 비교하여 개념의 교집합을 추출하는 방식으로 진행하였다.",
+  "descriptionEn": "This work begins with looking up well-defined meanings in a dictionary, comparing different words to extract the intersection of their concepts.",
+  "images": [
+    {
+      "src": "/assets/works/web/blind-work-cork-boxes-01.jpg",
+      "alt": "art ∩ life ∩ medium 코르크 박스 설치 전경",
+      "width": 504,
+      "height": 405
+    }
+  ],
+  "caption": "교집합의 의미 — Art ∩ life ∩ medium ∩ science ∩ public ∩ technology ∩ work, 1992, 코르크 박스 위 실크스크린, 40×40×3cm(each), Kwanhoon Gallery, Seoul",
+  "order": 1
+}
