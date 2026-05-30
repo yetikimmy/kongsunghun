@@ -18,7 +18,12 @@ const here = Astro.url.pathname;
           <a href={relativeHref(`/works/${work.data.series}/${work.data.slug}/`, here)}>
             <div class="thumb">
               {cover ? (
-                <img src={relativeHref(cover.src, here)} alt={cover.alt} loading="lazy" />
+                <img
+                  src={relativeHref(cover.src, here)}
+                  alt={cover.alt}
+                  loading="lazy"
+                  onerror="this.style.display='none'"
+                />
               ) : (
                 <span class="placeholder" aria-hidden="true" />
               )}

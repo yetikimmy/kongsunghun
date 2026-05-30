@@ -1,0 +1,19 @@
+{
+  "slug": "drawing-for-polypod",
+  "series": "multi-slide-projection",
+  "titleKo": "Drawing for Polypod",
+  "titleEn": "Drawing for Polypod",
+  "year": 1997,
+  "medium": "Photo-Collage on Paper",
+  "images": [
+    {
+      "src": "/assets/works/web/slide03_01.jpg",
+      "alt": "Drawing for Polypod — 종이에 포토콜라주, 1997",
+      "width": 504,
+      "height": 340
+    }
+  ],
+  "caption": "Drawing for Polypod 1997 Photo-Collage on Paper",
+  "order": 3,
+  "legacyFile": "slide03_01.htm"
+}

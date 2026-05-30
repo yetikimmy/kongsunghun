@@ -26,22 +26,27 @@ src/
   pages/        /, /works/, /works/[series]/, /works/[series]/[slug], /cv, /contact, /exhibition, /essay
   styles/       tokens.css (디자인 토큰), global.css
 public/
-  assets/works/ originals/ · web/ · thumb/  (이미지 파이프라인 디렉터리)
+  assets/works/ originals/ · web/(커밋된 작품 이미지) · thumb/ · legacy/(스크립트 생성, 미커밋)
 scripts/
-  build-images.mjs  이미지 변환 스크립트 (1차에서는 placeholder)
+  extract-legacy-works.mjs  레거시 HTML(EUC-KR) → JSON 추출
+  build-images.mjs          이미지 변환 스크립트 (placeholder)
+data/
+  legacy-works.generated.json  전체 자동 추출 결과 (검수용)
+docs/
+  migration.md  추출 스크립트 사용법·한계·웹폰트 로딩 방식
 ```
 
 ## 디자인 토큰 (Figma 기준)
 
 - 데스크탑 1440×1024 · 콘텐츠 영역 약 1000px · 12컬럼/8px gutter
 - 모바일 390×844 · 8컬럼/4px gutter/16px margin
-- 폰트: 로고/내비 Geist Mono, 제목 Geist, 본문 Pretendard
+- 폰트: 로고/내비 Geist Mono, 제목/카테고리 라벨 Geist Sans, 한글/본문/캡션 Pretendard
 - 색상: 흰 배경 + 검정 텍스트, 랜딩은 검정 배경 + 흰 로고
 - 타입: 로고 28px, nav 14px, title 28px, body 12px/24px, caption 10px
 
 토큰은 `src/styles/tokens.css` 에 CSS 변수로 정의되어 있고, 768px 브레이크포인트에서 모바일 값으로 전환됩니다.
 
-> 폰트는 현재 시스템 폴백으로 동작합니다. Geist / Geist Mono / Pretendard 웹폰트 로딩은 다음 단계 작업입니다.
+> 웹폰트는 npm 패키지로 self-host 합니다 (외부 CDN 의존 없음). 로딩 방식·라이선스는 [`docs/migration.md`](docs/migration.md#웹폰트) 참고.
 
 ## 작업(works) 데이터 모델
 
@@ -60,7 +65,7 @@ scripts/
 | `caption` | 도판 캡션 |
 | `order` | 카테고리 내 정렬 순서 |
 
-현재는 카테고리별 샘플 1개씩(총 3개)만 등록되어 있습니다. 레거시 191개 HTML 전체 이관은 이후 단계의 작업입니다.
+현재 카테고리별 3~4개씩 총 12개가 검수되어 등록되어 있습니다. 레거시 HTML 전체(180개) 자동 추출 결과는 `data/legacy-works.generated.json` 에 있으며, 추출 스크립트·한계·수동 검수 항목은 [`docs/migration.md`](docs/migration.md) 에 정리되어 있습니다.
 
 ## 이미지 파이프라인 (초안)
 

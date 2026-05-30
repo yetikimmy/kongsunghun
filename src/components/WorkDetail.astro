@@ -29,7 +29,13 @@ const rel = (p: string) => relativeHref(p, here);
     {
       d.images.map((img) => (
         <figure>
-          <img src={rel(img.src)} alt={img.alt} width={img.width} height={img.height} />
+          <img
+            src={rel(img.src)}
+            alt={img.alt}
+            width={img.width}
+            height={img.height}
+            onerror="this.closest('figure').classList.add('img-missing')"
+          />
         </figure>
       ))
     }
@@ -72,6 +78,13 @@ const rel = (p: string) => relativeHref(p, here);
   }
   .media figure {
     margin: 0;
+  }
+  .media figure.img-missing {
+    aspect-ratio: 4 / 3;
+    background: #f2f2f2;
+  }
+  .media figure.img-missing img {
+    display: none;
   }
   .body-text {
     max-width: 56ch;

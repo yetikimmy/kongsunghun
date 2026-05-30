@@ -30,6 +30,8 @@ const works = defineCollection({
     images: z.array(imageSchema).default([]),
     caption: z.string().optional(),
     order: z.number().default(0),
+    /** Source legacy page this entry was extracted/curated from (provenance). */
+    legacyFile: z.string().optional(),
   }),
 });
 

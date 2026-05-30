@@ -1,4 +1,14 @@
 ---
+// Self-hosted web fonts (OFL-1.1, bundled via npm — no external CDN).
+//   Geist Mono  -> logo / navigation / pager
+//   Geist Sans  -> headings / category labels
+//   Pretendard  -> Korean + body + caption (dynamic Korean subsets, swap)
+import "@fontsource/geist-mono/400.css";
+import "@fontsource/geist-mono/500.css";
+import "@fontsource/geist-sans/400.css";
+import "@fontsource/geist-sans/500.css";
+import "@fontsource/geist-sans/600.css";
+import "pretendard/dist/web/variable/pretendardvariable-dynamic-subset.css";
 import "../styles/global.css";
 import Header from "../components/Header.astro";
 

@@ -6,6 +6,11 @@ dist/
 .astro/
 .output/
 
+# Bulk legacy artwork images copied by scripts/extract-legacy-works.mjs.
+# Regenerable from the root image/ folder; not committed to keep the repo lean.
+# Curated, committed artwork lives in public/assets/works/web/ instead.
+public/assets/works/legacy/
+
 # OS / editor junk
 .DS_Store
 Thumbs.db

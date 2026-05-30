@@ -1,6 +1,17 @@
 ---
+import { getCollection } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import WorksDropdown from "../../components/WorksDropdown.astro";
+import { WORK_CATEGORIES } from "../../lib/nav";
+import { relativeHref } from "../../lib/href";
+
+const all = await getCollection("works");
+const here = Astro.url.pathname;
+const categories = WORK_CATEGORIES.map((cat) => ({
+  ...cat,
+  count: all.filter((w) => w.data.series === cat.series).length,
+}));
+const total = all.length;
 ---
 
 <BaseLayout title="WORKS — KONG,SUNG-HUN" current="/works/">
@@ -13,11 +24,24 @@ import WorksDropdown from "../../components/WorksDropdown.astro";
     <div class="overview-body">
       <p>
         공성훈의 작업 세계를 BLIND WORK, INSTALLATION WORK, MULTI SLIDE PROJECTION,
-        PAINTINGS 네 갈래로 살펴봅니다.
+        PAINTINGS 네 갈래로 살펴봅니다. 현재 {total}점의 작업이 공개되어 있습니다.
       </p>
     </div>
 
     <WorksDropdown />
+
+    <ul class="cat-counts" role="list">
+      {
+        categories.map((cat) => (
+          <li>
+            <a href={relativeHref(cat.href, here)}>
+              <span class="cat-label">{cat.label}</span>
+              <span class="cat-count">{cat.count}</span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
   </div>
 </BaseLayout>
 
@@ -37,5 +61,27 @@ import WorksDropdown from "../../components/WorksDropdown.astro";
   .overview-body {
     max-width: 56ch;
     margin: var(--space-5) 0;
+  }
+  .cat-counts {
+    list-style: none;
+    margin: var(--space-5) 0 0;
+    padding: 0;
+    border-top: 1px solid var(--color-line);
+  }
+  .cat-counts a {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: var(--space-3) 0;
+    border-bottom: 1px solid var(--color-line);
+  }
+  .cat-label {
+    font-family: var(--font-mono);
+    font-size: var(--fs-nav);
+  }
+  .cat-count {
+    font-family: var(--font-display);
+    font-size: 18px;
+    color: var(--color-muted);
   }
 </style>
