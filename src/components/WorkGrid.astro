@@ -1,10 +1,12 @@
 ---
 import type { CollectionEntry } from "astro:content";
+import { relativeHref } from "../lib/href";
 
 interface Props {
   works: CollectionEntry<"works">[];
 }
 const { works } = Astro.props;
+const here = Astro.url.pathname;
 ---
 
 <ul class="grid" role="list">
@@ -13,10 +15,10 @@ const { works } = Astro.props;
       const cover = work.data.images[0];
       return (
         <li class="card">
-          <a href={`/works/${work.data.series}/${work.data.slug}/`}>
+          <a href={relativeHref(`/works/${work.data.series}/${work.data.slug}/`, here)}>
             <div class="thumb">
               {cover ? (
-                <img src={cover.src} alt={cover.alt} loading="lazy" />
+                <img src={relativeHref(cover.src, here)} alt={cover.alt} loading="lazy" />
               ) : (
                 <span class="placeholder" aria-hidden="true" />
               )}

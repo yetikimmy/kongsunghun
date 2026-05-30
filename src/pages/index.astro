@@ -1,6 +1,9 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { LOGO_LABEL, MAIN_NAV } from "../lib/nav";
+import { relativeHref } from "../lib/href";
+
+const here = Astro.url.pathname;
 ---
 
 <BaseLayout title="KONG,SUNG-HUN" bare>
@@ -12,7 +15,7 @@ import { LOGO_LABEL, MAIN_NAV } from "../lib/nav";
       <h1 class="landing-logo">{LOGO_LABEL}</h1>
       <nav class="landing-nav" aria-label="주 메뉴">
         <ul>
-          {MAIN_NAV.map((item) => <li><a href={item.href}>{item.label}</a></li>)}
+          {MAIN_NAV.map((item) => <li><a href={relativeHref(item.href, here)}>{item.label}</a></li>)}
         </ul>
       </nav>
     </div>

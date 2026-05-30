@@ -1,5 +1,6 @@
 ---
 import type { CollectionEntry } from "astro:content";
+import { relativeHref } from "../lib/href";
 
 interface Props {
   work: CollectionEntry<"works">;
@@ -11,6 +12,8 @@ interface Props {
 }
 const { work, backHref, prevHref, nextHref, index, total } = Astro.props;
 const d = work.data;
+const here = Astro.url.pathname;
+const rel = (p: string) => relativeHref(p, here);
 ---
 
 <article class="detail">
@@ -26,7 +29,7 @@ const d = work.data;
     {
       d.images.map((img) => (
         <figure>
-          <img src={img.src} alt={img.alt} width={img.width} height={img.height} />
+          <img src={rel(img.src)} alt={img.alt} width={img.width} height={img.height} />
         </figure>
       ))
     }
@@ -44,11 +47,11 @@ const d = work.data;
   {d.caption && <p class="caption work-caption">{d.caption}</p>}
 
   <nav class="pager" aria-label="작업 탐색">
-    <a href={backHref}>Back</a>
+    <a href={rel(backHref)}>Back</a>
     <span class="pager-pos">
-      {prevHref ? <a href={prevHref}>Prev</a> : <span aria-hidden="true">Prev</span>}
+      {prevHref ? <a href={rel(prevHref)}>Prev</a> : <span aria-hidden="true">Prev</span>}
       {index && total ? <span>{index} / {total}</span> : null}
-      {nextHref ? <a href={nextHref}>Next</a> : <span aria-hidden="true">Next</span>}
+      {nextHref ? <a href={rel(nextHref)}>Next</a> : <span aria-hidden="true">Next</span>}
     </span>
   </nav>
 </article>

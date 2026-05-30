@@ -1,10 +1,12 @@
 ---
 import { MAIN_NAV } from "../lib/nav";
+import { relativeHref } from "../lib/href";
 
 interface Props {
   current?: string;
 }
 const { current } = Astro.props;
+const here = Astro.url.pathname;
 ---
 
 <nav class="nav" aria-label="주 메뉴">
@@ -13,7 +15,7 @@ const { current } = Astro.props;
       MAIN_NAV.map((item) => (
         <li>
           <a
-            href={item.href}
+            href={relativeHref(item.href, here)}
             aria-current={current && item.href.startsWith(current) ? "page" : undefined}
           >
             {item.label}

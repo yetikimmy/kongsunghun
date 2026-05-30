@@ -1,10 +1,12 @@
 ---
 import { WORK_CATEGORIES } from "../lib/nav";
+import { relativeHref } from "../lib/href";
 
 interface Props {
   currentSeries?: string;
 }
 const { currentSeries } = Astro.props;
+const here = Astro.url.pathname;
 ---
 
 <nav class="work-cats" aria-label="작업 카테고리">
@@ -13,7 +15,7 @@ const { currentSeries } = Astro.props;
       WORK_CATEGORIES.map((cat) => (
         <li>
           <a
-            href={cat.href}
+            href={relativeHref(cat.href, here)}
             aria-current={currentSeries === cat.series ? "page" : undefined}
           >
             {cat.label}
