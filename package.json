@@ -6,7 +6,8 @@
   "description": "Modernized static site for artist Kong Sung-hun (Astro). Legacy HTML preserved at repo root.",
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "build": "astro build && npm run postbuild",
+    "postbuild": "node scripts/relativize-asset-paths.mjs",
     "preview": "astro preview",
     "check": "astro check",
     "extract:legacy": "node scripts/extract-legacy-works.mjs"

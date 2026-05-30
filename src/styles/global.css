@@ -88,3 +88,20 @@ img {
   clip: rect(0 0 0 0);
   white-space: nowrap;
 }
+
+/* Skip link: hidden until focused, then revealed at the top-left. */
+.visually-hidden:focus,
+.visually-hidden:focus-visible {
+  position: fixed;
+  top: var(--space-2);
+  left: var(--space-2);
+  width: auto;
+  height: auto;
+  overflow: visible;
+  clip: auto;
+  z-index: 100;
+  padding: var(--space-2) var(--space-3);
+  background: var(--color-bg);
+  color: var(--color-fg);
+  border: 1px solid var(--color-fg);
+}
