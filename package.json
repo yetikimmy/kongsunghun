@@ -13,8 +13,8 @@
     "extract:legacy": "node scripts/extract-legacy-works.mjs"
   },
   "dependencies": {
-    "@fontsource/geist-mono": "^5.2.8",
-    "@fontsource/geist-sans": "^5.2.5",
+    "@fontsource-variable/geist": "^5.2.9",
+    "@fontsource-variable/geist-mono": "^5.2.8",
     "@fontsource/pretendard": "^5.2.5",
     "astro": "^5.7.0",
     "iconv-lite": "^0.7.2",
