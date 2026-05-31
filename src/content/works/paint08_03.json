@@ -1,0 +1,18 @@
+{
+  "slug": "paint08_03",
+  "series": "paintings",
+  "titleKo": "개",
+  "titleEn": "A Dog",
+  "year": 2008,
+  "medium": "Oil and Acrylic on Canvas",
+  "dimensions": "120x120cm",
+  "images": [
+    {
+      "src": "/assets/works/web/paint08_03.jpg",
+      "alt": "개 A Dog — Oil and Acrylic on Canvas, 2008"
+    }
+  ],
+  "caption": "개 A Dog 2008 Oil and Acrylic on Canvas 120x120cm",
+  "order": 53,
+  "legacyFile": "paint08_03.htm"
+}

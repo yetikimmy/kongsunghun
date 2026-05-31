@@ -1,0 +1,22 @@
+{
+  "slug": "install15_9",
+  "series": "installation-work",
+  "titleKo": "먼지그림 - 소나무",
+  "titleEn": "Dust Painting(A Pine Tree)",
+  "year": 1996,
+  "medium": "Dust and Acrylic on Canvas",
+  "dimensions": "227.3x181.8cm",
+  "images": [
+    {
+      "src": "/assets/works/web/in15_09.jpg",
+      "alt": "먼지그림 - 소나무 Dust Painting(A Pine Tree) — Dust and Acrylic on Canvas, 1996"
+    }
+  ],
+  "caption": "먼지그림 - 소나무 Dust Painting(A Pine Tree) 1996 Dust and Acrylic on Canvas 227.3x181.8cm",
+  "order": 56,
+  "legacyFile": "install15_9.htm",
+  "manualReview": true,
+  "reviewNotes": [
+    "title-may-include-caption-text"
+  ]
+}

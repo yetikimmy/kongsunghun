@@ -1,0 +1,27 @@
+{
+  "slug": "paint09_05",
+  "series": "paintings",
+  "titleKo": "물새떼",
+  "titleEn": "물새떼",
+  "year": 2009,
+  "medium": "Oil on Canvas",
+  "dimensions": "65.1x90.9cm",
+  "descriptionKo": "In the early summer",
+  "descriptionEn": "when the strange climate has become a daily event,\nfrom C.\nCho, Ei-han | Art Essayist",
+  "images": [
+    {
+      "src": "/assets/works/web/paint09_05.jpg",
+      "alt": "물새떼 — Oil on Canvas, 2009"
+    }
+  ],
+  "caption": "물새떼 65.1x90.9cm Oil on Canvas 2009",
+  "order": 63,
+  "legacyFile": "paint09_05.htm",
+  "extractionWarnings": [
+    "medium-before-year"
+  ],
+  "manualReview": true,
+  "reviewNotes": [
+    "medium-before-year"
+  ]
+}

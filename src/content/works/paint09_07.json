@@ -1,0 +1,20 @@
+{
+  "slug": "paint09_07",
+  "series": "paintings",
+  "titleKo": "오리",
+  "titleEn": "Ducks in a Frozen Lake",
+  "year": 2009,
+  "medium": "Oil on Canvas",
+  "dimensions": "193.9x130.3cm",
+  "descriptionKo": "In the early summer",
+  "descriptionEn": "when the strange climate has become a daily event,\nfrom C.\nCho, Ei-han | Art Essayist",
+  "images": [
+    {
+      "src": "/assets/works/web/paint09_07.jpg",
+      "alt": "오리 Ducks in a Frozen Lake — Oil on Canvas, 2009"
+    }
+  ],
+  "caption": "오리 Ducks in a Frozen Lake 2009 Oil on Canvas 193.9x130.3cm",
+  "order": 65,
+  "legacyFile": "paint09_07.htm"
+}

@@ -1,19 +1,86 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import pages from "../../data/legacy-pages.generated.json";
+
+// The Korean (cv.htm) and English (cv02.htm) CVs have slightly different entry
+// counts per section, so we render them as two complete, independent blocks
+// rather than risk mis-pairing individual lines.
+const { ko, en } = pages.cv;
+
+const renderBlock = (cv: typeof ko) => cv;
+const blocks = [
+  { lang: "ko" as const, label: "국문", cv: renderBlock(ko) },
+  { lang: "en" as const, label: "English", cv: renderBlock(en) },
+];
 ---
 
 <BaseLayout title="C.V. — KONG,SUNG-HUN" current="/cv/">
-  <div class="container placeholder-page">
+  <div class="container cv-page">
     <h1 class="title">C.V.</h1>
-    <p class="caption">이력 정보는 추후 단계에서 레거시 cv.htm / cv02.htm 으로부터 이관 예정입니다.</p>
+
+    {
+      blocks.map(({ lang, label, cv }) => (
+        <div class="cv-block" lang={lang}>
+          <p class="cv-lang-label">{label}</p>
+          {cv.intro && <p class="bio">{cv.intro}</p>}
+          {cv.sections.map((s) => (
+            <section class="cv-section">
+              <h2 class="cv-heading">{s.heading}</h2>
+              <ul class="cv-list" role="list">
+                {s.items.map((item) => (
+                  <li class="cv-item">{item}</li>
+                ))}
+              </ul>
+            </section>
+          ))}
+        </div>
+      ))
+    }
   </div>
 </BaseLayout>
 
 <style>
-  .placeholder-page {
+  .cv-page {
     padding-block: var(--space-6);
+    max-width: 72ch;
   }
-  .placeholder-page .caption {
-    margin-top: var(--space-3);
+  .cv-block + .cv-block {
+    margin-top: var(--space-6);
+    padding-top: var(--space-5);
+    border-top: 1px solid var(--color-fg);
+  }
+  .cv-lang-label {
+    font-family: var(--font-mono);
+    font-size: var(--fs-caption);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-muted);
+    margin-top: var(--space-4);
+  }
+  .bio {
+    margin: var(--space-2) 0 var(--space-5);
+    color: var(--color-muted);
+  }
+  .cv-section {
+    margin-top: var(--space-5);
+  }
+  .cv-heading {
+    font-family: var(--font-mono);
+    font-size: var(--fs-nav);
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    padding-bottom: var(--space-2);
+    border-bottom: 1px solid var(--color-line);
+  }
+  .cv-list {
+    list-style: none;
+    margin: var(--space-3) 0 0;
+    padding: 0;
+  }
+  .cv-item {
+    padding-block: var(--space-2);
+  }
+  .cv-item + .cv-item {
+    border-top: 1px solid var(--color-line);
   }
 </style>

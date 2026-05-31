@@ -1,0 +1,26 @@
+{
+  "slug": "install15_11",
+  "series": "installation-work",
+  "titleKo": "먼지그림-나무",
+  "titleEn": "Dust Painting(A Tree2)",
+  "year": 1996,
+  "medium": "Dust and Acrylic on Canvas",
+  "dimensions": "112.1x145.5cm",
+  "images": [
+    {
+      "src": "/assets/works/web/in15_11.jpg",
+      "alt": "먼지그림-나무 Dust Painting(A Tree2) — Dust and Acrylic on Canvas, 1996"
+    }
+  ],
+  "caption": "먼지그림-나무 Dust Painting(A Tree2) 112.1x145.5cm Dust and Acrylic on Canvas 1996",
+  "order": 48,
+  "legacyFile": "install15_11.htm",
+  "extractionWarnings": [
+    "medium-before-year"
+  ],
+  "manualReview": true,
+  "reviewNotes": [
+    "medium-before-year",
+    "title-may-include-caption-text"
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "slug": "paint10_11",
+  "series": "paintings",
+  "titleKo": "소나무",
+  "titleEn": "소나무",
+  "year": 2010,
+  "medium": "Oil on Canvas",
+  "dimensions": "130.3x97cm",
+  "images": [
+    {
+      "src": "/assets/works/web/paint10_11.jpg",
+      "alt": "소나무 — Oil on Canvas, 2010"
+    }
+  ],
+  "caption": "소나무 130.3x97cm Oil on Canvas 2010",
+  "order": 83,
+  "legacyFile": "paint10_11.htm",
+  "extractionWarnings": [
+    "medium-before-year"
+  ],
+  "manualReview": true,
+  "reviewNotes": [
+    "medium-before-year"
+  ]
+}

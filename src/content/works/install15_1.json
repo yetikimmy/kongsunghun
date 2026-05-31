@@ -1,0 +1,26 @@
+{
+  "slug": "install15_1",
+  "series": "installation-work",
+  "titleKo": "먼지그림",
+  "titleEn": "Dust Painting",
+  "year": 1996,
+  "medium": "Dust and Acrylic on Canvas",
+  "dimensions": "181.8x227.3cm",
+  "images": [
+    {
+      "src": "/assets/works/web/in15_01.jpg",
+      "alt": "먼지그림 Dust Painting — Dust and Acrylic on Canvas, 1996"
+    }
+  ],
+  "caption": "먼지그림 Dust Painting 181.8x227.3cm Dust and Acrylic on Canvas 1996",
+  "order": 46,
+  "legacyFile": "install15_1.htm",
+  "extractionWarnings": [
+    "medium-before-year"
+  ],
+  "manualReview": true,
+  "reviewNotes": [
+    "medium-before-year",
+    "title-may-include-caption-text"
+  ]
+}

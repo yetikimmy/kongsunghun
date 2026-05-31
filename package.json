@@ -10,7 +10,9 @@
     "postbuild": "node scripts/relativize-asset-paths.mjs",
     "preview": "astro preview",
     "check": "astro check",
-    "extract:legacy": "node scripts/extract-legacy-works.mjs"
+    "extract:legacy": "node scripts/extract-legacy-works.mjs",
+    "extract:pages": "node scripts/extract-legacy-pages.mjs",
+    "import:works": "node scripts/import-legacy-works-to-content.mjs --clean"
   },
   "dependencies": {
     "@fontsource-variable/geist": "^5.2.9",

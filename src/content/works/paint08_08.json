@@ -1,0 +1,25 @@
+{
+  "slug": "paint08_08",
+  "series": "paintings",
+  "titleKo": "개펄",
+  "titleEn": "개펄",
+  "year": 2008,
+  "medium": "Oil on Canvas",
+  "dimensions": "112.1x145.5cm",
+  "images": [
+    {
+      "src": "/assets/works/web/paint08_08.jpg",
+      "alt": "개펄 — Oil on Canvas, 2008"
+    }
+  ],
+  "caption": "개펄 112.1x145.5cm Oil on Canvas 2008",
+  "order": 58,
+  "legacyFile": "paint08_08.htm",
+  "extractionWarnings": [
+    "medium-before-year"
+  ],
+  "manualReview": true,
+  "reviewNotes": [
+    "medium-before-year"
+  ]
+}

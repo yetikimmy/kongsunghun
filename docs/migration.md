@@ -96,36 +96,101 @@ const text = iconv.decode(readFileSync(path), "euc-kr");
   남습니다(`no-caption` 경고). 사이트 콘텐츠에는 포함하지 않았습니다.
 - **다중 이미지 페이지**: 일부 install 페이지는 여러 작품 뷰를 가집니다. 자동 추출은
   같은 페이지의 이미지를 한 레코드에 묶습니다.
-- 자동 추출 전체를 그대로 노출하지 않고, **검수된 12개만** content collection에 반영했습니다.
+- (2차까지) 자동 추출 전체를 그대로 노출하지 않고 **검수된 12개만** 반영했으나,
+  **3차에서 나머지 전체를 import**했습니다 (아래 "전체 작품 import" 참고).
 
 ---
 
 ## 사이트 콘텐츠 반영
 
 검수된 작품은 `src/content/works/*.json` (스키마 `src/content/config.ts`)에 있습니다.
-2차에서 카테고리별로 다음을 등록했습니다 (총 12개):
 
-- blind-work: `blind-work-1991-150x300`, `blind-work-1992-200x200`
-- installation-work: `art-intersection`, `art-is-expensive`, `just-couldnt-say`
-- multi-slide-projection: `fall`, `untitled-2002`, `drawing-for-polypod`
-- paintings: `a-dog`, `in-the-night`, `self-portrait`, `pine-trees-on-the-cliff`
+### 전체 작품 import (3차)
 
-각 entry에는 출처 추적용 `legacyFile` 필드를 추가했습니다.
+`data/legacy-works.generated.json`(180건) 전체를 content collection으로 옮기는
+import 스크립트를 추가했습니다.
+
+```bash
+npm run import:works     # = node scripts/import-legacy-works-to-content.mjs --clean
+```
+
+설계:
+
+1. **검수 entry 우선 (curated wins).** 손으로 다듬은 12개 entry는 각자
+   `legacyFile`을 선언합니다. 스크립트는 이 필드로 검수 entry를 색인하고, 같은 레거시
+   페이지에서 나온 생성 레코드는 **건너뜁니다**. 검수된 메타데이터는 절대 덮어쓰지 않습니다.
+2. **slug = 레거시 파일명 stem** (`bw01`, `install01_1`, `paint09_03`, …). 레거시
+   사이트는 작품 뷰 1개당 HTML 파일 1개라 stem이 이미 전역 유일합니다(중복 0). 제목은
+   중복·잡음이 많아 slug 근거로 쓰지 않습니다. 검수 entry는 사람이 읽기 좋은 기존 slug를
+   유지합니다.
+3. **깨진 이미지 없음.** 참조된 작품 이미지를 루트 `image/`에서 커밋 대상인
+   `public/assets/works/web/`로 복사하고 `/assets/works/web/<file>`로 참조합니다.
+   디스크에 없는 파일은 entry에서 제외하고 `reviewNotes`에 기록합니다(죽은 `src` 미발행).
+4. **검수 추적.** `extractionWarnings`를 그대로 전달하고, 검토가 필요한 entry에는
+   `manualReview: true` + `reviewNotes[]`를 설정합니다(UI에는 노출되지 않는 옵션 필드).
+
+멱등(idempotent): 재실행 시 생성 entry만 제자리 갱신하고 검수 entry는 그대로 둡니다.
+`--clean`은 더 이상 생성되지 않는 옛 생성 entry를 정리합니다.
+
+import 결과 (3차):
+
+| 시리즈 | 검수(보존) | 생성(import) | 합계 |
+| --- | --- | --- | --- |
+| blind-work | 2 | 22 | 24 |
+| installation-work | 3 | 53 | 56 |
+| multi-slide-projection | 3 | 10 | 13 |
+| paintings | 4 | 83 | 87 |
+| **합계** | **12** | **168** | **180** |
+
+- 커밋 이미지: **222** (`public/assets/works/web/`)
+- `manualReview: true` entry: **71** (`reviewNotes`에 사유 기록 — 잡음 제목, 재료
+  누락, 연도 누락 등). UI는 정상 동작하며, 추후 사람이 제목·메타데이터를 다듬을 때 참고.
 
 ### 이미지 경로 전략
 
-레거시 `image/` 폴더는 **복사·이동하지 않습니다**. 대신:
+1. **추출 스크립트**(`extract:legacy`)는 검수용으로 참조 이미지를
+   `public/assets/works/legacy/`에 복사합니다 (재생성 가능 → `.gitignore`, 미커밋).
+2. **import 스크립트**(`import:works`)는 실제로 사이트가 쓰는 222개 이미지를
+   `public/assets/works/web/`로 복사해 **커밋**합니다. 사이트는 스크립트 실행 없이도
+   정상 동작하고, 깨진 이미지가 없습니다.
+3. 추가 안전장치: `WorkGrid`/`WorkDetail`의 `<img>`에 `onerror` 처리 — 로드 실패 시
+   회색 placeholder로 폴백.
 
-1. **추출 스크립트**가 참조 이미지를 `public/assets/works/legacy/`로 복사
-   (재생성 가능 → `.gitignore`, 미커밋).
-2. **검수된 12개**의 이미지만 `public/assets/works/web/`로 복사해 **커밋**.
-   사이트는 스크립트 실행 없이도 이 12개 이미지로 정상 동작합니다.
-3. 깨진 이미지 방지: `WorkGrid`/`WorkDetail`의 `<img>`에 `onerror` 처리.
-   이미지 로드 실패 시 회색 placeholder 박스로 폴백합니다.
+이미지 최적화(리사이즈/압축)는 아직 미적용입니다(`scripts/build-images.mjs` sharp 기반은
+이후 단계). 현재는 원본 jpg를 그대로 사용합니다.
 
-이미지 최적화(리사이즈/압축)는 아직 미적용입니다. `public/assets/works/web/`의 원본을
-그대로 사용하며, `scripts/build-images.mjs`(sharp 기반)로 `web/`·`thumb/` 생성하는 것은
-이후 단계입니다.
+---
+
+## 정보 페이지 (ESSAY · C.V. · CONTACT)
+
+`cv.htm`/`cv02.htm`, `contact.htm`, `essay.htm`/`essay02.htm`(모두 EUC-KR)을 하나의
+구조화 JSON으로 추출하고, 각 Astro 페이지가 이 데이터를 렌더합니다.
+
+```bash
+npm run extract:pages    # = node scripts/extract-legacy-pages.mjs
+                         # → data/legacy-pages.generated.json
+```
+
+긴 한글 본문을 `.astro`에 직접 붙여넣지 않고 JSON으로 추출하는 이유: `iconv-lite`로
+원본을 그대로 디코드하므로 손으로 옮겨 적을 때의 오타·깨짐이 없고, 한 번에 재생성됩니다.
+
+| 페이지 | 소스 | 구성 |
+| --- | --- | --- |
+| `src/pages/cv.astro` | `cv.htm`(국문) · `cv02.htm`(영문) | 섹션(학력/개인전/단체전/소장 …)별 목록. 국·영문 항목 수가 달라 **두 개의 독립 블록**으로 렌더(라인 오정렬 방지). |
+| `src/pages/contact.astro` | `contact.htm` | 주소·전화·이메일. 이메일은 `mailto:` 링크. |
+| `src/pages/essay.astro` | `essay.htm`(국문) · `essay02.htm`(영문) | 인터뷰형 에세이 "Blind Work"(1998). 섹션 헤더·서명 자동 태깅, 국·영문 블록 분리. |
+
+내비게이션은 기존 `MAIN_NAV` + `relativeHref`로 이미 `/essay/` · `/cv/` · `/contact/`에
+연결돼 있어, 서브패스 정적 프리뷰에서도 상대경로(`../essay/` 등)로 정상 해석됩니다.
+
+### 한계 · 수동 검수 필요 항목 (정보 페이지)
+
+- **C.V. 국/영 정렬**: 두 CV의 섹션별 항목 수가 다릅니다(예: 단체전 54 vs 56). 라인을
+  1:1로 짝지으면 어긋나므로 **국문 전체 → 영문 전체** 순서의 두 블록으로 분리했습니다.
+- **레거시 표기 보존**: 원문의 사소한 오타(`Sungkyunkwan Uhiv.` 등)는 추출값 그대로
+  둡니다. 교정은 별도 콘텐츠 작업입니다.
+- **에세이 섹션 태깅**: `1. 외도` / `1. Deviation` 같은 짧은 번호줄을 헤더로,
+  `1998. 2. 공성훈` / `February, 1998. Kong, Sung-Hun`을 서명으로 휴리스틱 태깅합니다.
 
 ---
 
@@ -191,13 +256,16 @@ import "pretendard/dist/web/variable/pretendardvariable-dynamic-subset.css";
 ```bash
 npm install
 npm run extract:legacy   # data/legacy-works.generated.json 재생성
+npm run extract:pages    # data/legacy-pages.generated.json 재생성 (CV/CONTACT/ESSAY)
+npm run import:works      # 생성 레코드 → src/content/works/*.json (검수 entry 보존)
 npm run check            # astro check — 0 errors
-npm run build            # 정적 빌드 — 22 pages
+npm run build            # 정적 빌드 — 190 pages
 ```
 
-빌드 결과(`dist/`)에서 확인한 사항:
+빌드 결과(`dist/`, 3차)에서 확인한 사항:
 
 - woff2 폰트 번들 (Geist Sans/Mono + Pretendard Variable 한글 서브셋)
-- 작품 상세/그리드 페이지 12개 생성, 한글 제목·연도·매체 정상 표기
-- `현재 12점` 카운트가 실제 데이터 기준으로 렌더
-- 커밋된 `web/` 이미지가 상대경로로 정상 해석 (깨진 이미지 없음)
+- 작품 상세 페이지 **180개** + 시리즈 인덱스 4 + 정보/기타 페이지 = **190 pages**
+- 한글 제목·연도·매체, CV/에세이 한글 본문, CONTACT 정상 표기
+- 이미지 참조 **402건 전부 해석**(깨진 이미지 0), `web/` 222개 커밋
+- 내비/페이지 링크가 상대경로로 정상 해석 (서브패스 프리뷰 호환)

@@ -1,0 +1,25 @@
+{
+  "slug": "paint10_02",
+  "series": "paintings",
+  "titleKo": "겨울강",
+  "titleEn": "겨울강",
+  "year": 2010,
+  "medium": "Oil on Canvas",
+  "dimensions": "193.9x130.3cm",
+  "images": [
+    {
+      "src": "/assets/works/web/paint10_02.jpg",
+      "alt": "겨울강 — Oil on Canvas, 2010"
+    }
+  ],
+  "caption": "겨울강 193.9x130.3cm Oil on Canvas 2010",
+  "order": 74,
+  "legacyFile": "paint10_02.htm",
+  "extractionWarnings": [
+    "medium-before-year"
+  ],
+  "manualReview": true,
+  "reviewNotes": [
+    "medium-before-year"
+  ]
+}

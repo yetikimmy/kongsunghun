@@ -1,0 +1,18 @@
+{
+  "slug": "paint08_06",
+  "series": "paintings",
+  "titleKo": "나무",
+  "titleEn": "Trees",
+  "year": 2008,
+  "medium": "Acrylic on Canvas",
+  "dimensions": "72.7x90.9cm",
+  "images": [
+    {
+      "src": "/assets/works/web/paint08_06.jpg",
+      "alt": "나무 Trees — Acrylic on Canvas, 2008"
+    }
+  ],
+  "caption": "나무 Trees 2008 Acrylic on Canvas 72.7x90.9cm",
+  "order": 56,
+  "legacyFile": "paint08_06.htm"
+}

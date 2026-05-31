@@ -1,0 +1,25 @@
+{
+  "slug": "paint10_09",
+  "series": "paintings",
+  "titleKo": "불꽃놀이",
+  "titleEn": "불꽃놀이",
+  "year": 2010,
+  "medium": "Oil on Canvas",
+  "dimensions": "120x150cm",
+  "images": [
+    {
+      "src": "/assets/works/web/paint10_09.jpg",
+      "alt": "불꽃놀이 — Oil on Canvas, 2010"
+    }
+  ],
+  "caption": "불꽃놀이 120x150cm Oil on Canvas 2010",
+  "order": 81,
+  "legacyFile": "paint10_09.htm",
+  "extractionWarnings": [
+    "medium-before-year"
+  ],
+  "manualReview": true,
+  "reviewNotes": [
+    "medium-before-year"
+  ]
+}

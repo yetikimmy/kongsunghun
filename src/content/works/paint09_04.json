@@ -1,0 +1,27 @@
+{
+  "slug": "paint09_04",
+  "series": "paintings",
+  "titleKo": "바닷가의소녀",
+  "titleEn": "바닷가의소녀",
+  "year": 2009,
+  "medium": "Oil on Canvas",
+  "dimensions": "80.3x100cm",
+  "descriptionKo": "In the early summer",
+  "descriptionEn": "when the strange climate has become a daily event,\nfrom C.\nCho, Ei-han | Art Essayist",
+  "images": [
+    {
+      "src": "/assets/works/web/paint09_04.jpg",
+      "alt": "바닷가의소녀 — Oil on Canvas, 2009"
+    }
+  ],
+  "caption": "바닷가의소녀 80.3x100cm Oil on Canvas 2009",
+  "order": 62,
+  "legacyFile": "paint09_04.htm",
+  "extractionWarnings": [
+    "medium-before-year"
+  ],
+  "manualReview": true,
+  "reviewNotes": [
+    "medium-before-year"
+  ]
+}

@@ -1,0 +1,61 @@
+{
+  "slug": "painting",
+  "series": "paintings",
+  "titleKo": "PAINTING",
+  "titleEn": "PAINTING",
+  "year": null,
+  "images": [
+    {
+      "src": "/assets/works/web/smallpaint01.jpg",
+      "alt": "PAINTING"
+    },
+    {
+      "src": "/assets/works/web/smallpaint02.jpg",
+      "alt": "PAINTING"
+    },
+    {
+      "src": "/assets/works/web/smallpaint03.jpg",
+      "alt": "PAINTING"
+    },
+    {
+      "src": "/assets/works/web/smallpaint04.jpg",
+      "alt": "PAINTING"
+    },
+    {
+      "src": "/assets/works/web/smallpaint05.jpg",
+      "alt": "PAINTING"
+    },
+    {
+      "src": "/assets/works/web/smallpaint06.jpg",
+      "alt": "PAINTING"
+    },
+    {
+      "src": "/assets/works/web/smallpaint07.jpg",
+      "alt": "PAINTING"
+    },
+    {
+      "src": "/assets/works/web/smallpaint08.jpg",
+      "alt": "PAINTING"
+    },
+    {
+      "src": "/assets/works/web/smallpaint09.jpg",
+      "alt": "PAINTING"
+    },
+    {
+      "src": "/assets/works/web/smallpaint10.jpg",
+      "alt": "PAINTING"
+    }
+  ],
+  "order": 87,
+  "legacyFile": "painting.htm",
+  "extractionWarnings": [
+    "no-caption",
+    "title-from-html-title-tag"
+  ],
+  "manualReview": true,
+  "reviewNotes": [
+    "no-caption",
+    "title-from-html-title-tag",
+    "title-may-include-caption-text"
+  ]
+}

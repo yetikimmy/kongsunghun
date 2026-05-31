@@ -28,12 +28,15 @@ src/
 public/
   assets/works/ originals/ · web/(커밋된 작품 이미지) · thumb/ · legacy/(스크립트 생성, 미커밋)
 scripts/
-  extract-legacy-works.mjs  레거시 HTML(EUC-KR) → JSON 추출
-  build-images.mjs          이미지 변환 스크립트 (placeholder)
+  extract-legacy-works.mjs           레거시 작품 HTML(EUC-KR) → JSON 추출
+  extract-legacy-pages.mjs           CV·CONTACT·ESSAY HTML → JSON 추출
+  import-legacy-works-to-content.mjs 생성 JSON → content collection (검수 entry 보존)
+  build-images.mjs                   이미지 변환 스크립트 (placeholder)
 data/
-  legacy-works.generated.json  전체 자동 추출 결과 (검수용)
+  legacy-works.generated.json   전체 작품 자동 추출 결과 (검수용)
+  legacy-pages.generated.json   CV·CONTACT·ESSAY 추출 결과
 docs/
-  migration.md  추출 스크립트 사용법·한계·웹폰트 로딩 방식
+  migration.md  추출/임포트 스크립트 사용법·한계·웹폰트 로딩 방식
 ```
 
 ## 디자인 토큰 (Figma 기준)
@@ -64,8 +67,10 @@ docs/
 | `images[]` | `{ src, alt, width?, height? }` |
 | `caption` | 도판 캡션 |
 | `order` | 카테고리 내 정렬 순서 |
+| `legacyFile` | 출처 레거시 파일 (추적용) |
+| `extractionWarnings` / `manualReview` / `reviewNotes` | 자동 임포트 검수 플래그 (옵션) |
 
-현재 카테고리별 3~4개씩 총 12개가 검수되어 등록되어 있습니다. 레거시 HTML 전체(180개) 자동 추출 결과는 `data/legacy-works.generated.json` 에 있으며, 추출 스크립트·한계·수동 검수 항목은 [`docs/migration.md`](docs/migration.md) 에 정리되어 있습니다.
+레거시 HTML 전체(180개)를 등록했습니다 — blind-work 24 · installation-work 56 · multi-slide-projection 13 · paintings 87. 그중 12개는 손으로 검수한 entry이고, 나머지 168개는 `data/legacy-works.generated.json`에서 자동 임포트되었습니다(`npm run import:works`). 검수 entry는 `legacyFile`로 보존되며 덮어쓰지 않습니다. 추출/임포트 스크립트·한계·수동 검수 항목은 [`docs/migration.md`](docs/migration.md) 에 정리되어 있습니다.
 
 ## 이미지 파이프라인 (초안)
 

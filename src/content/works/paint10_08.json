@@ -1,0 +1,25 @@
+{
+  "slug": "paint10_08",
+  "series": "paintings",
+  "titleKo": "번지점프",
+  "titleEn": "번지점프",
+  "year": 2010,
+  "medium": "Oil on Canvas",
+  "dimensions": "150x150cm",
+  "images": [
+    {
+      "src": "/assets/works/web/paint10_08.jpg",
+      "alt": "번지점프 — Oil on Canvas, 2010"
+    }
+  ],
+  "caption": "번지점프 150x150cm Oil on Canvas 2010",
+  "order": 80,
+  "legacyFile": "paint10_08.htm",
+  "extractionWarnings": [
+    "medium-before-year"
+  ],
+  "manualReview": true,
+  "reviewNotes": [
+    "medium-before-year"
+  ]
+}

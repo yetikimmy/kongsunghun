@@ -1,0 +1,25 @@
+{
+  "slug": "paint10_14",
+  "series": "paintings",
+  "titleKo": "폭포",
+  "titleEn": "폭포",
+  "year": 2010,
+  "medium": "Oil on Canvas",
+  "dimensions": "193.9x130.3cm",
+  "images": [
+    {
+      "src": "/assets/works/web/paint10_14.jpg",
+      "alt": "폭포 — Oil on Canvas, 2010"
+    }
+  ],
+  "caption": "폭포 193.9x130.3cm Oil on Canvas 2010",
+  "order": 86,
+  "legacyFile": "paint10_14.htm",
+  "extractionWarnings": [
+    "medium-before-year"
+  ],
+  "manualReview": true,
+  "reviewNotes": [
+    "medium-before-year"
+  ]
+}

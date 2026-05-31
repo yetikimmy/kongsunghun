@@ -1,0 +1,24 @@
+{
+  "slug": "install15_7",
+  "series": "installation-work",
+  "titleKo": "먼지그림(5)",
+  "titleEn": "Dust Painting Dust and Acrylic on Canvas",
+  "year": 1996,
+  "images": [
+    {
+      "src": "/assets/works/web/in15_07.jpg",
+      "alt": "먼지그림(5) Dust Painting Dust and Acrylic on Canvas — 1996"
+    }
+  ],
+  "caption": "먼지그림(5) Dust Painting Dust and Acrylic on Canvas 1996",
+  "order": 54,
+  "legacyFile": "install15_7.htm",
+  "extractionWarnings": [
+    "no-medium"
+  ],
+  "manualReview": true,
+  "reviewNotes": [
+    "no-medium",
+    "title-may-include-caption-text"
+  ]
+}

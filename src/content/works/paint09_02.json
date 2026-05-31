@@ -1,0 +1,20 @@
+{
+  "slug": "paint09_02",
+  "series": "paintings",
+  "titleKo": "비행기구름",
+  "titleEn": "A Vapor Trail",
+  "year": 2009,
+  "medium": "Oil on Canvas",
+  "dimensions": "72.7x53cm",
+  "descriptionKo": "In the early summer",
+  "descriptionEn": "when the strange climate has become a daily event,\nfrom C.\nCho, Ei-han | Art Essayist",
+  "images": [
+    {
+      "src": "/assets/works/web/paint09_02.jpg",
+      "alt": "비행기구름 A Vapor Trail — Oil on Canvas, 2009"
+    }
+  ],
+  "caption": "비행기구름 A Vapor Trail 2009 Oil on Canvas 72.7x53cm",
+  "order": 60,
+  "legacyFile": "paint09_02.htm"
+}

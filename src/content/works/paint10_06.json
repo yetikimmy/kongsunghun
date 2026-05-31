@@ -1,0 +1,25 @@
+{
+  "slug": "paint10_06",
+  "series": "paintings",
+  "titleKo": "모닥불",
+  "titleEn": "모닥불",
+  "year": 2010,
+  "medium": "Oil on Canvas",
+  "dimensions": "227.3x181.8cm",
+  "images": [
+    {
+      "src": "/assets/works/web/paint10_06.jpg",
+      "alt": "모닥불 — Oil on Canvas, 2010"
+    }
+  ],
+  "caption": "모닥불 227.3x181.8cm Oil on Canvas 2010",
+  "order": 78,
+  "legacyFile": "paint10_06.htm",
+  "extractionWarnings": [
+    "medium-before-year"
+  ],
+  "manualReview": true,
+  "reviewNotes": [
+    "medium-before-year"
+  ]
+}

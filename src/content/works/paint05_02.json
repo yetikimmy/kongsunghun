@@ -1,0 +1,31 @@
+{
+  "slug": "paint05_02",
+  "series": "paintings",
+  "titleKo": "모텔",
+  "titleEn": "Motel",
+  "year": 2007,
+  "medium": "Acrylic on Canvas",
+  "dimensions": "112.1x145.5cm",
+  "descriptionKo": "장흥가는길 120x60cm Acrylic on Canvas 2007",
+  "images": [
+    {
+      "src": "/assets/works/web/paint05_07.jpg",
+      "alt": "모텔 Motel — Acrylic on Canvas, 2007"
+    },
+    {
+      "src": "/assets/works/web/paint05_08.jpg",
+      "alt": "모텔 Motel — Acrylic on Canvas, 2007"
+    },
+    {
+      "src": "/assets/works/web/paint05_09.jpg",
+      "alt": "모텔 Motel — Acrylic on Canvas, 2007"
+    },
+    {
+      "src": "/assets/works/web/paint05_04.jpg",
+      "alt": "모텔 Motel — Acrylic on Canvas, 2007"
+    }
+  ],
+  "caption": "모텔 Motel 2007 Acrylic on Canvas 112.1x145.5cm",
+  "order": 46,
+  "legacyFile": "paint05_02.htm"
+}

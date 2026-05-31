@@ -1,0 +1,27 @@
+{
+  "slug": "paint09_12",
+  "series": "paintings",
+  "titleKo": "소나무숲2",
+  "titleEn": "Pine Tree Forest",
+  "year": 2009,
+  "medium": "Oil on Canvas",
+  "dimensions": "72.7x53cm",
+  "descriptionKo": "In the early summer",
+  "descriptionEn": "when the strange climate has become a daily event,\nfrom C.\nCho, Ei-han | Art Essayist",
+  "images": [
+    {
+      "src": "/assets/works/web/paint09_12.jpg",
+      "alt": "소나무숲2 Pine Tree Forest — Oil on Canvas, 2009"
+    }
+  ],
+  "caption": "소나무숲2 Pine Tree Forest 72.7x53cm Oil on Canvas 2009",
+  "order": 70,
+  "legacyFile": "paint09_12.htm",
+  "extractionWarnings": [
+    "medium-before-year"
+  ],
+  "manualReview": true,
+  "reviewNotes": [
+    "medium-before-year"
+  ]
+}

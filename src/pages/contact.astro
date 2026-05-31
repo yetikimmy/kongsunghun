@@ -1,19 +1,75 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import pages from "../../data/legacy-pages.generated.json";
+
+const { address, tel, email } = pages.contact;
 ---
 
 <BaseLayout title="CONTACT — KONG,SUNG-HUN" current="/contact/">
-  <div class="container placeholder-page">
+  <div class="container contact-page">
     <h1 class="title">CONTACT</h1>
-    <p class="caption">연락처 정보는 추후 단계에서 레거시 contact.htm 으로부터 이관 예정입니다.</p>
+
+    <dl class="contact-list">
+      <div class="contact-row">
+        <dt>Address</dt>
+        <dd>
+          {address.map((line) => <span class="addr-line">{line}</span>)}
+        </dd>
+      </div>
+
+      <div class="contact-row">
+        <dt>Tel</dt>
+        <dd>
+          {tel.map((line) => <span class="tel-line">{line}</span>)}
+        </dd>
+      </div>
+
+      <div class="contact-row">
+        <dt>Email</dt>
+        <dd>
+          <a href={`mailto:${email}`}>{email}</a>
+        </dd>
+      </div>
+    </dl>
   </div>
 </BaseLayout>
 
 <style>
-  .placeholder-page {
+  .contact-page {
     padding-block: var(--space-6);
+    max-width: 56ch;
   }
-  .placeholder-page .caption {
-    margin-top: var(--space-3);
+  .contact-list {
+    margin: var(--space-5) 0 0;
+  }
+  .contact-row {
+    display: grid;
+    grid-template-columns: 8rem 1fr;
+    gap: var(--space-3);
+    padding-block: var(--space-3);
+    border-top: 1px solid var(--color-line);
+  }
+  .contact-row:last-child {
+    border-bottom: 1px solid var(--color-line);
+  }
+  dt {
+    font-family: var(--font-mono);
+    font-size: var(--fs-nav);
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    color: var(--color-muted);
+  }
+  dd {
+    margin: 0;
+  }
+  .addr-line,
+  .tel-line {
+    display: block;
+  }
+  @media (max-width: 768px) {
+    .contact-row {
+      grid-template-columns: 1fr;
+      gap: var(--space-1);
+    }
   }
 </style>

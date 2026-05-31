@@ -32,6 +32,12 @@ const works = defineCollection({
     order: z.number().default(0),
     /** Source legacy page this entry was extracted/curated from (provenance). */
     legacyFile: z.string().optional(),
+    /** Heuristic extractor warnings carried over from the import pipeline. */
+    extractionWarnings: z.array(z.string()).optional(),
+    /** True when an auto-imported entry should be checked by a human. */
+    manualReview: z.boolean().optional(),
+    /** Human-readable reasons an entry was flagged for manual review. */
+    reviewNotes: z.array(z.string()).optional(),
   }),
 });
 

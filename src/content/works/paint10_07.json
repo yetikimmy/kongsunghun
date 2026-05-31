@@ -1,0 +1,25 @@
+{
+  "slug": "paint10_07",
+  "series": "paintings",
+  "titleKo": "물기둥",
+  "titleEn": "물기둥",
+  "year": 2010,
+  "medium": "Oil on Canvas",
+  "dimensions": "200x100cm",
+  "images": [
+    {
+      "src": "/assets/works/web/paint10_07.jpg",
+      "alt": "물기둥 — Oil on Canvas, 2010"
+    }
+  ],
+  "caption": "물기둥 200x100cm Oil on Canvas 2010",
+  "order": 79,
+  "legacyFile": "paint10_07.htm",
+  "extractionWarnings": [
+    "medium-before-year"
+  ],
+  "manualReview": true,
+  "reviewNotes": [
+    "medium-before-year"
+  ]
+}

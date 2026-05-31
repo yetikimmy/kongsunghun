@@ -1,0 +1,27 @@
+{
+  "slug": "paint09_14",
+  "series": "paintings",
+  "titleKo": "돌을던져라",
+  "titleEn": "Throw a Stone",
+  "year": 2009,
+  "medium": "Oil on Canvas",
+  "dimensions": "116.8x91cm",
+  "descriptionKo": "In the early summer",
+  "descriptionEn": "when the strange climate has become a daily event,\nfrom C.\nCho, Ei-han | Art Essayist",
+  "images": [
+    {
+      "src": "/assets/works/web/paint09_14.jpg",
+      "alt": "돌을던져라 Throw a Stone — Oil on Canvas, 2009"
+    }
+  ],
+  "caption": "돌을던져라 Throw a Stone 116.8x91cm Oil on Canvas 2009",
+  "order": 72,
+  "legacyFile": "paint09_14.htm",
+  "extractionWarnings": [
+    "medium-before-year"
+  ],
+  "manualReview": true,
+  "reviewNotes": [
+    "medium-before-year"
+  ]
+}

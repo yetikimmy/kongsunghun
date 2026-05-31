@@ -1,0 +1,80 @@
+{
+  "slug": "install",
+  "series": "installation-work",
+  "titleKo": "InstallationWork",
+  "titleEn": "InstallationWork",
+  "year": null,
+  "images": [
+    {
+      "src": "/assets/works/web/small01.jpg",
+      "alt": "InstallationWork"
+    },
+    {
+      "src": "/assets/works/web/small03.jpg",
+      "alt": "InstallationWork"
+    },
+    {
+      "src": "/assets/works/web/small04.jpg",
+      "alt": "InstallationWork"
+    },
+    {
+      "src": "/assets/works/web/small16.jpg",
+      "alt": "InstallationWork"
+    },
+    {
+      "src": "/assets/works/web/small05.jpg",
+      "alt": "InstallationWork"
+    },
+    {
+      "src": "/assets/works/web/small06.jpg",
+      "alt": "InstallationWork"
+    },
+    {
+      "src": "/assets/works/web/small07.jpg",
+      "alt": "InstallationWork"
+    },
+    {
+      "src": "/assets/works/web/small08.jpg",
+      "alt": "InstallationWork"
+    },
+    {
+      "src": "/assets/works/web/small09.jpg",
+      "alt": "InstallationWork"
+    },
+    {
+      "src": "/assets/works/web/small10.jpg",
+      "alt": "InstallationWork"
+    },
+    {
+      "src": "/assets/works/web/small11.jpg",
+      "alt": "InstallationWork"
+    },
+    {
+      "src": "/assets/works/web/small12.jpg",
+      "alt": "InstallationWork"
+    },
+    {
+      "src": "/assets/works/web/small13.jpg",
+      "alt": "InstallationWork"
+    },
+    {
+      "src": "/assets/works/web/small14.jpg",
+      "alt": "InstallationWork"
+    },
+    {
+      "src": "/assets/works/web/small15.jpg",
+      "alt": "InstallationWork"
+    }
+  ],
+  "order": 1,
+  "legacyFile": "install.htm",
+  "extractionWarnings": [
+    "no-caption",
+    "title-from-html-title-tag"
+  ],
+  "manualReview": true,
+  "reviewNotes": [
+    "no-caption",
+    "title-from-html-title-tag"
+  ]
+}

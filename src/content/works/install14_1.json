@@ -1,0 +1,23 @@
+{
+  "slug": "install14_1",
+  "series": "installation-work",
+  "titleKo": "Kiss",
+  "titleEn": "Kiss",
+  "year": 1998,
+  "images": [
+    {
+      "src": "/assets/works/web/in14_01.jpg",
+      "alt": "Kiss — 1998"
+    }
+  ],
+  "caption": "Kiss 1998",
+  "order": 41,
+  "legacyFile": "install14_1.htm",
+  "extractionWarnings": [
+    "no-medium"
+  ],
+  "manualReview": true,
+  "reviewNotes": [
+    "no-medium"
+  ]
+}

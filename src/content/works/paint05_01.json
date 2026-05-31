@@ -1,0 +1,35 @@
+{
+  "slug": "paint05_01",
+  "series": "paintings",
+  "titleKo": "기념비",
+  "titleEn": "A Monument",
+  "year": 2007,
+  "medium": "Acrylic on Canvas",
+  "dimensions": "60.6x90.9cm",
+  "descriptionKo": "운동장 Sports Grounds 2007 Acrylic on Canvas 193.9x130.3cm",
+  "images": [
+    {
+      "src": "/assets/works/web/paint05_01.jpg",
+      "alt": "기념비 A Monument — Acrylic on Canvas, 2007"
+    },
+    {
+      "src": "/assets/works/web/paint05_02.jpg",
+      "alt": "기념비 A Monument — Acrylic on Canvas, 2007"
+    },
+    {
+      "src": "/assets/works/web/paint05_05.jpg",
+      "alt": "기념비 A Monument — Acrylic on Canvas, 2007"
+    },
+    {
+      "src": "/assets/works/web/paint05_06.jpg",
+      "alt": "기념비 A Monument — Acrylic on Canvas, 2007"
+    },
+    {
+      "src": "/assets/works/web/paint05_03.jpg",
+      "alt": "기념비 A Monument — Acrylic on Canvas, 2007"
+    }
+  ],
+  "caption": "기념비 A Monument 2007 Acrylic on Canvas 60.6x90.9cm",
+  "order": 45,
+  "legacyFile": "paint05_01.htm"
+}

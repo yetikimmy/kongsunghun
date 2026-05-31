@@ -1,0 +1,20 @@
+{
+  "slug": "paint09_06",
+  "series": "paintings",
+  "titleKo": "달과 새",
+  "titleEn": "A Bird in the Moonlight",
+  "year": 2009,
+  "medium": "Oil on Canvas",
+  "dimensions": "119.7x90.5cm",
+  "descriptionKo": "In the early summer",
+  "descriptionEn": "when the strange climate has become a daily event,\nfrom C.\nCho, Ei-han | Art Essayist",
+  "images": [
+    {
+      "src": "/assets/works/web/paint09_06.jpg",
+      "alt": "달과 새 A Bird in the Moonlight — Oil on Canvas, 2009"
+    }
+  ],
+  "caption": "달과 새 A Bird in the Moonlight 2009 Oil on Canvas 119.7x90.5cm",
+  "order": 64,
+  "legacyFile": "paint09_06.htm"
+}

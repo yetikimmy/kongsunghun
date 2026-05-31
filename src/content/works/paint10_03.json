@@ -1,0 +1,25 @@
+{
+  "slug": "paint10_03",
+  "series": "paintings",
+  "titleKo": "겨울바다",
+  "titleEn": "겨울바다",
+  "year": 2010,
+  "medium": "Oil on Canvas",
+  "dimensions": "130.3x97cm",
+  "images": [
+    {
+      "src": "/assets/works/web/paint10_03.jpg",
+      "alt": "겨울바다 — Oil on Canvas, 2010"
+    }
+  ],
+  "caption": "겨울바다 130.3x97cm Oil on Canvas 2010",
+  "order": 75,
+  "legacyFile": "paint10_03.htm",
+  "extractionWarnings": [
+    "medium-before-year"
+  ],
+  "manualReview": true,
+  "reviewNotes": [
+    "medium-before-year"
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "slug": "paint09_09",
+  "series": "paintings",
+  "titleKo": "돌던지기",
+  "titleEn": "Throwing Stones",
+  "year": 2009,
+  "medium": "Oil on Canvas",
+  "dimensions": "130.3x162.2cm",
+  "descriptionKo": "In the early summer",
+  "descriptionEn": "when the strange climate has become a daily event,\nfrom C.\nCho, Ei-han | Art Essayist",
+  "images": [
+    {
+      "src": "/assets/works/web/paint09_09.jpg",
+      "alt": "돌던지기 Throwing Stones — Oil on Canvas, 2009"
+    }
+  ],
+  "caption": "돌던지기 Throwing Stones 2009 Oil on Canvas 130.3x162.2cm",
+  "order": 67,
+  "legacyFile": "paint09_09.htm"
+}

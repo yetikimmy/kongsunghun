@@ -1,0 +1,25 @@
+{
+  "slug": "paint08_07",
+  "series": "paintings",
+  "titleKo": "바닷가의 아이",
+  "titleEn": "바닷가의 아이",
+  "year": 2008,
+  "medium": "Acrylic on Canvas",
+  "dimensions": "100x200cm",
+  "images": [
+    {
+      "src": "/assets/works/web/paint08_07.jpg",
+      "alt": "바닷가의 아이 — Acrylic on Canvas, 2008"
+    }
+  ],
+  "caption": "바닷가의 아이 100x200cm Acrylic on Canvas 2008",
+  "order": 57,
+  "legacyFile": "paint08_07.htm",
+  "extractionWarnings": [
+    "medium-before-year"
+  ],
+  "manualReview": true,
+  "reviewNotes": [
+    "medium-before-year"
+  ]
+}

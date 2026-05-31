@@ -1,0 +1,27 @@
+{
+  "slug": "paint09_13",
+  "series": "paintings",
+  "titleKo": "파도 앞의 아이",
+  "titleEn": "A Child in Front of Waves",
+  "year": 2009,
+  "medium": "Acrylic on Canvas",
+  "dimensions": "112.1x145.2cm",
+  "descriptionKo": "In the early summer",
+  "descriptionEn": "when the strange climate has become a daily event,\nfrom C.\nCho, Ei-han | Art Essayist",
+  "images": [
+    {
+      "src": "/assets/works/web/paint09_13.jpg",
+      "alt": "파도 앞의 아이 A Child in Front of Waves — Acrylic on Canvas, 2009"
+    }
+  ],
+  "caption": "파도 앞의 아이 A Child in Front of Waves 112.1x145.2cm Acrylic on Canvas 2009",
+  "order": 71,
+  "legacyFile": "paint09_13.htm",
+  "extractionWarnings": [
+    "medium-before-year"
+  ],
+  "manualReview": true,
+  "reviewNotes": [
+    "medium-before-year"
+  ]
+}

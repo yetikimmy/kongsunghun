@@ -1,19 +1,79 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import pages from "../../data/legacy-pages.generated.json";
+
+// "Blind Work" — an interview-form artist essay (1998). Korean is the primary
+// text (essay.htm); the English translation (essay02.htm) follows as a second
+// block so each can be read straight through.
+const { ko, en } = pages.essay;
+
+const blocks = [
+  { lang: "ko" as const, label: "국문", essay: ko },
+  { lang: "en" as const, label: "English", essay: en },
+];
 ---
 
 <BaseLayout title="ESSAY — KONG,SUNG-HUN" current="/essay/">
-  <div class="container placeholder-page">
+  <div class="container essay-page">
     <h1 class="title">ESSAY</h1>
-    <p class="caption">글/에세이는 추후 단계에서 레거시 essay.htm / essay02.htm 으로부터 이관 예정입니다.</p>
+    <p class="essay-subtitle">{ko.title}</p>
+
+    {
+      blocks.map(({ lang, label, essay }) => (
+        <article class="essay-block" lang={lang}>
+          <p class="essay-lang-label">{label}</p>
+          {essay.paragraphs.map((p) =>
+            p.kind === "heading" ? (
+              <h2 class="essay-heading">{p.text}</h2>
+            ) : p.kind === "signature" ? (
+              <p class="essay-signature">{p.text}</p>
+            ) : (
+              <p class="essay-para">{p.text}</p>
+            ),
+          )}
+        </article>
+      ))
+    }
   </div>
 </BaseLayout>
 
 <style>
-  .placeholder-page {
+  .essay-page {
     padding-block: var(--space-6);
+    max-width: 64ch;
   }
-  .placeholder-page .caption {
-    margin-top: var(--space-3);
+  .essay-subtitle {
+    font-family: var(--font-display);
+    font-size: 18px;
+    color: var(--color-muted);
+    margin-top: var(--space-2);
+  }
+  .essay-block {
+    margin-top: var(--space-6);
+  }
+  .essay-block + .essay-block {
+    padding-top: var(--space-5);
+    border-top: 1px solid var(--color-fg);
+  }
+  .essay-lang-label {
+    font-family: var(--font-mono);
+    font-size: var(--fs-caption);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-muted);
+  }
+  .essay-heading {
+    font-family: var(--font-display);
+    font-size: 18px;
+    margin-top: var(--space-5);
+    margin-bottom: var(--space-3);
+  }
+  .essay-para {
+    margin: var(--space-3) 0;
+  }
+  .essay-signature {
+    margin-top: var(--space-5);
+    color: var(--color-muted);
+    text-align: right;
   }
 </style>
