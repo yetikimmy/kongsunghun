@@ -61,6 +61,76 @@ const EXPLICIT_EXCLUDE = new Set([
 const YEAR_RE = /\b(19\d{2}|20\d{2})\b/;
 const DIM_RE = /\d+(?:\.\d+)?\s*[x×]\s*\d+(?:\.\d+)?(?:\s*[x×]\s*\d+(?:\.\d+)?)?\s*(?:cm|mm|page|p)?/i;
 
+/*
+ * Medium phrases in the legacy captions are English material descriptions drawn
+ * from a small, recurring vocabulary. A caption's medium can appear before OR
+ * after the year and with or without a dimension token, so rather than anchoring
+ * on position we detect the medium as the run of text starting at a material
+ * *head phrase* and running to the end (minus any trailing venue).
+ *
+ * The anchors below are deliberately multi-word / specific ("Oil on",
+ * "Dust and Acrylic", "Fluorescent Paint") so they match real media and NOT the
+ * same word used inside an English title (e.g. the title "Dust Painting" or
+ * "Perfect Painting" must not be mistaken for a medium). This is corpus-driven:
+ * every legacy work whose caption carries a medium uses one of these heads.
+ */
+const MEDIUM_ANCHORS = [
+  // paint / drawing media
+  "Fluorescent Paint",
+  "Dust and Acrylic",
+  "Acrylic on",
+  "Oil on",
+  "Ink on",
+  "Photo-Collage",
+  "Offset Print",
+  "Plaster Cast",
+  "Plaster,",
+  "Mixed Media",
+  "C-print",
+  "Photograph",
+  // installation object/material lists (corpus-specific head terms)
+  "Camera Obscura",
+  "Partition with",
+  "Partition,",
+  "LED Displayer",
+  "Plywood",
+  "Helmet",
+  "Comic Book",
+  "Electric Shock Circuit",
+  "Stainless Steel",
+  // slide / projection apparatus
+  "Slide Projection",
+  "Hand-made Slide",
+  "Hand-Made Slide",
+  "Four Hand-Made Slide",
+  // Korean media markers (e.g. "아크릴 박스 위에 실크스크린", "수제 슬라이드 프로젝터")
+  "아크릴",
+  "수제",
+];
+const MEDIUM_START_RE = new RegExp(
+  "(" + MEDIUM_ANCHORS.map((k) => k.replace(/[-/\\^$*+?.()|[\]{}]/g, "\\$&")).join("|") + ")",
+  "i"
+);
+
+/*
+ * "Installation view", "detail", etc. are view labels, not media. When the
+ * residue after stripping year/dimensions is only such a label (no material
+ * anchor), the work genuinely has no medium and we leave `medium` empty.
+ */
+const VIEW_LABEL_RE = /\b(installation\s*view|detail|view)\b/i;
+
+/*
+ * A trailing exhibition venue in the unambiguous "<Name> Gallery|Museum, <City>"
+ * form — an institution word followed by a comma and a city. We only strip this
+ * in the *no-medium* path, and only with the trailing-comma form: that comma is
+ * the reliable boundary, so we never accidentally swallow an English title word
+ * that happens to precede a venue without punctuation (those stay in the title
+ * and are flagged for review instead). When a medium IS present the venue stays
+ * appended to the medium exactly as the legacy caption wrote it.
+ */
+const VENUE_RE =
+  /\s+((?:[A-Z][\w.'-]*\s+){1,3}(?:Gallery|Museum|Center|Centre|Hall|Park)\s*,\s*[A-Z][\w.'-]+)\s*$/;
+
 function listLegacyFiles() {
   return readdirSync(ROOT)
     .filter((f) => /^(bw|install|paint|slide).*\.htm$/i.test(f))
@@ -148,58 +218,94 @@ function extractDescription(html) {
 
 /*
  * Parse a free-form caption into title/year/medium/dimensions.
- * Strategy: locate the year token; text before it is the title block
- * (Korean title + English title), text after it is medium + dimensions +
- * location. Korean vs English title separated by the first ASCII run.
+ * The caption interleaves optional tokens after the title — year, dimensions,
+ * and a material medium — in a loose order (the medium can come before OR after
+ * the year, with or without dimensions). We peel year and dimensions off the
+ * line by what they *are* (a 4-digit year, an "NxN cm" dimension), then locate
+ * the medium by its material head phrase, and treat the residue as the title
+ * block (Korean then English). This is order-independent, unlike anchoring
+ * everything on the year position, which mis-handled medium-before-year and
+ * medium-without-dimensions captions.
  */
 function parseCaption(raw, warnings) {
-  const result = { titleKo: "", titleEn: "", year: null, medium: "", dimensions: "" };
+  const result = { titleKo: "", titleEn: "", year: null, medium: "", dimensions: "", location: "" };
   if (!raw) {
     warnings.push("no-caption");
     return result;
   }
 
-  const yearMatch = raw.match(YEAR_RE);
-  let before = raw;
-  let after = "";
+  let work = raw.trim();
+
+  // 1) Year — remove the token so it can't bleed into title/medium.
+  const yearMatch = work.match(YEAR_RE);
   if (yearMatch) {
     result.year = Number(yearMatch[1]);
-    const idx = yearMatch.index;
-    before = raw.slice(0, idx).trim();
-    after = raw.slice(idx + yearMatch[0].length).trim();
+    work = (work.slice(0, yearMatch.index) + " " + work.slice(yearMatch.index + yearMatch[0].length))
+      .replace(/\s+/g, " ")
+      .trim();
   } else {
     warnings.push("no-year");
   }
 
-  // Some captions place medium/dimensions *before* the year (e.g.
-  // "Blind-work 150x300cm Fluorescent Paint ... 1991"). If the pre-year block
-  // contains a dimension token, treat everything from that token onward as
-  // medium/dimensions and keep only the lead as the title.
-  let titleBlock = before.trim();
-  if (titleBlock) {
-    const leadDim = titleBlock.match(DIM_RE);
-    if (leadDim && leadDim.index > 0) {
-      const tail = titleBlock.slice(leadDim.index).trim();
-      titleBlock = titleBlock.slice(0, leadDim.index).trim();
-      const tailDim = tail.match(DIM_RE);
-      if (tailDim) {
-        result.dimensions = tailDim[0].replace(/\s+/g, "").trim();
-        const mediumTail = tail.slice(tailDim.index + tailDim[0].length).trim().replace(/^[,\s]+/, "");
-        if (mediumTail) result.medium = mediumTail;
-      }
-      warnings.push("medium-before-year");
+  // 2) Dimensions — remove the token.
+  const dimMatch = work.match(DIM_RE);
+  if (dimMatch) {
+    result.dimensions = dimMatch[0].replace(/\s+/g, "").trim();
+    work = (work.slice(0, dimMatch.index) + " " + work.slice(dimMatch.index + dimMatch[0].length))
+      .replace(/\s+/g, " ")
+      .trim();
+  }
+
+  // 3) Medium — the English (or Korean) material phrase. Detect by the first
+  // material *head phrase*; everything from there to the end of the residue is
+  // the medium. What precedes the head phrase is the title block.
+  //
+  // A trailing exhibition venue (e.g. "... Kumho Museum, Seoul"), when present,
+  // stays appended to the medium. Splitting the venue out deterministically is
+  // unreliable — venue proper-nouns and material nouns are both capitalized and
+  // are not always comma-separated — so we keep the medium exactly as the legacy
+  // caption wrote it (venue included) rather than risk truncating the materials.
+  let titleBlock = work;
+  const medMatch = work.match(MEDIUM_START_RE);
+  if (medMatch) {
+    let medStart = medMatch.index;
+    // Some media are quantified ("12 Hand-made Slide projectors", "59 Hand-made
+    // Slide projector", "42대의 수제 슬라이드 ..."). The count belongs to the
+    // medium, not the title — pull a leading numeric quantity into the medium.
+    const lead = work.slice(0, medStart);
+    const qty = lead.match(/(\d+(?:대의)?)\s*$/);
+    if (qty) medStart = qty.index;
+    titleBlock = work.slice(0, medStart).trim().replace(/[,\s]+$/, "");
+    result.medium = work.slice(medStart).trim() || undefined;
+  } else {
+    // No material head phrase. Strip a trailing venue from the title block
+    // (safe here: no medium text to confuse it with) and record it as location.
+    const venue = titleBlock.match(VENUE_RE);
+    if (venue) {
+      result.location = venue[1].trim();
+      titleBlock = titleBlock.slice(0, venue.index).trim().replace(/[,\s]+$/, "");
+    }
+    if (yearMatch && !VIEW_LABEL_RE.test(work)) {
+      // Not merely a view label (installation view / detail): the caption
+      // genuinely lacks a medium.
+      warnings.push("no-medium");
     }
   }
+
+  // Title block -> Korean / English split.
+  titleBlock = titleBlock.replace(/[,\s]+$/, "").trim();
   if (titleBlock) {
     const firstAscii = titleBlock.match(/[A-Za-z]/);
     if (/[가-힣]/.test(titleBlock) && firstAscii) {
-      // Find the boundary: last Hangul char before the English starts.
-      const m = titleBlock.match(/^([^A-Za-z]*[가-힣][^A-Za-z]*?)\s{1,}([A-Za-z].*)$/);
+      // Boundary: Hangul (+ adjacent punctuation/numerals) then the English run.
+      const m = titleBlock.match(/^([^A-Za-z]*[가-힣][^A-Za-z]*?)\s+([A-Za-z].*)$/);
       if (m) {
-        result.titleKo = m[1].trim();
+        result.titleKo = m[1].trim().replace(/[,\s]+$/, "");
         result.titleEn = m[2].trim();
       } else {
-        result.titleEn = titleBlock;
+        // Hangul and Latin interleaved without a clean break (e.g. a Korean
+        // title with a parenthetical English gloss). Keep as the Korean title.
+        result.titleKo = titleBlock;
         warnings.push("title-split-ambiguous");
       }
     } else if (/[가-힣]/.test(titleBlock)) {
@@ -209,20 +315,6 @@ function parseCaption(raw, warnings) {
     }
   } else {
     warnings.push("no-title");
-  }
-
-  // Medium + dimensions from the tail.
-  if (after) {
-    const dimMatch = after.match(DIM_RE);
-    if (dimMatch) {
-      result.dimensions = dimMatch[0].replace(/\s+/g, "").trim();
-      result.medium = after.slice(0, dimMatch.index).trim().replace(/[,\s]+$/, "");
-      // location (text after dimensions) is left within rawCaption only.
-    } else {
-      result.medium = after.trim();
-    }
-  } else if (yearMatch && !result.medium) {
-    warnings.push("no-medium");
   }
 
   return result;
@@ -308,6 +400,7 @@ function main() {
       year: parsed.year,
       medium: parsed.medium || undefined,
       dimensions: parsed.dimensions || undefined,
+      location: parsed.location || undefined,
       images: publicImages,
       caption: rawCaption || undefined,
       rawCaption: rawCaption || undefined,

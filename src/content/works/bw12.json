@@ -1,26 +1,19 @@
 {
   "slug": "bw12",
   "series": "blind-work",
-  "titleKo": "Blind-work Fluorescent Paint on Blind Curtain, Aluminium Tape, Mirror, Motor, Controller",
-  "titleEn": "Blind-work Fluorescent Paint on Blind Curtain, Aluminium Tape, Mirror, Motor, Controller",
+  "titleKo": "Blind-work",
+  "titleEn": "Blind-work",
   "year": 1991,
+  "medium": "Fluorescent Paint on Blind Curtain, Aluminium Tape, Mirror, Motor, Controller",
   "descriptionKo": "블라인드 작업은 제한된 형태와 색채에 전기적인 움직임을 준 Kinetic작품이다. 블라인드의 날개에 스펙트럼처럼 순차적으로 칠한 형광페인트, 그 뒷면에 붙인 알루미늄 테이프의 반사효과, 모터의 왕복운동에 의해 변화하는 날개의 각도가 결합하여 빛과 형태의 끊임없는 변화를 보여준다.\n그리하여 블라인드 작업은 다음과 같은 성격을 지니게 된다.\n차가움, 無言(訥) 즉 메시지의 부재, 무중력, 솜사탕 같이 가벼움, 0.5초면 감상할 수 있는 인스탄트성, 신비함, 개방된 공간, 작품자체의 변화와 관람자의 시선의 이동에 의한 변화의 두가지 변화, 수평선의 반복, 아이들 취향의 재미, 칼라TV시대의 발광하는 색채 (형광 페인트), 장식성, 명료함, 누구라도 복제할 수 있는 originality의 부재, 독립된 unit의 조합에 따른 작품형태의 가변성.\n아무런 에피소드도 담지 않는 공허를 바탕으로 하는 이 작품은 계획단계 이후로는 철저하게 단순작업으로 이루어진다. 미술은 물질을 다루는 작업일 뿐이라는 생각과 창조가 아니라 제작의 태도로서 한정된 재료 (블라인드 커튼, 형광 페인트, 알루미늄 테이프)와 스펙트럼식의 정해진 색채를 앞에 두고 마치 ‘문제풀이’를 해 나가듯이 주어진 전제조건을 만족시킬 수 있는 가능한 모든 해답을 찾아 나갔다.\n그러나 한편으로 이런 엄격한 전제조건이 자아내는 빈혈증세가 블라인드 작업 이후의 작업방향을 좀 더 수다스러운 쪽으로 몰고가는 원인의 하나가 되었으며 따라서 블라인드 작업과 이후의 작업에는 단절이 존재한다.",
   "descriptionEn": "Blind works have the following characters :\nCoolness, calmness, absence of message, weightlessness, instant appreciation, open space, variable viewpoint by the change of viewer and the work itself, clearness, absence of originality, variableness of shape by combination of each units.\nThere is a gap between the blind works and the later works. When I made blind works, I enjoyed the innocence of its taciturnity. But gradually I become to feel that Art has many problems, especially in Korea. From this moment, my works have had the conceptualist characters.",
   "images": [
     {
       "src": "/assets/works/web/bwp12.jpg",
-      "alt": "Blind-work Fluorescent Paint on Blind Curtain, Aluminium Tape, Mirror, Motor, Controller — 1991"
+      "alt": "Blind-work — Fluorescent Paint on Blind Curtain, Aluminium Tape, Mirror, Motor, Controller, 1991"
     }
   ],
   "caption": "Blind-work Fluorescent Paint on Blind Curtain, Aluminium Tape, Mirror, Motor, Controller 1991",
   "order": 12,
-  "legacyFile": "bw12.htm",
-  "extractionWarnings": [
-    "no-medium"
-  ],
-  "manualReview": true,
-  "reviewNotes": [
-    "no-medium",
-    "title-may-include-caption-text"
-  ]
+  "legacyFile": "bw12.htm"
 }

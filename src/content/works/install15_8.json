@@ -4,18 +4,15 @@
   "titleKo": "먼지그림-북한산",
   "titleEn": "Dust Painting(Mountain)",
   "year": 1996,
+  "medium": "Dust and Acrylic on Canvas",
   "dimensions": "130.3x486.6cm",
   "images": [
     {
       "src": "/assets/works/web/in15_08.jpg",
-      "alt": "먼지그림-북한산 Dust Painting(Mountain) — 1996"
+      "alt": "먼지그림-북한산 Dust Painting(Mountain) — Dust and Acrylic on Canvas, 1996"
     }
   ],
   "caption": "먼지그림-북한산 Dust Painting(Mountain) 1996 130.3x486.6cm Dust and Acrylic on Canvas",
   "order": 55,
-  "legacyFile": "install15_8.htm",
-  "manualReview": true,
-  "reviewNotes": [
-    "title-may-include-caption-text"
-  ]
+  "legacyFile": "install15_8.htm"
 }

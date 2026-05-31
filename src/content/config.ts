@@ -25,6 +25,8 @@ const works = defineCollection({
     year: z.number().nullable().default(null),
     medium: z.string().optional(),
     dimensions: z.string().optional(),
+    /** Exhibition venue / place, when the legacy caption recorded one. */
+    location: z.string().optional(),
     descriptionKo: z.string().optional(),
     descriptionEn: z.string().optional(),
     images: z.array(imageSchema).default([]),

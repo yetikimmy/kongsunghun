@@ -1,8 +1,8 @@
 {
   "slug": "paint04_01",
   "series": "paintings",
-  "titleKo": "벽제화장터 1,",
-  "titleEn": "Crematory,",
+  "titleKo": "벽제화장터 1",
+  "titleEn": "Crematory",
   "year": 2006,
   "medium": "Oil on canvas",
   "dimensions": "227.3x181.8cm",
@@ -11,7 +11,7 @@
   "images": [
     {
       "src": "/assets/works/web/paint04_01.jpg",
-      "alt": "벽제화장터 1, Crematory, — Oil on canvas, 2006"
+      "alt": "벽제화장터 1 Crematory — Oil on canvas, 2006"
     }
   ],
   "caption": "벽제화장터 1, Crematory, 2006 Oil on canvas 227.3x181.8cm",

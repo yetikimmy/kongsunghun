@@ -1,24 +1,17 @@
 {
   "slug": "install15_4",
   "series": "installation-work",
-  "titleKo": "먼지그림 2,",
-  "titleEn": "Dust Painting Dust and Acrylic on Canvas",
+  "titleKo": "먼지그림 2",
+  "titleEn": "Dust Painting",
   "year": 1996,
+  "medium": "Dust and Acrylic on Canvas",
   "images": [
     {
       "src": "/assets/works/web/in15_04.jpg",
-      "alt": "먼지그림 2, Dust Painting Dust and Acrylic on Canvas — 1996"
+      "alt": "먼지그림 2 Dust Painting — Dust and Acrylic on Canvas, 1996"
     }
   ],
   "caption": "먼지그림 2, Dust Painting Dust and Acrylic on Canvas 1996",
   "order": 51,
-  "legacyFile": "install15_4.htm",
-  "extractionWarnings": [
-    "no-medium"
-  ],
-  "manualReview": true,
-  "reviewNotes": [
-    "no-medium",
-    "title-may-include-caption-text"
-  ]
+  "legacyFile": "install15_4.htm"
 }

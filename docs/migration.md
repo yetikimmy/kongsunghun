@@ -68,36 +68,58 @@ const text = iconv.decode(readFileSync(path), "euc-kr");
   라벨 등 UI 크롬임 (`line.gif`, `back.gif`, `next*.gif`, `blindwork.gif` 등).
 - **포함**: `image/` 아래 `.jpg` 작품 이미지.
 
+### 캡션 파싱 (4차 개선 — 순서 독립)
+
+캡션은 제목 뒤에 **연도·크기·재료**가 느슨한 순서로 섞여 옵니다(재료가 연도 앞·뒤
+모두 가능, 크기 유무도 제각각). 2차까지의 "연도 위치 기준 분리"는 재료-선행·재료-단독
+캡션을 잘못 갈랐습니다. 4차에서 **토큰을 정체로 떼어내는** 방식으로 바꿨습니다.
+
+1. **연도**(`19xx`/`20xx`) 토큰을 떼어냄 — 제목/재료로 새지 않게.
+2. **크기**(`130.3x162.2cm` 등) 토큰을 떼어냄.
+3. **재료**는 코퍼스 기반 **재료 머리어구**(`Oil on`, `Acrylic on`, `Mixed Media`,
+   `Slide Projection`, `Electric Shock Circuit`, `아크릴`, `수제` …)로 시작점을 잡아
+   그 지점부터 끝까지를 재료로 봅니다. 머리어구 앞의 수량(`12 Hand-made Slide …`,
+   `42대의 수제 …`)은 재료로 흡수합니다. 머리어구가 단어 하나가 아니라 **다어절·특정**
+   (`Dust and Acrylic`, `Fluorescent Paint`)이라, 제목 속 같은 단어(`Dust Painting`,
+   `Perfect Painting`)를 재료로 오인하지 않습니다.
+4. 남은 잔여를 **제목 블록**으로 보고 국문→영문으로 가릅니다.
+
+재료가 **없는** 캡션에서만, 제목 끝에 붙은 `<Name> Gallery|Museum, <City>`처럼
+**쉼표 경계가 분명한** 전시 장소를 떼어 `location`으로 옮깁니다. 재료가 있을 때는
+장소가 재료 뒤에 붙어 있어도 원문 그대로 둡니다(재료 명사와 장소 고유명사가 모두
+대문자라 무리하게 자르면 재료가 잘릴 수 있음).
+
 ### `extractionWarnings` 의미
 
 | warning | 의미 / 대응 |
 | --- | --- |
-| `medium-before-year` | 캡션에서 재료·크기가 연도보다 **앞**에 옴 (예: `Blind-work 150x300cm … 1991`). 스크립트가 분리는 했으나, 제목/재료 경계는 수동 확인 권장. |
-| `no-medium` | 연도 뒤에 재료 텍스트가 없음 (캡션이 실제로 간단한 경우 많음). |
+| `no-medium` | 캡션에 재료 머리어구가 없음. (단순한 캡션·드로잉·설치뷰 등 실제로 재료가 없는 경우가 대부분.) 단, `installation view`/`detail` 같은 **뷰 라벨**만 남은 경우는 재료 부재로 보지 않아 경고하지 않음. |
 | `no-year` | 캡션에 연도가 없음 (예: `install10_01`). `year`가 `null`. |
-| `no-caption` | `td.rabbit` 캡션을 못 찾음 → 인덱스/메뉴 페이지일 가능성 (`install.htm`, `painting.htm`). |
+| `no-caption` | `td.rabbit` 캡션을 못 찾음 → 인덱스/메뉴 페이지일 가능성. |
 | `title-from-html-title-tag` | 캡션 제목이 없어 `<title>` 태그에서 가져옴. |
 | `title-fallback-slug` | 제목을 전혀 못 찾아 slug로 대체. |
+| `title-split-ambiguous` | 제목 안 국문/Latin을 깔끔히 못 가름(영문 괄호 주석 등) → 국문 제목으로 보존. |
 | `missing-image:<file>` | 참조 이미지가 `image/`에 실제로 없음. |
 
-### 추출 통계 (2차 기준)
+> 2차의 `medium-before-year` 경고는 4차 파서가 정상 처리하므로 **더 이상 발생하지
+> 않습니다**. 그 외 양성(benign) 경고도 `manualReview`를 띄우지 않습니다.
+
+### 추출 통계 (4차 기준)
 
 - 스캔 파일: **180**
 - 추출 레코드: **180** (blind-work 24 · installation-work 56 · paintings 87 · multi-slide-projection 13)
 - 복사 이미지: **222**
-- warning 있는 레코드: **64** / 총 warning: **66**
+- warning 있는 레코드: **15** / 총 warning: **17** (2차 64/66 → 4차 15/17)
 
 ### 한계 · 수동 검수 필요 항목
 
 - **국문/영문 분리 휴리스틱**: 설명·제목을 "첫 ASCII 구간"으로 가릅니다. 한 문단 안에
   국·영문이 섞이면(`art ∩ life …` 같은 수식, 영문 인용 등) 경계가 어긋날 수 있습니다.
   검수 대상 entry는 `caption`/`rawCaption` 원본과 대조하세요.
-- **`install.htm` / `painting.htm`**: 작품 썸네일을 포함한 인덱스 페이지가 레코드로
-  남습니다(`no-caption` 경고). 사이트 콘텐츠에는 포함하지 않았습니다.
+- **인덱스 페이지(`install.htm` / `painting.htm` 등)**: 작품 썸네일 네비게이션
+  페이지는 content entry로 만들지 않습니다(import 단계에서 `INDEX_LEGACY_FILES`로 제외).
 - **다중 이미지 페이지**: 일부 install 페이지는 여러 작품 뷰를 가집니다. 자동 추출은
   같은 페이지의 이미지를 한 레코드에 묶습니다.
-- (2차까지) 자동 추출 전체를 그대로 노출하지 않고 **검수된 12개만** 반영했으나,
-  **3차에서 나머지 전체를 import**했습니다 (아래 "전체 작품 import" 참고).
 
 ---
 
@@ -116,35 +138,69 @@ npm run import:works     # = node scripts/import-legacy-works-to-content.mjs --c
 
 설계:
 
-1. **검수 entry 우선 (curated wins).** 손으로 다듬은 12개 entry는 각자
-   `legacyFile`을 선언합니다. 스크립트는 이 필드로 검수 entry를 색인하고, 같은 레거시
-   페이지에서 나온 생성 레코드는 **건너뜁니다**. 검수된 메타데이터는 절대 덮어쓰지 않습니다.
+1. **검수 entry 우선 (curated wins).** 손으로 다듬은 12개 entry는 사람이 읽기 좋은
+   slug(예: `self-portrait`)를 씁니다. 스크립트는 **slug가 레거시 파일명 stem과 다른**
+   entry만 검수본으로 인식해(=`slug !== legacyStem(legacyFile)`) `legacyFile`로 색인하고,
+   같은 레거시 페이지에서 나온 생성 레코드는 **건너뜁니다**. 검수 메타데이터는 절대
+   덮어쓰지 않습니다. (3차까지는 생성 entry까지 검수본으로 오인해 재생성이 0건이던 버그를
+   4차에서 수정.)
 2. **slug = 레거시 파일명 stem** (`bw01`, `install01_1`, `paint09_03`, …). 레거시
    사이트는 작품 뷰 1개당 HTML 파일 1개라 stem이 이미 전역 유일합니다(중복 0). 제목은
-   중복·잡음이 많아 slug 근거로 쓰지 않습니다. 검수 entry는 사람이 읽기 좋은 기존 slug를
-   유지합니다.
-3. **깨진 이미지 없음.** 참조된 작품 이미지를 루트 `image/`에서 커밋 대상인
+   중복·잡음이 많아 slug 근거로 쓰지 않습니다.
+3. **인덱스 페이지 제외.** `install.htm`/`painting.htm`/`multi.htm`/`real.htm`은
+   네비게이션 썸네일 격자일 뿐 작품이 아니므로 entry로 만들지 않습니다
+   (`INDEX_LEGACY_FILES`).
+4. **깨진 이미지 없음.** 참조된 작품 이미지를 루트 `image/`에서 커밋 대상인
    `public/assets/works/web/`로 복사하고 `/assets/works/web/<file>`로 참조합니다.
    디스크에 없는 파일은 entry에서 제외하고 `reviewNotes`에 기록합니다(죽은 `src` 미발행).
-4. **검수 추적.** `extractionWarnings`를 그대로 전달하고, 검토가 필요한 entry에는
-   `manualReview: true` + `reviewNotes[]`를 설정합니다(UI에는 노출되지 않는 옵션 필드).
+5. **검수 추적 — 구체적·actionable.** `extractionWarnings`는 그대로 전달하되,
+   `manualReview`는 **실제로 미해결인 경우에만** 띄웁니다. 경고 코드를 사람이 바로
+   조치할 수 있는 `reviewNotes` 문장으로 매핑하고(`REVIEW_NOTE_BY_WARNING`),
+   재료가 없고·뷰 라벨도 아닌 제목에 전시기관어(`Gallery`/`Museum`/`Art Center`)가
+   남아 있으면 "장소를 `location`으로 옮기라"는 노트를 추가합니다. 양성 경고는 노트로
+   만들지 않습니다.
 
 멱등(idempotent): 재실행 시 생성 entry만 제자리 갱신하고 검수 entry는 그대로 둡니다.
 `--clean`은 더 이상 생성되지 않는 옛 생성 entry를 정리합니다.
 
-import 결과 (3차):
+import 결과 (4차):
 
 | 시리즈 | 검수(보존) | 생성(import) | 합계 |
 | --- | --- | --- | --- |
 | blind-work | 2 | 22 | 24 |
-| installation-work | 3 | 53 | 56 |
+| installation-work | 3 | 52 | 55 |
 | multi-slide-projection | 3 | 10 | 13 |
-| paintings | 4 | 83 | 87 |
-| **합계** | **12** | **168** | **180** |
+| paintings | 4 | 82 | 86 |
+| **합계** | **12** | **166** | **178** |
 
-- 커밋 이미지: **222** (`public/assets/works/web/`)
-- `manualReview: true` entry: **71** (`reviewNotes`에 사유 기록 — 잡음 제목, 재료
-  누락, 연도 누락 등). UI는 정상 동작하며, 추후 사람이 제목·메타데이터를 다듬을 때 참고.
+- 인덱스 페이지 2건(`install.htm`, `painting.htm`)을 제외해 합계가 180 → **178**.
+- 커밋 이미지: **185** (`public/assets/works/web/`)
+- `manualReview: true` entry: **71 → 12** (4차). 남은 12건은 레거시 캡션이 **실제로**
+  재료/연도를 적지 않았거나 제목에 장소가 섞인, 사실 확인 없이는 자동 보정할 수 없는
+  항목입니다. UI는 정상 동작합니다.
+
+#### 남은 검수 항목 (12건)
+
+| slug | 시리즈 | 사유 |
+| --- | --- | --- |
+| `install03_1` | installation-work | 재료 없음 · 제목에 장소(`National Museum of Contemporary Art, Gwachoen`) 잔존 |
+| `install04_1` | installation-work | 재료 없음 (드로잉 캡션) |
+| `install07_1` | installation-work | 재료 없음 (드로잉 캡션) |
+| `install10_01` | installation-work | 연도 없음 (`(Installation View)` 캡션) |
+| `install10_02`–`install10_05` | installation-work | 재료 없음 |
+| `install14_1` | installation-work | 재료 없음 (`Kiss 1998`) |
+| `slide02_02` | multi-slide-projection | 재료 없음 |
+| `slide04_02`, `slide04_03` | multi-slide-projection | 재료 없음 · 제목에 장소(`… Museum …`) 잔존 |
+
+#### 수동 검수 이어가는 법
+
+1. `src/content/works/*.json`에서 `"manualReview": true` 항목을 엽니다.
+2. 같은 entry의 `caption`(원본 캡션)과 `legacyFile`이 가리키는 레거시 `.htm`을
+   대조해 누락된 `medium`/`year`를 **원본에 있는 경우에만** 채웁니다(사실 날조 금지).
+3. 제목에 장소가 섞였으면 장소를 `location`으로 옮기고 `titleEn`을 다듬습니다.
+4. 충분히 해소되면 `manualReview`와 `reviewNotes`를 **삭제**합니다(둘 다 옵션 필드).
+5. slug를 사람이 읽기 좋은 이름으로 바꾸면(예: `install14_1` → `kiss`) 그 entry는
+   자동으로 **검수본**으로 인식되어 이후 `import:works` 재실행 시 보존됩니다.
 
 ### 이미지 경로 전략
 
@@ -262,10 +318,10 @@ npm run check            # astro check — 0 errors
 npm run build            # 정적 빌드 — 190 pages
 ```
 
-빌드 결과(`dist/`, 3차)에서 확인한 사항:
+빌드 결과(`dist/`, 4차)에서 확인한 사항:
 
 - woff2 폰트 번들 (Geist Sans/Mono + Pretendard Variable 한글 서브셋)
-- 작품 상세 페이지 **180개** + 시리즈 인덱스 4 + 정보/기타 페이지 = **190 pages**
+- 작품 상세 페이지 **178개**(인덱스 페이지 2건 제외) + 시리즈 인덱스 4 + 정보/기타 페이지
 - 한글 제목·연도·매체, CV/에세이 한글 본문, CONTACT 정상 표기
-- 이미지 참조 **402건 전부 해석**(깨진 이미지 0), `web/` 222개 커밋
+- 깨진 이미지 0, `public/assets/works/web/` **185개** 커밋
 - 내비/페이지 링크가 상대경로로 정상 해석 (서브패스 프리뷰 호환)

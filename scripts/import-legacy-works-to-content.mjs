@@ -29,8 +29,13 @@
  *
  * 4. Auditability. extractionWarnings from the extractor are carried through,
  *    and a `manualReview: true` flag plus human-readable `reviewNotes[]` are set
- *    whenever the entry needs a human look (warnings, missing image, noisy
- *    title, ...). These are optional schema fields, invisible in the UI.
+ *    ONLY when the entry has a genuinely unresolved gap — a caption with no
+ *    medium or no year, a title that fell back to the slug, an ambiguous KO/EN
+ *    title split, or a missing/unusable image. Benign warnings that the improved
+ *    extractor now resolves (medium-before-year, etc.) do not trip review.
+ *    Legacy thumbnail index pages (install.htm, painting.htm) are skipped
+ *    entirely — they are navigation, not works. These flags are optional schema
+ *    fields, invisible in the UI.
  *
  * Usage:  node scripts/import-legacy-works-to-content.mjs [--clean]
  *   --clean  remove previously generated (non-curated) entries first, so the
@@ -70,7 +75,23 @@ function ensureDir(dir) {
   if (!existsSync(dir)) mkdirSync(dir, { recursive: true });
 }
 
-/* Read all existing content entries; return { bySlug, byLegacyFile }. */
+/* The legacy-filename stem for a content entry (e.g. "bw02.htm" -> "bw02"). */
+function legacyStem(legacyFile) {
+  return (legacyFile || "").replace(/\.htm$/i, "").toLowerCase();
+}
+
+/*
+ * Read existing content entries and split them into CURATED vs GENERATED.
+ *
+ * Hand-curated entries are recognised by a human-friendly slug that differs
+ * from the legacy filename stem (e.g. slug "self-portrait" from paint02_01.htm).
+ * Auto-generated entries use the stem itself as the slug (paint02_02, ...), so
+ * `slug === stem` marks an entry this script owns and may freely regenerate.
+ *
+ * Returns { bySlug, byLegacyFile } over the curated entries only — so generated
+ * entries are NOT treated as "preserve me" on re-runs and instead get rebuilt
+ * from the latest extracted data.
+ */
 function readCuratedEntries() {
   const bySlug = new Map();
   const byLegacyFile = new Map();
@@ -84,8 +105,10 @@ function readCuratedEntries() {
     } catch {
       continue;
     }
+    // Only hand-curated entries (slug != legacy stem) are preserved.
+    if (!data.slug || data.slug === legacyStem(data.legacyFile)) continue;
     const entry = { file: f, full, data };
-    if (data.slug) bySlug.set(data.slug, entry);
+    bySlug.set(data.slug, entry);
     if (data.legacyFile) byLegacyFile.set(data.legacyFile, entry);
   }
   return { bySlug, byLegacyFile };
@@ -102,12 +125,35 @@ function buildAlt(rec) {
 }
 
 /*
- * Some auto-extracted titles are actually the whole caption (title + medium),
- * which makes ugly headings. Flag (don't silently rewrite) so a human can fix.
+ * Legacy thumbnail INDEX pages (install.htm, painting.htm) carry a grid of
+ * navigation thumbnails but no work caption. They are site chrome, not works,
+ * and must not become content entries.
  */
-function titleLooksNoisy(t) {
-  return !!t && (t.length > 60 || /paint|fluorescent|on canvas|controller/i.test(t));
-}
+const INDEX_LEGACY_FILES = new Set(["install.htm", "painting.htm", "multi.htm", "real.htm"]);
+
+/*
+ * Map the extractor's terse warning codes to specific, actionable review notes.
+ * Only warnings that reflect genuinely *missing or ambiguous* source data are
+ * carried into `reviewNotes` (and trip `manualReview`). Benign codes the
+ * extractor no longer emits are intentionally absent.
+ */
+/*
+ * An exhibition-institution word left inside a title. We only treat this as a
+ * misplaced venue when the entry has NO medium (a present medium already holds
+ * any trailing venue verbatim) and the title is not itself a view label
+ * ("... installation view"), where the institution word is part of a legitimate
+ * descriptive title rather than a venue to relocate.
+ */
+const VENUE_IN_TITLE_RE = /\b(Gallery|Museum|Art\s+Center|Arts\s+Center)\b/;
+const TITLE_VIEW_LABEL_RE = /\b(installation\s*view|exhibition\s*view|detail|view)\b/i;
+
+const REVIEW_NOTE_BY_WARNING = {
+  "no-medium": "Legacy caption has no medium/material text — confirm against the original page.",
+  "no-year": "Legacy caption has no 4-digit year — confirm the work's year.",
+  "title-fallback-slug": "No caption title found; title fell back to the slug — supply a real title.",
+  "title-split-ambiguous":
+    "Korean and Latin text in the title could not be split cleanly — verify titleKo / titleEn.",
+};
 
 function main() {
   const clean = process.argv.includes("--clean");
@@ -129,6 +175,7 @@ function main() {
   const stats = {
     total: records.length,
     skippedCurated: 0,
+    skippedIndex: 0,
     written: 0,
     bySeries: {},
     imagesCopied: 0,
@@ -146,6 +193,12 @@ function main() {
       continue;
     }
 
+    // Skip legacy thumbnail index pages — they are navigation, not works.
+    if (INDEX_LEGACY_FILES.has(rec.legacyFile)) {
+      stats.skippedIndex++;
+      continue;
+    }
+
     // Deterministic, stable slug from the legacy filename stem.
     let slug = rec.slug;
     if (takenSlugs.has(slug)) {
@@ -157,12 +210,28 @@ function main() {
     }
     takenSlugs.add(slug);
 
+    // Build specific, actionable review notes only for warnings that signal
+    // genuinely missing/ambiguous source data.
     const reviewNotes = [];
-    if (rec.extractionWarnings && rec.extractionWarnings.length) {
-      reviewNotes.push(...rec.extractionWarnings);
+    for (const w of rec.extractionWarnings || []) {
+      const note = REVIEW_NOTE_BY_WARNING[w];
+      if (note && !reviewNotes.includes(note)) reviewNotes.push(note);
     }
-    if (titleLooksNoisy(rec.titleEn) || titleLooksNoisy(rec.titleKo)) {
-      reviewNotes.push("title-may-include-caption-text");
+
+    // A venue name left inside the title (the extractor only strips the
+    // unambiguous "Name Gallery, City" comma form) — flag for a curator to move
+    // it into `location`. Skipped when a medium is present (it already holds any
+    // trailing venue verbatim) or when the title is a view label, where the
+    // institution word is part of a legitimate descriptive title.
+    if (
+      !rec.location &&
+      !rec.medium &&
+      !TITLE_VIEW_LABEL_RE.test(rec.titleEn || "") &&
+      VENUE_IN_TITLE_RE.test(rec.titleEn || "")
+    ) {
+      reviewNotes.push(
+        "Title may still contain an exhibition venue — move the venue into `location` and trim the title."
+      );
     }
 
     // Resolve images against the committed web image dir, copying as needed.
@@ -171,7 +240,7 @@ function main() {
       const fname = basename(img.src);
       const srcPath = join(IMAGE_DIR, fname);
       if (!existsSync(srcPath)) {
-        reviewNotes.push(`missing-image:${fname}`);
+        reviewNotes.push(`Referenced image "${fname}" is missing from image/ — locate the file or drop the reference.`);
         stats.missingImages++;
         continue;
       }
@@ -186,7 +255,9 @@ function main() {
         ...(img.height ? { height: img.height } : {}),
       });
     }
-    if (images.length === 0) reviewNotes.push("no-usable-image");
+    if (images.length === 0) {
+      reviewNotes.push("No usable artwork image resolved for this entry — supply or fix the image reference.");
+    }
 
     const needsReview = reviewNotes.length > 0;
     if (needsReview) stats.needsReview++;
@@ -199,6 +270,7 @@ function main() {
       year: rec.year ?? null,
       ...(rec.medium ? { medium: rec.medium } : {}),
       ...(rec.dimensions ? { dimensions: rec.dimensions } : {}),
+      ...(rec.location ? { location: rec.location } : {}),
       ...(rec.descriptionKo ? { descriptionKo: rec.descriptionKo } : {}),
       ...(rec.descriptionEn ? { descriptionEn: rec.descriptionEn } : {}),
       images,
@@ -237,6 +309,7 @@ function main() {
   console.log("=== import legacy works -> content ===");
   console.log(`generated records read : ${stats.total}`);
   console.log(`curated (preserved)    : ${stats.skippedCurated}`);
+  console.log(`index pages skipped    : ${stats.skippedIndex}`);
   console.log(`written (generated)    : ${stats.written}`);
   console.log(`images copied to web/  : ${stats.imagesCopied}`);
   console.log(`missing images dropped : ${stats.missingImages}`);
