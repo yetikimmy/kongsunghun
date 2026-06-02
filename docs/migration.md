@@ -233,6 +233,7 @@ npm run extract:pages    # = node scripts/extract-legacy-pages.mjs
 | 페이지 | 소스 | 구성 |
 | --- | --- | --- |
 | `src/pages/cv.astro` | `cv.htm`(국문) · `cv02.htm`(영문) | 섹션(학력/개인전/단체전/소장 …)별 목록. 국·영문 항목 수가 달라 **두 개의 독립 블록**으로 렌더(라인 오정렬 방지). |
+| `src/pages/exhibition.astro` | `cv.htm`(국문) · `cv02.htm`(영문) | C.V.의 전시 섹션(개인전/2인전/주요 단체전 — SOLO/DUO/GROUP)만 추려 렌더. 데이터는 `src/data/exhibitions.ts`가 `legacy-pages.generated.json`의 CV에서 **파생**(별도 추출 스크립트 없음). 각 줄을 앞쪽 4자리 연도와 나머지(제목·장소) 텍스트로 분리해 표 형태로 표시. 국·영문 두 독립 블록. |
 | `src/pages/contact.astro` | `contact.htm` | 주소·전화·이메일. 이메일은 `mailto:` 링크. |
 | `src/pages/essay.astro` | `essay.htm`(국문) · `essay02.htm`(영문) | 인터뷰형 에세이 "Blind Work"(1998). 섹션 헤더·서명 자동 태깅, 국·영문 블록 분리. |
 
@@ -247,6 +248,14 @@ npm run extract:pages    # = node scripts/extract-legacy-pages.mjs
   둡니다. 교정은 별도 콘텐츠 작업입니다.
 - **에세이 섹션 태깅**: `1. 외도` / `1. Deviation` 같은 짧은 번호줄을 헤더로,
   `1998. 2. 공성훈` / `February, 1998. Kong, Sung-Hun`을 서명으로 휴리스틱 태깅합니다.
+- **EXHIBITION 파생**: 전시 페이지는 별도 추출 없이 C.V.의 전시 섹션을 재사용합니다.
+  각 줄은 `^(19|20)\d{2}\s+(...)` 정규식으로 **연도 + 나머지 텍스트**로만 분리하며,
+  장소·도시는 더 쪼개지 않고 원문 콤마 표기를 그대로 둡니다(사실 날조 방지).
+- **레거시 줄바꿈으로 분리된 영문 단체전 항목**: `cv02.htm` 원문에서 일부 항목이 두 줄로
+  끊겨 있어(예: `Busan Biennale 2006 Cafe 1 : ...` / `Busan Museum of Modern Art, Busan`,
+  그리고 앞 연도가 없는 `The New Generational Tendency ...` 연속 줄) 추출 시 별개 항목으로
+  들어옵니다. 연도가 없는 줄은 `year`를 비워 원문 그대로 보존하며, 임의 병합하지 않았습니다.
+  교정이 필요하면 `cv02.htm` 원본 기준으로 별도 콘텐츠 작업에서 합칩니다.
 
 ---
 

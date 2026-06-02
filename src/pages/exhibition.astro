@@ -1,19 +1,89 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { EXHIBITION_GROUPS } from "../data/exhibitions.ts";
+
+// Exhibition data is derived from the legacy C.V. (cv.htm / cv02.htm) sections
+// 개인전 / 2인전 / 주요 단체전 (SOLO / DUO / GROUP). The Korean and English
+// lists differ in entry count, so — as on the C.V. page — we render two
+// complete, independent language blocks rather than risk mis-pairing lines.
+const groups = EXHIBITION_GROUPS;
 ---
 
 <BaseLayout title="EXHIBITION — KONG,SUNG-HUN" current="/exhibition/">
-  <div class="container placeholder-page">
+  <div class="container exhibition-page">
     <h1 class="title">EXHIBITION</h1>
-    <p class="caption">전시 이력은 추후 단계에서 이관 예정입니다 (Figma: Exhibition_Index).</p>
+
+    {
+      groups.map(({ lang, label, sections }) => (
+        <div class="exh-block" lang={lang}>
+          <p class="exh-lang-label">{label}</p>
+          {sections.map((s) => (
+            <section class="exh-section">
+              <h2 class="exh-heading">{s.heading}</h2>
+              <ul class="exh-list" role="list">
+                {s.entries.map((e) => (
+                  <li class="exh-item">
+                    {e.year && <span class="exh-year">{e.year}</span>}
+                    <span class="exh-text">{e.text}</span>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          ))}
+        </div>
+      ))
+    }
   </div>
 </BaseLayout>
 
 <style>
-  .placeholder-page {
+  .exhibition-page {
     padding-block: var(--space-6);
+    max-width: 72ch;
   }
-  .placeholder-page .caption {
-    margin-top: var(--space-3);
+  .exh-block + .exh-block {
+    margin-top: var(--space-6);
+    padding-top: var(--space-5);
+    border-top: 1px solid var(--color-fg);
+  }
+  .exh-lang-label {
+    font-family: var(--font-mono);
+    font-size: var(--fs-caption);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-muted);
+    margin-top: var(--space-4);
+  }
+  .exh-section {
+    margin-top: var(--space-5);
+  }
+  .exh-heading {
+    font-family: var(--font-mono);
+    font-size: var(--fs-nav);
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    padding-bottom: var(--space-2);
+    border-bottom: 1px solid var(--color-line);
+  }
+  .exh-list {
+    list-style: none;
+    margin: var(--space-3) 0 0;
+    padding: 0;
+  }
+  .exh-item {
+    display: flex;
+    gap: var(--space-3);
+    padding-block: var(--space-2);
+  }
+  .exh-item + .exh-item {
+    border-top: 1px solid var(--color-line);
+  }
+  .exh-year {
+    flex: 0 0 4ch;
+    font-family: var(--font-mono);
+    color: var(--color-muted);
+  }
+  .exh-text {
+    flex: 1;
   }
 </style>
