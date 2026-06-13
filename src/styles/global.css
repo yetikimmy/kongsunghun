@@ -43,7 +43,7 @@ img {
   display: block;
 }
 
-/* Shared layout primitives */
+/* ── 레이아웃 프리미티브 ── */
 .page {
   min-height: 100vh;
   display: flex;
@@ -57,15 +57,10 @@ img {
   padding-inline: var(--space-5);
 }
 
-@media (max-width: 768px) {
-  .container {
-    padding-inline: var(--space-3);
-  }
-}
-
+/* ── 반응형 타이포그래피 ── */
 .title {
   font-family: var(--font-display);
-  font-size: var(--fs-title);
+  font-size: clamp(20px, 3vw, var(--fs-title));
   line-height: 1.2;
 }
 
@@ -74,7 +69,24 @@ img {
   color: var(--color-muted);
 }
 
-/* Accessibility: visible focus + skip link target */
+/* ── 태블릿 (1024px 이하) ── */
+@media (max-width: 1024px) {
+  .container {
+    padding-inline: var(--space-4);
+  }
+}
+
+/* ── 모바일 (768px 이하) ── */
+@media (max-width: 768px) {
+  .container {
+    padding-inline: var(--space-3);
+  }
+  .title {
+    font-size: clamp(18px, 5vw, 24px);
+  }
+}
+
+/* ── 접근성 ── */
 :focus-visible {
   outline: 2px solid currentColor;
   outline-offset: 2px;
@@ -89,7 +101,6 @@ img {
   white-space: nowrap;
 }
 
-/* Skip link: hidden until focused, then revealed at the top-left. */
 .visually-hidden:focus,
 .visually-hidden:focus-visible {
   position: fixed;
