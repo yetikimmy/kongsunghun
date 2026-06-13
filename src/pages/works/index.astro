@@ -23,8 +23,18 @@ const total = all.length;
 
     <div class="overview-body">
       <p>
-        공성훈의 작업 세계를 BLIND WORK, INSTALLATION WORK, MULTI SLIDE PROJECTION,
-        PAINTINGS 네 갈래로 살펴봅니다. 현재 {total}점의 작업이 공개되어 있습니다.
+        블라인드 작업은 제한된 형태와 색채에 전기적인 움직임을 준 Kinetic작품이다.
+        블라인드의 날개에 스펙트럼처럼 순차적으로 칠한 형광페인트, 그 뒷면에 붙인 알루미늄 테이프의 반사효과,
+        모터의 왕복운동에 의해 변화하는 날개의 각도가 결합하여 빛과 형태의 끊임없는 변화를 보여준다.
+      </p>
+      <p>
+        그리하여 블라인드 작업은 다음과 같은 성격을 지니게 된다.
+      </p>
+      <p>
+        차가움, 무언, 즉 메시지의 부재, 무중력, 솜사탕 같이 가벼움, 블라인드 작업은 제한된 형태와 색채에
+        전기적인 움직임을 준 Kinetic작품이다. 블라인드의 날개에 스펙트럼처럼 순차적으로 칠한 형광페인트,
+        그 뒷면에 붙인 알루미늄 테이프의 반사효과, 모터의 왕복운동에 의해 변화하는 날개의 각도가 결합하여
+        빛과 형태의 끊임없는 변화를 보여준다.
       </p>
     </div>
 
@@ -61,6 +71,9 @@ const total = all.length;
   .overview-body {
     max-width: 56ch;
     margin: var(--space-5) 0;
+  }
+  .overview-body p + p {
+    margin-top: var(--space-3);
   }
   .cat-counts {
     list-style: none;
