@@ -11,6 +11,17 @@
   --color-muted: #666666;
   --color-line: #e5e5e5;
 
+  /* Nav link states (Figma: default/hover/pressed) */
+  --color-nav-default: #cccccc;
+  --color-nav-hover: #767676;
+  --color-nav-pressed: #000000;
+
+  /* Works dropdown tab states */
+  --color-tab-bg: #eeeeee;
+  --color-tab-text: #767676;
+  --color-tab-bg-active: #000000;
+  --color-tab-text-active: #ffffff;
+
   /* Typography families (self-hosted, see BaseLayout font imports) */
   --font-mono: "Geist Mono Variable", ui-monospace, "SFMono-Regular", Menlo, monospace;
   --font-display: "Geist Variable", system-ui, -apple-system, "Segoe UI", sans-serif;
@@ -19,11 +30,15 @@
 
   /* Type scale (px values from Figma) */
   --fs-logo: 28px;
+  --fs-logo-landing: 38px;
+  --ls-logo: 3.36px;
+  --ls-logo-landing: 6.08px;
   --fs-nav: 14px;
   --fs-title: 28px;
   --fs-body: 12px;
   --lh-body: 24px;
   --fs-caption: 10px;
+  --fs-tab: 12px;
 
   /* Layout */
   --content-max: 1000px;   /* content area on 1440 desktop */

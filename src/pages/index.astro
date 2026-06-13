@@ -9,10 +9,13 @@ const here = Astro.url.pathname;
 <BaseLayout title="KONG,SUNG-HUN" bare>
   <section class="landing">
     <div class="landing-media" aria-hidden="true">
-      <!-- Placeholder for landing video/image. Replaces the legacy kong.swf Flash movie. -->
+      <!-- Cover video. Replace /assets/landing/cover.mp4 with the final asset. -->
+      <video class="landing-video" autoplay muted loop playsinline poster="/assets/landing/cover.jpg">
+        <source src="/assets/landing/cover.mp4" type="video/mp4" />
+      </video>
     </div>
     <div class="landing-center">
-      <h1 class="landing-logo">{LOGO_LABEL}</h1>
+      <a class="landing-logo" href={relativeHref("/essay/", here)}>{LOGO_LABEL}</a>
       <nav class="landing-nav" aria-label="주 메뉴">
         <ul>
           {MAIN_NAV.map((item) => <li><a href={relativeHref(item.href, here)}>{item.label}</a></li>)}
@@ -32,11 +35,17 @@ const here = Astro.url.pathname;
     color: var(--color-fg-invert, #ffffff);
     display: grid;
     place-items: center;
+    overflow: hidden;
   }
   .landing-media {
     position: absolute;
     inset: 0;
     background: #111;
+  }
+  .landing-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
   .landing-center {
     position: relative;
@@ -44,10 +53,16 @@ const here = Astro.url.pathname;
     padding: var(--space-5, 40px);
   }
   .landing-logo {
+    display: inline-block;
     font-family: var(--font-mono, ui-monospace, monospace);
-    font-size: clamp(28px, 6vw, 56px);
-    letter-spacing: -0.01em;
+    font-size: clamp(28px, 6vw, var(--fs-logo-landing, 38px));
+    letter-spacing: var(--ls-logo-landing, 6.08px);
     color: var(--color-fg-invert, #ffffff);
+    text-decoration: none;
+  }
+  .landing-logo:hover,
+  .landing-logo:focus-visible {
+    opacity: 0.7;
   }
   .landing-nav ul {
     display: flex;

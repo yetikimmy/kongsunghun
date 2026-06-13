@@ -1,5 +1,5 @@
 ---
-import { MAIN_NAV } from "../lib/nav";
+import { MAIN_NAV, WORK_CATEGORIES } from "../lib/nav";
 import { relativeHref } from "../lib/href";
 
 interface Props {
@@ -7,21 +7,42 @@ interface Props {
 }
 const { current } = Astro.props;
 const here = Astro.url.pathname;
+const currentSeries = WORK_CATEGORIES.find((c) => here.startsWith(c.href))?.series;
 ---
 
 <nav class="nav" aria-label="주 메뉴">
   <ul>
     {
-      MAIN_NAV.map((item) => (
-        <li>
-          <a
-            href={relativeHref(item.href, here)}
-            aria-current={current && item.href.startsWith(current) ? "page" : undefined}
-          >
-            {item.label}
-          </a>
-        </li>
-      ))
+      MAIN_NAV.map((item) => {
+        const isCurrent = current && item.href.startsWith(current);
+        const hasDropdown = item.label === "WORKS";
+        return (
+          <li class:list={["nav-item", { "has-dropdown": hasDropdown }]}>
+            <a
+              href={relativeHref(item.href, here)}
+              aria-current={isCurrent ? "page" : undefined}
+            >
+              {item.label}
+            </a>
+            {hasDropdown && (
+              <div class="dropdown" aria-label="작업 카테고리">
+                <ul>
+                  {WORK_CATEGORIES.map((cat) => (
+                    <li>
+                      <a
+                        class:list={["tab", { active: currentSeries === cat.series }]}
+                        href={relativeHref(cat.href, here)}
+                      >
+                        {cat.label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </li>
+        );
+      })
     }
   </ul>
 </nav>
@@ -36,13 +57,85 @@ const here = Astro.url.pathname;
     font-family: var(--font-mono);
     font-size: var(--fs-nav);
   }
-  .nav a[aria-current="page"] {
-    text-decoration: underline;
+  .nav-item {
+    position: relative;
   }
+  .nav a {
+    color: var(--color-nav-default);
+    text-decoration: none;
+    transition: color 0.15s ease;
+  }
+  .nav a:hover,
+  .nav a:focus-visible {
+    color: var(--color-nav-hover);
+  }
+  .nav a:active,
+  .nav a[aria-current="page"] {
+    color: var(--color-nav-pressed);
+  }
+
+  /* WORKS dropdown: hidden by default, shown on hover/focus of the item */
+  .dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    margin-top: var(--space-2);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.15s ease;
+    white-space: nowrap;
+    z-index: 10;
+  }
+  .nav-item.has-dropdown:hover .dropdown,
+  .nav-item.has-dropdown:focus-within .dropdown {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+  .dropdown ul {
+    display: flex;
+    gap: var(--space-1);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .dropdown .tab {
+    display: flex;
+    align-items: center;
+    height: 18px;
+    padding: 0 var(--space-1);
+    background: var(--color-tab-bg);
+    color: var(--color-tab-text);
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: var(--fs-tab);
+    letter-spacing: normal;
+  }
+  .dropdown .tab:hover {
+    color: var(--color-nav-pressed);
+  }
+  .dropdown .tab.active {
+    background: var(--color-tab-bg-active);
+    color: var(--color-tab-text-active);
+  }
+
   @media (max-width: 768px) {
     .nav ul {
       gap: var(--space-3);
       flex-wrap: wrap;
+    }
+    .dropdown {
+      position: static;
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      margin-top: var(--space-2);
+      display: none;
+    }
+    .nav-item.has-dropdown:hover .dropdown,
+    .nav-item.has-dropdown:focus-within .dropdown {
+      display: block;
     }
   }
 </style>
