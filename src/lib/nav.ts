@@ -8,7 +8,6 @@ export interface NavItem {
 /** Primary header navigation, in Figma order. */
 export const MAIN_NAV: NavItem[] = [
   { label: "WORKS", href: "/works/" },
-  { label: "EXHIBITION", href: "/exhibition/" },
   { label: "ESSAY", href: "/essay/" },
   { label: "C.V.", href: "/cv/" },
   { label: "CONTACT", href: "/contact/" },
