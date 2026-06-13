@@ -12,7 +12,7 @@ const here = Astro.url.pathname;
       <!-- Placeholder: replace with <video> once cover.mp4 is provided -->
     </div>
     <div class="landing-center">
-      <a class="landing-logo" href={relativeHref("/essay/", here)}>{LOGO_LABEL}</a>
+      <a class="landing-logo" href={relativeHref("/works/", here)}>{LOGO_LABEL}</a>
       <nav class="landing-nav" aria-label="주 메뉴">
         <ul>
           {MAIN_NAV.map((item) => <li><a href={relativeHref(item.href, here)}>{item.label}</a></li>)}
