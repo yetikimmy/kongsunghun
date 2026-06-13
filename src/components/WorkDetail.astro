@@ -10,10 +10,13 @@ interface Props {
   index?: number;
   total?: number;
 }
-const { work, backHref, prevHref, nextHref, index, total } = Astro.props;
+const { work, backHref } = Astro.props;
 const d = work.data;
 const here = Astro.url.pathname;
 const rel = (p: string) => relativeHref(p, here);
+
+const images = d.images ?? [];
+const hasMultiple = images.length > 1;
 ---
 
 <article class="detail">
@@ -25,90 +28,174 @@ const rel = (p: string) => relativeHref(p, here);
     </p>
   </header>
 
-  <div class="media">
-    {
-      d.images.map((img) => (
-        <figure>
-          <img
-            src={rel(img.src)}
-            alt={img.alt}
-            width={img.width}
-            height={img.height}
-            onerror="this.closest('figure').classList.add('img-missing')"
-          />
-        </figure>
-      ))
-    }
-  </div>
-
-  {
-    (d.descriptionKo || d.descriptionEn) && (
-      <div class="body-text">
-        {d.descriptionKo && <p>{d.descriptionKo}</p>}
-        {d.descriptionEn && <p lang="en">{d.descriptionEn}</p>}
+  {images.length > 0 && (
+    <div class="slider" data-total={images.length}>
+      <div class="slider-track">
+        {images.map((img, i) => (
+          <figure class="slide" data-index={i} aria-hidden={i !== 0 ? "true" : undefined}>
+            <img
+              src={rel(img.src)}
+              alt={img.alt}
+              width={img.width}
+              height={img.height}
+              loading={i === 0 ? "eager" : "lazy"}
+              onerror="this.closest('figure').classList.add('img-missing')"
+            />
+          </figure>
+        ))}
       </div>
-    )
-  }
+
+      {hasMultiple && (
+        <div class="slider-controls">
+          <button class="slider-btn prev" aria-label="이전 이미지" disabled>Back</button>
+          <span class="slider-pos">
+            <span class="slider-current">1</span> / {images.length}
+          </span>
+          <button class="slider-btn next" aria-label="다음 이미지">Next</button>
+        </div>
+      )}
+    </div>
+  )}
+
+  {(d.descriptionKo || d.descriptionEn) && (
+    <div class="body-text">
+      {d.descriptionKo && <p>{d.descriptionKo}</p>}
+      {d.descriptionEn && <p lang="en">{d.descriptionEn}</p>}
+    </div>
+  )}
 
   {d.caption && <p class="caption work-caption">{d.caption}</p>}
-
-  <nav class="pager" aria-label="작업 탐색">
-    <a href={rel(backHref)}>Back</a>
-    <span class="pager-pos">
-      {prevHref ? <a href={rel(prevHref)}>Prev</a> : <span aria-hidden="true">Prev</span>}
-      {index && total ? <span>{index} / {total}</span> : null}
-      {nextHref ? <a href={rel(nextHref)}>Next</a> : <span aria-hidden="true">Next</span>}
-    </span>
-  </nav>
 </article>
 
 <style>
   .detail-head {
     margin-bottom: var(--space-5);
   }
+  .title {
+    font-family: var(--font-display);
+    font-size: clamp(18px, 3vw, 28px);
+    font-weight: 600;
+    line-height: 1.2;
+  }
   .title-ko {
     font-family: var(--font-display);
-    font-size: 18px;
+    font-size: clamp(14px, 2vw, 18px);
     margin-top: var(--space-1);
   }
-  .media {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-4);
+
+  /* ── 슬라이더 ── */
+  .slider {
+    position: relative;
+    width: 100%;
   }
-  .media figure {
+  .slider-track {
+    position: relative;
+  }
+  .slide {
     margin: 0;
+    display: none;
   }
-  .media figure.img-missing {
+  .slide[data-index="0"],
+  .slide.active {
+    display: block;
+  }
+  .slide img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .slide.img-missing {
     aspect-ratio: 4 / 3;
     background: #f2f2f2;
   }
-  .media figure.img-missing img {
+  .slide.img-missing img {
     display: none;
   }
+
+  .slider-controls {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    margin-top: var(--space-3);
+    font-family: var(--font-mono);
+    font-size: var(--fs-nav);
+  }
+  .slider-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: inherit;
+    color: var(--color-nav-default);
+    padding: 0;
+    transition: color 0.15s;
+  }
+  .slider-btn:hover:not(:disabled) {
+    color: var(--color-nav-pressed);
+  }
+  .slider-btn:disabled {
+    color: var(--color-line);
+    cursor: default;
+  }
+  .slider-pos {
+    color: var(--color-muted);
+    min-width: 4ch;
+    text-align: center;
+  }
+
+  /* ── 본문 ── */
   .body-text {
     max-width: 56ch;
     margin-top: var(--space-5);
+    color: #a0a0a0;
+  }
+  .body-text p + p {
+    margin-top: var(--space-3);
   }
   .work-caption {
     margin-top: var(--space-4);
   }
-  .pager {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: var(--space-6);
-    padding-top: var(--space-3);
-    border-top: 1px solid var(--color-line);
-    font-family: var(--font-mono);
-    font-size: var(--fs-nav);
-  }
-  .pager-pos {
-    display: flex;
-    gap: var(--space-3);
-    align-items: center;
-  }
-  .pager-pos span[aria-hidden="true"] {
-    color: var(--color-line);
+
+  @media (max-width: 768px) {
+    .body-text {
+      max-width: 100%;
+    }
   }
 </style>
+
+<script>
+  document.querySelectorAll<HTMLElement>('.slider').forEach((slider) => {
+    const slides = slider.querySelectorAll<HTMLElement>('.slide');
+    const total = slides.length;
+    if (total <= 1) return;
+
+    const prevBtn = slider.querySelector<HTMLButtonElement>('.prev');
+    const nextBtn = slider.querySelector<HTMLButtonElement>('.next');
+    const currentEl = slider.querySelector<HTMLElement>('.slider-current');
+    let current = 0;
+
+    function show(n: number) {
+      slides[current].classList.remove('active');
+      slides[current].setAttribute('aria-hidden', 'true');
+      slides[current].style.display = 'none';
+
+      current = n;
+
+      slides[current].classList.add('active');
+      slides[current].removeAttribute('aria-hidden');
+      slides[current].style.display = 'block';
+
+      if (currentEl) currentEl.textContent = String(current + 1);
+      if (prevBtn) prevBtn.disabled = current === 0;
+      if (nextBtn) nextBtn.disabled = current === total - 1;
+    }
+
+    // 초기 상태: 첫 번째 슬라이드만 표시
+    slides.forEach((s, i) => {
+      if (i !== 0) s.style.display = 'none';
+    });
+
+    prevBtn?.addEventListener('click', () => { if (current > 0) show(current - 1); });
+    nextBtn?.addEventListener('click', () => { if (current < total - 1) show(current + 1); });
+  });
+</script>

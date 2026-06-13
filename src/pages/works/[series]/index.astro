@@ -1,7 +1,6 @@
 ---
 import { getCollection } from "astro:content";
 import BaseLayout from "../../../layouts/BaseLayout.astro";
-import WorksDropdown from "../../../components/WorksDropdown.astro";
 import WorkGrid from "../../../components/WorkGrid.astro";
 import { WORK_CATEGORIES } from "../../../lib/nav";
 
@@ -24,7 +23,6 @@ const { label, series, works } = Astro.props;
 
 <BaseLayout title={`${label} — KONG,SUNG-HUN`} current="/works/">
   <div class="container cat-index">
-    <WorksDropdown currentSeries={series} />
     <h1 class="title cat-title">{label}</h1>
     {
       works.length > 0 ? (
@@ -41,7 +39,8 @@ const { label, series, works } = Astro.props;
     padding-block: var(--space-5);
   }
   .cat-title {
-    margin-top: var(--space-5);
+    font-size: clamp(18px, 3vw, 28px);
+    margin-bottom: var(--space-5);
   }
   .empty {
     margin-top: var(--space-5);
