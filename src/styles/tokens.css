@@ -41,7 +41,7 @@
   --fs-tab: 12px;
 
   /* Layout */
-  --content-max: 1000px;   /* content area on 1440 desktop */
+  --content-max: 1400px;   /* content area on 1440 desktop */
   --page-gutter: 8px;      /* 12-col gutter feel */
   --columns: 12;
 
