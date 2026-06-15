@@ -1,6 +1,16 @@
 import type { CollectionEntry } from "astro:content";
 
 /**
+ * Series rendered as a single artwork page (all images in one carousel) with
+ * no selection grid. Blind Work is one continuous body of work.
+ */
+export const SINGLE_PAGE_SERIES = ["blind-work"] as const;
+
+export function isSinglePageSeries(series: string): boolean {
+  return (SINGLE_PAGE_SERIES as readonly string[]).includes(series);
+}
+
+/**
  * A single carousel slide within an artwork page. Every slide carries its own
  * title/description/caption so a page can represent either one artwork shown
  * from several angles (e.g. install01 — all slides share a title) or a single
@@ -76,24 +86,51 @@ export function groupWorks(entries: CollectionEntry<"works">[]): WorkGroup[] {
       };
       groups.set(key, group);
     }
-    const images = d.images.length > 0 ? d.images : [{ src: "", alt: d.titleEn }];
-    for (const img of images) {
-      group.slides.push({
-        src: img.src,
-        alt: img.alt,
-        width: img.width,
-        height: img.height,
-        titleKo: d.titleKo,
-        titleEn: d.titleEn,
-        year: d.year,
-        medium: d.medium,
-        dimensions: d.dimensions,
-        descriptionKo: d.descriptionKo,
-        descriptionEn: d.descriptionEn,
-        caption: d.caption,
-      });
-    }
+    group.slides.push(...entryToSlides(d));
   }
 
   return [...groups.values()];
+}
+
+/**
+ * Merge every entry of a series into a single artwork page (one carousel of
+ * all images). Used for Blind Work, where all images belong to one body of
+ * work and there is no per-piece selection grid.
+ */
+export function mergeWorks(
+  entries: CollectionEntry<"works">[],
+  slug: string,
+): WorkGroup {
+  const sorted = [...entries].sort(
+    (a, b) => a.data.order - b.data.order || a.data.slug.localeCompare(b.data.slug),
+  );
+  const first = sorted[0]?.data;
+  const slides = sorted.flatMap((e) => entryToSlides(e.data));
+  return {
+    series: first?.series ?? slug,
+    slug,
+    titleKo: first?.titleKo ?? "",
+    titleEn: first?.titleEn ?? "",
+    year: first?.year ?? null,
+    cover: slides[0] ? { src: slides[0].src, alt: slides[0].alt } : undefined,
+    slides,
+  };
+}
+
+function entryToSlides(d: CollectionEntry<"works">["data"]): WorkSlide[] {
+  const images = d.images.length > 0 ? d.images : [{ src: "", alt: d.titleEn }];
+  return images.map((img) => ({
+    src: img.src,
+    alt: img.alt,
+    width: img.width,
+    height: img.height,
+    titleKo: d.titleKo,
+    titleEn: d.titleEn,
+    year: d.year,
+    medium: d.medium,
+    dimensions: d.dimensions,
+    descriptionKo: d.descriptionKo,
+    descriptionEn: d.descriptionEn,
+    caption: d.caption,
+  }));
 }
