@@ -34,8 +34,11 @@ const blocks = [
           {body.map((b) =>
             b.kind === "heading" ? (
               <h2 class="body-heading">{b.text}</h2>
-            ) : b.kind === "caption" ? (
-              <p class="body-caption">{b.text}</p>
+            ) : b.kind === "figure" ? (
+              <figure class="body-figure">
+                {b.img && <img src={b.img} alt={b.caption} loading="lazy" />}
+                <figcaption class="body-caption">{b.caption}</figcaption>
+              </figure>
             ) : b.kind === "signature" ? (
               <p class="body-signature">{b.text}</p>
             ) : (
@@ -92,10 +95,19 @@ const blocks = [
   .body-para + .body-caption {
     margin-top: var(--space-3);
   }
+  .body-figure {
+    margin: var(--space-5) 0;
+  }
+  .body-figure img {
+    width: 100%;
+    max-width: 496px;
+    height: auto;
+    display: block;
+  }
   .body-caption {
     color: var(--color-muted);
     font-style: italic;
-    margin: var(--space-3) 0;
+    margin-top: var(--space-2);
   }
   .body-signature {
     margin-top: var(--space-2);
