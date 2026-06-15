@@ -20,15 +20,10 @@ const multiple = total > 1;
   <!-- 좌측: 작품 정보 -->
   <div class="detail-info">
     {singlePage ? (
-      /* Single-page series (Blind Work): fixed panel, no data-index → stays visible on every slide */
+      /* Single-page series (Blind Work): fixed panel, no data-index → stays visible on every slide.
+         Title shown as "BLIND WORK"; no per-slide meta line, description directly below. */
       <div class="info-panel">
-        <h1 class="title">{slides[0]?.titleEn}</h1>
-        {slides[0]?.titleKo && slides[0].titleKo !== slides[0].titleEn && (
-          <p class="title-ko">{slides[0].titleKo}</p>
-        )}
-        <p class="meta">
-          {[slides[0]?.year, slides[0]?.medium, slides[0]?.dimensions].filter(Boolean).join(" · ")}
-        </p>
+        <h1 class="title">BLIND WORK</h1>
         {(slides[0]?.descriptionKo || slides[0]?.descriptionEn) && (
           <div class="body-text">
             {slides[0].descriptionKo && <p>{slides[0].descriptionKo}</p>}

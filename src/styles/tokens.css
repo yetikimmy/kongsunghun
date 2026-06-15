@@ -40,6 +40,12 @@
   --fs-caption: 10px;
   --fs-tab: 12px;
 
+  /* Page title sizing (shared by all page headers) and the page top margin,
+     defined as 2.5× the title height (title height = font-size × line-height). */
+  --fs-page-title: clamp(20px, 3vw, 28px);
+  --lh-page-title: 1.2;
+  --page-top: calc(var(--fs-page-title) * var(--lh-page-title) * 2.5);
+
   /* Layout */
   --content-max: 1400px;   /* content area on 1440 desktop */
   --page-gutter: 8px;      /* 12-col gutter feel */

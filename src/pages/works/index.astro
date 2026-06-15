@@ -1,36 +1,64 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import LangToggle from "../../components/LangToggle.astro";
+import overview from "../../../data/works-overview.generated.json";
+
+// Works landing essay "20세기, 라는 소년 / A BOY CALLED THE 20TH CENTURY"
+// (황세준, 월간미술 2007.3). Korean and English are full independent blocks;
+// the LangToggle shows one at a time (Korean default). The bilingual title is
+// always shown (영문/국문 병기), matching the Figma "Landing Page_Essay" frame.
+const blocks = [
+  { lang: "ko" as const, body: overview.ko },
+  { lang: "en" as const, body: overview.en },
+];
 ---
 
 <BaseLayout title="WORKS — KONG,SUNG-HUN" current="/works/">
-  <div class="container works-overview">
-    <h1 class="overview-title">
-      <span class="title-ko">20세기, 라는 소년</span>
-      <span class="title-en">A BOY CALLED<br />THE 20TH CENTURY</span>
-    </h1>
-
-    <div class="overview-body">
-      <p>
-        블라인드 작업은 제한된 형태와 색채에 전기적인 움직임을 준 Kinetic작품이다.
-        블라인드의 날개에 스펙트럼처럼 순차적으로 칠한 형광페인트, 그 뒷면에 붙인 알루미늄 테이프의 반사효과,
-        모터의 왕복운동에 의해 변화하는 날개의 각도가 결합하여 빛과 형태의 끊임없는 변화를 보여준다.
-      </p>
-      <p>
-        그리하여 블라인드 작업은 다음과 같은 성격을 지니게 된다.
-      </p>
-      <p>
-        차가움, 무언, 즉 메시지의 부재, 무중력, 솜사탕 같이 가벼움, 블라인드 작업은 제한된 형태와 색채에
-        전기적인 움직임을 준 Kinetic작품이다. 블라인드의 날개에 스펙트럼처럼 순차적으로 칠한 형광페인트,
-        그 뒷면에 붙인 알루미늄 테이프의 반사효과, 모터의 왕복운동에 의해 변화하는 날개의 각도가 결합하여
-        빛과 형태의 끊임없는 변화를 보여준다.
-      </p>
+  <div class="container works-overview" data-lang-scope>
+    <div class="overview-head">
+      <h1 class="overview-title">
+        <span class="title-ko">{overview.titleKo}</span>
+        <span class="title-en">{overview.titleEn}</span>
+      </h1>
+      <LangToggle />
     </div>
+
+    {
+      blocks.map(({ lang, body }) => (
+        <div
+          class="overview-body"
+          lang={lang === "ko" ? "ko" : "en"}
+          data-lang={lang}
+          hidden={lang !== "ko"}
+        >
+          {body.map((b) =>
+            b.kind === "heading" ? (
+              <h2 class="body-heading">{b.text}</h2>
+            ) : b.kind === "caption" ? (
+              <p class="body-caption">{b.text}</p>
+            ) : b.kind === "signature" ? (
+              <p class="body-signature">{b.text}</p>
+            ) : (
+              <p class="body-para">{b.text}</p>
+            ),
+          )}
+        </div>
+      ))
+    }
   </div>
 </BaseLayout>
 
 <style>
   .works-overview {
-    padding-block: var(--space-6);
+    padding-top: var(--page-top);
+    padding-bottom: var(--space-7);
+  }
+  .overview-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: var(--space-4);
+    flex-wrap: wrap;
   }
   .overview-title {
     display: flex;
@@ -41,31 +69,46 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
     line-height: 1.2;
     margin: 0;
   }
-  .title-ko {
-    font-size: clamp(18px, 2.5vw, 28px);
-    color: var(--color-fg);
-  }
+  .title-ko,
   .title-en {
-    font-size: clamp(18px, 2.5vw, 28px);
+    font-size: var(--fs-page-title);
+    line-height: var(--lh-page-title);
     color: var(--color-fg);
   }
   .overview-body {
-    max-width: 100%;
-    margin: var(--space-5) 0 0;
+    margin: var(--space-6) 0 0;
+    max-width: 1000px;
     color: #a0a0a0;
     font-size: var(--fs-body);
     line-height: var(--lh-body);
   }
-  .overview-body p + p {
+  .body-heading {
+    font-family: var(--font-display);
+    font-size: 16px;
+    color: var(--color-fg);
+    margin: var(--space-5) 0 var(--space-3);
+  }
+  .body-para + .body-para,
+  .body-para + .body-caption {
     margin-top: var(--space-3);
+  }
+  .body-caption {
+    color: var(--color-muted);
+    font-style: italic;
+    margin: var(--space-3) 0;
+  }
+  .body-signature {
+    margin-top: var(--space-2);
+    text-align: right;
+    color: var(--color-muted);
+  }
+  .body-signature:first-of-type {
+    margin-top: var(--space-5);
   }
 
   @media (max-width: 768px) {
     .works-overview {
-      padding-block: var(--space-5);
-    }
-    .overview-body {
-      max-width: 100%;
+      padding-bottom: var(--space-5);
     }
   }
 </style>
