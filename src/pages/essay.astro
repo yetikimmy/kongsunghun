@@ -1,27 +1,41 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import LangToggle from "../components/LangToggle.astro";
 import pages from "../../data/legacy-pages.generated.json";
 
-// "Blind Work" — an interview-form artist essay (1998). Korean is the primary
-// text (essay.htm); the English translation (essay02.htm) follows as a second
-// block so each can be read straight through.
+// Interview-form artist essay (1998). Korean is the primary text (essay.htm),
+// English the translation (essay02.htm). The LangToggle shows one block at a
+// time (Korean default); the bilingual title is always shown (영문/국문 병기),
+// matching the Works landing title format.
 const { ko, en } = pages.essay;
 
+const TITLE_KO = "미술관계자의 변명 - 나와의 인터뷰";
+const TITLE_EN = "EXCUSES OF SOMEONE CONCERNED WITH ART-INTERVIEW WITH MYSELF";
+
 const blocks = [
-  { lang: "ko" as const, label: "국문", essay: ko },
-  { lang: "en" as const, label: "English", essay: en },
+  { lang: "ko" as const, essay: ko },
+  { lang: "en" as const, essay: en },
 ];
 ---
 
 <BaseLayout title="ESSAY — KONG,SUNG-HUN" current="/essay/">
-  <div class="container essay-page">
-    <h1 class="title">ESSAY</h1>
-    <p class="essay-subtitle">{ko.title}</p>
+  <div class="container essay-page" data-lang-scope>
+    <div class="essay-head">
+      <h1 class="essay-title">
+        <span class="title-ko">{TITLE_KO}</span>
+        <span class="title-en">{TITLE_EN}</span>
+      </h1>
+      <LangToggle />
+    </div>
 
     {
-      blocks.map(({ lang, label, essay }) => (
-        <article class="essay-block" lang={lang}>
-          <p class="essay-lang-label">{label}</p>
+      blocks.map(({ lang, essay }) => (
+        <article
+          class="essay-block"
+          lang={lang === "ko" ? "ko" : "en"}
+          data-lang={lang}
+          hidden={lang !== "ko"}
+        >
           {essay.paragraphs.map((p) =>
             p.kind === "heading" ? (
               <h2 class="essay-heading">{p.text}</h2>
@@ -39,31 +53,41 @@ const blocks = [
 
 <style>
   .essay-page {
-    padding-block: var(--space-6);
+    padding-block: var(--space-7);
   }
-  .essay-subtitle {
+  .essay-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: var(--space-4);
+    flex-wrap: wrap;
+  }
+  .essay-title {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
     font-family: var(--font-display);
-    font-size: 18px;
-    color: var(--color-muted);
-    margin-top: var(--space-2);
+    font-weight: 600;
+    line-height: 1.2;
+    margin: 0;
+    max-width: 1000px;
+  }
+  .title-ko,
+  .title-en {
+    font-size: clamp(18px, 2.5vw, 28px);
+    color: var(--color-fg);
   }
   .essay-block {
     margin-top: var(--space-6);
-  }
-  .essay-block + .essay-block {
-    padding-top: var(--space-5);
-    border-top: 1px solid var(--color-fg);
-  }
-  .essay-lang-label {
-    font-family: var(--font-mono);
-    font-size: var(--fs-caption);
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--color-muted);
+    max-width: 1000px;
+    color: #a0a0a0;
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
   }
   .essay-heading {
     font-family: var(--font-display);
-    font-size: 18px;
+    font-size: 16px;
+    color: var(--color-fg);
     margin-top: var(--space-5);
     margin-bottom: var(--space-3);
   }
@@ -74,5 +98,11 @@ const blocks = [
     margin-top: var(--space-5);
     color: var(--color-muted);
     text-align: right;
+  }
+
+  @media (max-width: 768px) {
+    .essay-page {
+      padding-block: var(--space-5);
+    }
   }
 </style>
