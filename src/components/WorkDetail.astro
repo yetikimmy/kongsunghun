@@ -17,11 +17,11 @@ const multiple = total > 1;
 ---
 
 <article class="detail" data-total={total}>
-  <!-- 좌측: 작품 정보 (슬라이드별로 전환) -->
+  <!-- 좌측: 작품 정보 -->
   <div class="detail-info">
     {singlePage ? (
-      /* Single-page series (Blind Work): fixed title only, no per-slide description */
-      <div class="info-slide" data-index={0}>
+      /* Single-page series (Blind Work): fixed panel, no data-index → stays visible on every slide */
+      <div class="info-panel">
         <h1 class="title">{slides[0]?.titleEn}</h1>
         {slides[0]?.titleKo && slides[0].titleKo !== slides[0].titleEn && (
           <p class="title-ko">{slides[0].titleKo}</p>
@@ -29,6 +29,12 @@ const multiple = total > 1;
         <p class="meta">
           {[slides[0]?.year, slides[0]?.medium, slides[0]?.dimensions].filter(Boolean).join(" · ")}
         </p>
+        {(slides[0]?.descriptionKo || slides[0]?.descriptionEn) && (
+          <div class="body-text">
+            {slides[0].descriptionKo && <p>{slides[0].descriptionKo}</p>}
+            {slides[0].descriptionEn && <p lang="en">{slides[0].descriptionEn}</p>}
+          </div>
+        )}
       </div>
     ) : (
       slides.map((s, i) => (
@@ -87,14 +93,6 @@ const multiple = total > 1;
     {slides.map((s, i) => (
       s.caption && (
         <p class="caption media-caption" data-index={i} hidden={i !== 0}>{s.caption}</p>
-      )
-    ))}
-    {singlePage && slides.map((s, i) => (
-      (s.descriptionKo || s.descriptionEn) && (
-        <div class="body-text media-desc" data-index={i} hidden={i !== 0}>
-          {s.descriptionKo && <p>{s.descriptionKo}</p>}
-          {s.descriptionEn && <p lang="en">{s.descriptionEn}</p>}
-        </div>
       )
     ))}
   </div>
@@ -213,14 +211,6 @@ const multiple = total > 1;
     margin-top: var(--space-3);
     line-height: 1.5;
   }
-  .media-desc {
-    margin-top: var(--space-4);
-    color: #a0a0a0;
-    line-height: var(--lh-body);
-  }
-  .media-desc p + p {
-    margin-top: var(--space-3);
-  }
 
   .back-link {
     grid-column: 1 / -1;
@@ -255,7 +245,6 @@ const multiple = total > 1;
       info: detail.querySelectorAll<HTMLElement>(".info-slide"),
       media: detail.querySelectorAll<HTMLElement>(".media-slide"),
       caption: detail.querySelectorAll<HTMLElement>(".media-caption"),
-      desc: detail.querySelectorAll<HTMLElement>(".media-desc"),
     };
     const prevBtn = detail.querySelector<HTMLButtonElement>(".pager-btn.prev");
     const nextBtn = detail.querySelector<HTMLButtonElement>(".pager-btn.next");
@@ -266,7 +255,7 @@ const multiple = total > 1;
 
     function show(n: number) {
       if (n < 0 || n >= total) return;
-      [groups.info, groups.media, groups.caption, groups.desc].forEach((set) => {
+      [groups.info, groups.media, groups.caption].forEach((set) => {
         set.forEach((el) => {
           const idx = Number(el.dataset.index);
           el.hidden = idx !== n;
