@@ -8,6 +8,10 @@
 
 html {
   -webkit-text-size-adjust: 100%;
+  /* Always reserve the vertical scrollbar gutter so short pages (CV, Contact)
+     and long pages (Works, Essay) keep the same content width — the logo and
+     centered content no longer shift left/right on page transitions. */
+  scrollbar-gutter: stable;
 }
 
 body {
