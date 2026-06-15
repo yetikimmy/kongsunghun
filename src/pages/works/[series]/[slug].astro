@@ -2,11 +2,14 @@
 import { getCollection } from "astro:content";
 import BaseLayout from "../../../layouts/BaseLayout.astro";
 import WorkDetail from "../../../components/WorkDetail.astro";
-import { groupWorks } from "../../../lib/works";
+import { groupWorks, isSinglePageSeries } from "../../../lib/works";
 
 export async function getStaticPaths() {
   const all = await getCollection("works");
-  const groups = groupWorks(all.map((w) => w));
+  // Single-page series (Blind Work) are served by the series index itself,
+  // so they don't get individual per-artwork pages here.
+  const entries = all.filter((w) => !isSinglePageSeries(w.data.series));
+  const groups = groupWorks(entries);
   return groups.map((group) => ({
     params: { series: group.series, slug: group.slug },
     props: {
