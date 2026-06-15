@@ -53,7 +53,8 @@ const blocks = [
 
 <style>
   .essay-page {
-    padding-block: var(--space-7);
+    padding-top: var(--page-top);
+    padding-bottom: var(--space-7);
   }
   .essay-head {
     display: flex;
@@ -74,7 +75,8 @@ const blocks = [
   }
   .title-ko,
   .title-en {
-    font-size: clamp(18px, 2.5vw, 28px);
+    font-size: var(--fs-page-title);
+    line-height: var(--lh-page-title);
     color: var(--color-fg);
   }
   .essay-block {
@@ -102,7 +104,7 @@ const blocks = [
 
   @media (max-width: 768px) {
     .essay-page {
-      padding-block: var(--space-5);
+      padding-bottom: var(--space-5);
     }
   }
 </style>

@@ -50,7 +50,8 @@ const blocks = [
 
 <style>
   .works-overview {
-    padding-block: var(--space-7);
+    padding-top: var(--page-top);
+    padding-bottom: var(--space-7);
   }
   .overview-head {
     display: flex;
@@ -70,7 +71,8 @@ const blocks = [
   }
   .title-ko,
   .title-en {
-    font-size: clamp(18px, 2.5vw, 28px);
+    font-size: var(--fs-page-title);
+    line-height: var(--lh-page-title);
     color: var(--color-fg);
   }
   .overview-body {
@@ -106,7 +108,7 @@ const blocks = [
 
   @media (max-width: 768px) {
     .works-overview {
-      padding-block: var(--space-5);
+      padding-bottom: var(--space-5);
     }
   }
 </style>
