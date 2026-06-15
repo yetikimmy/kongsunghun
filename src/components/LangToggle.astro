@@ -1,0 +1,69 @@
+---
+/**
+ * Korean / English language switch, matching the Figma C.V. & Contact frames
+ * (top-right "Korean | English" with a divider). Toggles visibility of
+ * sibling elements marked with [data-lang="ko"] / [data-lang="en"] inside the
+ * nearest ancestor that has the `data-lang-scope` attribute. Korean is default.
+ */
+---
+
+<div class="lang-toggle" role="group" aria-label="언어 선택">
+  <button type="button" class="lang-btn active" data-lang-set="ko" aria-pressed="true">Korean</button>
+  <span class="divider" aria-hidden="true"></span>
+  <button type="button" class="lang-btn" data-lang-set="en" aria-pressed="false">English</button>
+</div>
+
+<style>
+  .lang-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-family: var(--font-mono);
+    font-size: var(--fs-nav);
+  }
+  .lang-btn {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: inherit;
+    color: var(--color-nav-default);
+    transition: color 0.15s;
+  }
+  .lang-btn:hover {
+    color: var(--color-nav-hover);
+  }
+  .lang-btn.active {
+    color: var(--color-nav-pressed);
+  }
+  .divider {
+    width: 1px;
+    height: 10px;
+    background: var(--color-line);
+  }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLElement>(".lang-toggle").forEach((toggle) => {
+    const scope =
+      toggle.closest<HTMLElement>("[data-lang-scope]") ?? document.body;
+    const buttons = toggle.querySelectorAll<HTMLButtonElement>(".lang-btn");
+
+    function setLang(lang: string) {
+      buttons.forEach((b) => {
+        const active = b.dataset.langSet === lang;
+        b.classList.toggle("active", active);
+        b.setAttribute("aria-pressed", String(active));
+      });
+      scope.querySelectorAll<HTMLElement>("[data-lang]").forEach((el) => {
+        el.hidden = el.dataset.lang !== lang;
+      });
+    }
+
+    buttons.forEach((b) =>
+      b.addEventListener("click", () => setLang(b.dataset.langSet || "ko")),
+    );
+    setLang("ko");
+  });
+</script>

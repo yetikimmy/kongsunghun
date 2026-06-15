@@ -1,126 +1,133 @@
 ---
-import type { CollectionEntry } from "astro:content";
 import { relativeHref } from "../lib/href";
+import type { WorkGroup } from "../lib/works";
 
 interface Props {
-  work: CollectionEntry<"works">;
+  group: WorkGroup;
   backHref: string;
-  prevHref?: string;
-  nextHref?: string;
-  index?: number;
-  total?: number;
 }
-const { work, backHref } = Astro.props;
-const d = work.data;
+const { group, backHref } = Astro.props;
 const here = Astro.url.pathname;
 const rel = (p: string) => relativeHref(p, here);
 
-const images = d.images ?? [];
-const hasMultiple = images.length > 1;
+const slides = group.slides;
+const total = slides.length;
+const multiple = total > 1;
 ---
 
-<article class="detail">
-  <header class="detail-head">
-    <h1 class="title">{d.titleEn}</h1>
-    {d.titleKo !== d.titleEn && <p class="title-ko">{d.titleKo}</p>}
-    <p class="caption">
-      {[d.year, d.medium, d.dimensions].filter(Boolean).join(" · ")}
-    </p>
-  </header>
+<article class="detail" data-total={total}>
+  <!-- 좌측: 작품 정보 (슬라이드별로 전환) -->
+  <div class="detail-info">
+    {slides.map((s, i) => (
+      <div class="info-slide" data-index={i} hidden={i !== 0}>
+        <h1 class="title">{s.titleEn}</h1>
+        {s.titleKo && s.titleKo !== s.titleEn && <p class="title-ko">{s.titleKo}</p>}
+        <p class="meta">
+          {[s.year, s.medium, s.dimensions].filter(Boolean).join(" · ")}
+        </p>
+        {(s.descriptionKo || s.descriptionEn) && (
+          <div class="body-text">
+            {s.descriptionKo && <p>{s.descriptionKo}</p>}
+            {s.descriptionEn && <p lang="en">{s.descriptionEn}</p>}
+          </div>
+        )}
+      </div>
+    ))}
+  </div>
 
-  {images.length > 0 && (
-    <div class="slider" data-total={images.length}>
-      <div class="slider-track">
-        {images.map((img, i) => (
-          <figure class="slide" data-index={i} aria-hidden={i !== 0 ? "true" : undefined}>
+  <!-- 우측: 이미지 carousel -->
+  <div class="detail-media">
+    {multiple && (
+      <div class="pager">
+        <button class="pager-btn prev" aria-label="이전 이미지" disabled>Back</button>
+        <span class="pager-pos"><span class="pager-current">1</span> / {total}</span>
+        <button class="pager-btn next" aria-label="다음 이미지">Next</button>
+      </div>
+    )}
+
+    <div class="frame" data-multiple={multiple ? "true" : "false"}>
+      {slides.map((s, i) => (
+        <figure class="media-slide" data-index={i} hidden={i !== 0}>
+          {s.src ? (
             <img
-              src={rel(img.src)}
-              alt={img.alt}
-              width={img.width}
-              height={img.height}
+              src={rel(s.src)}
+              alt={s.alt}
+              width={s.width}
+              height={s.height}
               loading={i === 0 ? "eager" : "lazy"}
               onerror="this.closest('figure').classList.add('img-missing')"
             />
-          </figure>
-        ))}
-      </div>
-
-      {hasMultiple && (
-        <div class="slider-controls">
-          <button class="slider-btn prev" aria-label="이전 이미지" disabled>Back</button>
-          <span class="slider-pos">
-            <span class="slider-current">1</span> / {images.length}
-          </span>
-          <button class="slider-btn next" aria-label="다음 이미지">Next</button>
-        </div>
+          ) : (
+            <span class="placeholder" aria-hidden="true" />
+          )}
+        </figure>
+      ))}
+      {multiple && (
+        <>
+          <button class="zone zone-prev" aria-label="이전 이미지" tabindex="-1"></button>
+          <button class="zone zone-next" aria-label="다음 이미지" tabindex="-1"></button>
+        </>
       )}
     </div>
-  )}
 
-  {(d.descriptionKo || d.descriptionEn) && (
-    <div class="body-text">
-      {d.descriptionKo && <p>{d.descriptionKo}</p>}
-      {d.descriptionEn && <p lang="en">{d.descriptionEn}</p>}
-    </div>
-  )}
+    {slides.map((s, i) => (
+      s.caption && (
+        <p class="caption media-caption" data-index={i} hidden={i !== 0}>{s.caption}</p>
+      )
+    ))}
+  </div>
 
-  {d.caption && <p class="caption work-caption">{d.caption}</p>}
+  <a class="back-link" href={rel(backHref)}>← 목록으로</a>
 </article>
 
 <style>
-  .detail-head {
-    margin-bottom: var(--space-5);
+  .detail {
+    display: grid;
+    grid-template-columns: minmax(0, 410px) minmax(0, 1fr);
+    gap: var(--space-6);
+    align-items: start;
   }
+
+  /* ── 좌측 정보 ── */
   .title {
     font-family: var(--font-display);
-    font-size: clamp(18px, 3vw, 28px);
+    font-size: clamp(18px, 2.4vw, 28px);
     font-weight: 600;
-    line-height: 1.2;
+    line-height: 1.25;
   }
   .title-ko {
     font-family: var(--font-display);
-    font-size: clamp(14px, 2vw, 18px);
+    font-size: clamp(14px, 1.6vw, 18px);
     margin-top: var(--space-1);
   }
-
-  /* ── 슬라이더 ── */
-  .slider {
-    position: relative;
-    width: 100%;
+  .meta {
+    font-size: var(--fs-caption);
+    color: var(--color-muted);
+    margin-top: var(--space-3);
   }
-  .slider-track {
-    position: relative;
+  .body-text {
+    margin-top: var(--space-4);
+    color: #a0a0a0;
+    line-height: var(--lh-body);
   }
-  .slide {
-    margin: 0;
-    display: none;
-  }
-  .slide[data-index="0"],
-  .slide.active {
-    display: block;
-  }
-  .slide img {
-    width: 100%;
-    height: auto;
-    display: block;
-  }
-  .slide.img-missing {
-    aspect-ratio: 4 / 3;
-    background: #f2f2f2;
-  }
-  .slide.img-missing img {
-    display: none;
+  .body-text p + p {
+    margin-top: var(--space-3);
   }
 
-  .slider-controls {
+  /* ── 우측 이미지 carousel ── */
+  .detail-media {
+    display: flex;
+    flex-direction: column;
+  }
+  .pager {
     display: flex;
     align-items: center;
-    gap: var(--space-3);
-    margin-top: var(--space-3);
+    justify-content: space-between;
+    margin-bottom: var(--space-3);
     font-family: var(--font-mono);
     font-size: var(--fs-nav);
   }
-  .slider-btn {
+  .pager-btn {
     background: none;
     border: none;
     cursor: pointer;
@@ -130,66 +137,125 @@ const hasMultiple = images.length > 1;
     padding: 0;
     transition: color 0.15s;
   }
-  .slider-btn:hover:not(:disabled) {
+  .pager-btn:hover:not(:disabled) {
     color: var(--color-nav-pressed);
   }
-  .slider-btn:disabled {
+  .pager-btn:disabled {
     color: var(--color-line);
     cursor: default;
   }
-  .slider-pos {
+  .pager-pos {
     color: var(--color-muted);
-    min-width: 4ch;
-    text-align: center;
   }
 
-  /* ── 본문 ── */
-  .body-text {
-    max-width: 100%;
-    margin-top: var(--space-5);
-    color: #a0a0a0;
+  .frame {
+    position: relative;
   }
-  .body-text p + p {
+  .media-slide {
+    margin: 0;
+  }
+  .media-slide img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .media-slide.img-missing {
+    aspect-ratio: 4 / 3;
+    background: #f2f2f2;
+  }
+  .media-slide.img-missing img {
+    display: none;
+  }
+  .placeholder {
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    background: #f2f2f2;
+  }
+
+  /* 이미지 좌우 클릭 영역 */
+  .zone {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 50%;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    padding: 0;
+  }
+  .zone-prev { left: 0; cursor: w-resize; }
+  .zone-next { right: 0; cursor: e-resize; }
+
+  .media-caption {
     margin-top: var(--space-3);
+    line-height: 1.5;
   }
-  .work-caption {
-    margin-top: var(--space-4);
+
+  .back-link {
+    grid-column: 1 / -1;
+    margin-top: var(--space-6);
+    font-family: var(--font-mono);
+    font-size: var(--fs-nav);
+    color: var(--color-nav-default);
+  }
+  .back-link:hover {
+    color: var(--color-nav-pressed);
+    text-decoration: none;
+  }
+
+  /* ── 모바일/태블릿: 1단 ── */
+  @media (max-width: 900px) {
+    .detail {
+      grid-template-columns: 1fr;
+      gap: var(--space-5);
+    }
+    .detail-media {
+      order: -1; /* 모바일에선 이미지를 위로 */
+    }
   }
 </style>
 
 <script>
-  document.querySelectorAll<HTMLElement>('.slider').forEach((slider) => {
-    const slides = slider.querySelectorAll<HTMLElement>('.slide');
-    const total = slides.length;
+  document.querySelectorAll<HTMLElement>(".detail").forEach((detail) => {
+    const total = Number(detail.dataset.total || "1");
     if (total <= 1) return;
 
-    const prevBtn = slider.querySelector<HTMLButtonElement>('.prev');
-    const nextBtn = slider.querySelector<HTMLButtonElement>('.next');
-    const currentEl = slider.querySelector<HTMLElement>('.slider-current');
+    const groups = {
+      info: detail.querySelectorAll<HTMLElement>(".info-slide"),
+      media: detail.querySelectorAll<HTMLElement>(".media-slide"),
+      caption: detail.querySelectorAll<HTMLElement>(".media-caption"),
+    };
+    const prevBtn = detail.querySelector<HTMLButtonElement>(".pager-btn.prev");
+    const nextBtn = detail.querySelector<HTMLButtonElement>(".pager-btn.next");
+    const zonePrev = detail.querySelector<HTMLElement>(".zone-prev");
+    const zoneNext = detail.querySelector<HTMLElement>(".zone-next");
+    const currentEl = detail.querySelector<HTMLElement>(".pager-current");
     let current = 0;
 
     function show(n: number) {
-      slides[current].classList.remove('active');
-      slides[current].setAttribute('aria-hidden', 'true');
-      slides[current].style.display = 'none';
-
+      if (n < 0 || n >= total) return;
+      [groups.info, groups.media, groups.caption].forEach((set) => {
+        set.forEach((el) => {
+          const idx = Number(el.dataset.index);
+          el.hidden = idx !== n;
+        });
+      });
       current = n;
-
-      slides[current].classList.add('active');
-      slides[current].removeAttribute('aria-hidden');
-      slides[current].style.display = 'block';
-
       if (currentEl) currentEl.textContent = String(current + 1);
       if (prevBtn) prevBtn.disabled = current === 0;
       if (nextBtn) nextBtn.disabled = current === total - 1;
     }
 
-    // 초기 상태: 첫 번째 슬라이드만 표시
-    slides.forEach((s, i) => {
-      if (i !== 0) s.style.display = 'none';
-    });
+    prevBtn?.addEventListener("click", () => show(current - 1));
+    nextBtn?.addEventListener("click", () => show(current + 1));
+    zonePrev?.addEventListener("click", () => show(current - 1));
+    zoneNext?.addEventListener("click", () => show(current + 1));
 
-    prevBtn?.addEventListener('click', () => { if (current > 0) show(current - 1); });
-    nextBtn?.addEventListener('click', () => { if (current < total - 1) show(current + 1); });
+    // 키보드 좌우 화살표
+    detail.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowLeft") show(current - 1);
+      if (e.key === "ArrowRight") show(current + 1);
+    });
   });
 </script>

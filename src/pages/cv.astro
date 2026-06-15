@@ -1,27 +1,28 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import LangToggle from "../components/LangToggle.astro";
 import pages from "../../data/legacy-pages.generated.json";
 
-// The Korean (cv.htm) and English (cv02.htm) CVs have slightly different entry
-// counts per section, so we render them as two complete, independent blocks
-// rather than risk mis-pairing individual lines.
+// The Korean (cv.htm) and English (cv02.htm) CVs are rendered as two complete,
+// independent blocks; the LangToggle shows one at a time (Korean default).
 const { ko, en } = pages.cv;
 
-const renderBlock = (cv: typeof ko) => cv;
 const blocks = [
-  { lang: "ko" as const, label: "국문", cv: renderBlock(ko) },
-  { lang: "en" as const, label: "English", cv: renderBlock(en) },
+  { lang: "ko" as const, cv: ko },
+  { lang: "en" as const, cv: en },
 ];
 ---
 
 <BaseLayout title="C.V. — KONG,SUNG-HUN" current="/cv/">
-  <div class="container cv-page">
-    <h1 class="title">C.V.</h1>
+  <div class="container cv-page" data-lang-scope>
+    <div class="cv-head">
+      <h1 class="title">C.V.</h1>
+      <LangToggle />
+    </div>
 
     {
-      blocks.map(({ lang, label, cv }) => (
-        <div class="cv-block" lang={lang}>
-          <p class="cv-lang-label">{label}</p>
+      blocks.map(({ lang, cv }) => (
+        <div class="cv-block" lang={lang === "ko" ? "ko" : "en"} data-lang={lang} hidden={lang !== "ko"}>
           {cv.intro && <p class="bio">{cv.intro}</p>}
           {cv.sections.map((s) => (
             <section class="cv-section">
@@ -43,21 +44,15 @@ const blocks = [
   .cv-page {
     padding-block: var(--space-6);
   }
-  .cv-block + .cv-block {
-    margin-top: var(--space-6);
-    padding-top: var(--space-5);
-    border-top: 1px solid var(--color-fg);
-  }
-  .cv-lang-label {
-    font-family: var(--font-mono);
-    font-size: var(--fs-caption);
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--color-muted);
-    margin-top: var(--space-4);
+  .cv-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space-4);
+    flex-wrap: wrap;
   }
   .bio {
-    margin: var(--space-2) 0 var(--space-5);
+    margin: var(--space-4) 0 var(--space-5);
     color: var(--color-muted);
   }
   .cv-section {
@@ -78,6 +73,7 @@ const blocks = [
   }
   .cv-item {
     padding-block: var(--space-2);
+    max-width: 80ch;
   }
   .cv-item + .cv-item {
     border-top: 1px solid var(--color-line);
