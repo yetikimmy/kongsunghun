@@ -1,46 +1,70 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import LangToggle from "../components/LangToggle.astro";
 import pages from "../../data/legacy-pages.generated.json";
 
 const { address, tel, email } = pages.contact;
+
+// The legacy contact block interleaves Korean and English lines. Split them so
+// the LangToggle can show one language at a time (Korean default).
+const ko = {
+  labels: { address: "주소", tel: "전화", email: "이메일" },
+  address: address.filter((l) => /[가-힣]/.test(l)),
+  tel: tel.filter((l) => /[가-힣]/.test(l)),
+};
+const en = {
+  labels: { address: "Address", tel: "Tel", email: "Email" },
+  address: address.filter((l) => !/[가-힣]/.test(l)),
+  tel: tel.filter((l) => !/[가-힣]/.test(l)),
+};
+const views = [
+  { lang: "ko" as const, data: ko },
+  { lang: "en" as const, data: en },
+];
 ---
 
 <BaseLayout title="CONTACT — KONG,SUNG-HUN" current="/contact/">
-  <div class="container contact-page">
-    <h1 class="title">CONTACT</h1>
+  <div class="container contact-page" data-lang-scope>
+    <div class="contact-head">
+      <h1 class="title">CONTACT</h1>
+      <LangToggle />
+    </div>
 
-    <dl class="contact-list">
-      <div class="contact-row">
-        <dt>Address</dt>
-        <dd>
-          {address.map((line) => <span class="addr-line">{line}</span>)}
-        </dd>
-      </div>
-
-      <div class="contact-row">
-        <dt>Tel</dt>
-        <dd>
-          {tel.map((line) => <span class="tel-line">{line}</span>)}
-        </dd>
-      </div>
-
-      <div class="contact-row">
-        <dt>Email</dt>
-        <dd>
-          <a href={`mailto:${email}`}>{email}</a>
-        </dd>
-      </div>
-    </dl>
+    {
+      views.map(({ lang, data }) => (
+        <dl class="contact-list" data-lang={lang} hidden={lang !== "ko"}>
+          <div class="contact-row">
+            <dt>{data.labels.address}</dt>
+            <dd>{data.address.map((line) => <span class="line">{line}</span>)}</dd>
+          </div>
+          <div class="contact-row">
+            <dt>{data.labels.tel}</dt>
+            <dd>{data.tel.map((line) => <span class="line">{line}</span>)}</dd>
+          </div>
+          <div class="contact-row">
+            <dt>{data.labels.email}</dt>
+            <dd><a href={`mailto:${email}`}>{email}</a></dd>
+          </div>
+        </dl>
+      ))
+    }
   </div>
 </BaseLayout>
 
 <style>
   .contact-page {
     padding-block: var(--space-6);
-    max-width: 56ch;
+  }
+  .contact-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space-4);
+    flex-wrap: wrap;
   }
   .contact-list {
     margin: var(--space-5) 0 0;
+    max-width: 64ch;
   }
   .contact-row {
     display: grid;
@@ -62,8 +86,7 @@ const { address, tel, email } = pages.contact;
   dd {
     margin: 0;
   }
-  .addr-line,
-  .tel-line {
+  .line {
     display: block;
   }
   @media (max-width: 768px) {

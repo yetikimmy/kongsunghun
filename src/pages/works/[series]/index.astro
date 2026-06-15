@@ -3,6 +3,7 @@ import { getCollection } from "astro:content";
 import BaseLayout from "../../../layouts/BaseLayout.astro";
 import WorkGrid from "../../../components/WorkGrid.astro";
 import { WORK_CATEGORIES } from "../../../lib/nav";
+import { groupWorks } from "../../../lib/works";
 
 export async function getStaticPaths() {
   const all = await getCollection("works");
@@ -11,22 +12,20 @@ export async function getStaticPaths() {
     props: {
       label: cat.label,
       series: cat.series,
-      works: all
-        .filter((w) => w.data.series === cat.series)
-        .sort((a, b) => a.data.order - b.data.order),
+      groups: groupWorks(all.filter((w) => w.data.series === cat.series)),
     },
   }));
 }
 
-const { label, series, works } = Astro.props;
+const { label, groups } = Astro.props;
 ---
 
 <BaseLayout title={`${label} — KONG,SUNG-HUN`} current="/works/">
   <div class="container cat-index">
     <h1 class="title cat-title">{label}</h1>
     {
-      works.length > 0 ? (
-        <WorkGrid works={works} />
+      groups.length > 0 ? (
+        <WorkGrid groups={groups} />
       ) : (
         <p class="caption empty">아직 등록된 작업이 없습니다.</p>
       )
