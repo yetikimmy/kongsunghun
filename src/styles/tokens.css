@@ -44,7 +44,10 @@
      defined as 2.5× the title height (title height = font-size × line-height). */
   --fs-page-title: clamp(20px, 3vw, 28px);
   --lh-page-title: 1.2;
-  --page-top: calc(var(--fs-page-title) * var(--lh-page-title) * 2.5);
+  /* 2.5× the title height (title height = font-size × 1.2):
+     min 20×1.2×2.5=60px, fluid 3vw×1.2×2.5=9vw, max 28×1.2×2.5=84px.
+     Written as an explicit clamp so no engine drops a calc()-nested-clamp. */
+  --page-top: clamp(60px, 9vw, 84px);
 
   /* Layout */
   --content-max: 1400px;   /* content area on 1440 desktop */

@@ -9,8 +9,9 @@ import pages from "../../data/legacy-pages.generated.json";
 // matching the Works landing title format.
 const { ko, en } = pages.essay;
 
-const TITLE_KO = "미술관계자의 변명 - 나와의 인터뷰";
-const TITLE_EN = "EXCUSES OF SOMEONE CONCERNED WITH ART-INTERVIEW WITH MYSELF";
+// Title broken across fixed lines (Korean 2 lines, English 3 lines).
+const TITLE_KO_LINES = ["미술관계자의 변명-", "나와의 인터뷰"];
+const TITLE_EN_LINES = ["EXCUSES OF SOMEONE", "CONCERNED WITH ART-", "INTERVIEW WITH MYSELF"];
 
 const blocks = [
   { lang: "ko" as const, essay: ko },
@@ -22,8 +23,16 @@ const blocks = [
   <div class="container essay-page" data-lang-scope>
     <div class="essay-head">
       <h1 class="essay-title">
-        <span class="title-ko">{TITLE_KO}</span>
-        <span class="title-en">{TITLE_EN}</span>
+        <span class="title-ko">
+          {TITLE_KO_LINES.map((line, i) => (
+            <>{i > 0 && <br />}{line}</>
+          ))}
+        </span>
+        <span class="title-en">
+          {TITLE_EN_LINES.map((line, i) => (
+            <>{i > 0 && <br />}{line}</>
+          ))}
+        </span>
       </h1>
       <LangToggle />
     </div>
