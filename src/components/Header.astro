@@ -13,8 +13,8 @@ const here = Astro.url.pathname;
 
 <header class:list={["header", { invert }]}>
   <div class="container header-inner">
-    <Navigation current={current} />
     <a class="logo" href={relativeHref("/", here)}>{LOGO_LABEL}</a>
+    <Navigation current={current} />
   </div>
 </header>
 
