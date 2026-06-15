@@ -24,6 +24,10 @@
 
   /* Typography families (self-hosted, see BaseLayout font imports) */
   --font-mono: "Geist Mono Variable", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  /* Latin labels in Geist Mono, but Korean glyphs (which Geist Mono lacks)
+     fall back to Pretendard instead of the system 굴림. */
+  --font-mono-label: "Geist Mono Variable", ui-monospace, "SFMono-Regular", Menlo,
+    "Pretendard Variable", "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic", monospace;
   --font-display: "Geist Variable", system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-body: "Pretendard Variable", "Pretendard", system-ui, -apple-system,
     "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
