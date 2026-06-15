@@ -13,8 +13,8 @@ const here = Astro.url.pathname;
 
 <header class:list={["header", { invert }]}>
   <div class="container header-inner">
-    <a class="logo" href={relativeHref("/", here)}>{LOGO_LABEL}</a>
     <Navigation current={current} />
+    <a class="logo" href={relativeHref("/", here)}>{LOGO_LABEL}</a>
   </div>
 </header>
 
@@ -30,9 +30,9 @@ const here = Astro.url.pathname;
   .header-inner {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    gap: var(--space-4);
-    padding-block: var(--space-3);
+    justify-content: flex-start;
+    gap: var(--space-6);
+    padding-block: var(--space-4);
   }
   .logo {
     font-family: var(--font-mono);
