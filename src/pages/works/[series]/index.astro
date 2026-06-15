@@ -7,6 +7,11 @@ import { WORK_CATEGORIES } from "../../../lib/nav";
 import { groupWorks, mergeWorks, isSinglePageSeries } from "../../../lib/works";
 
 export async function getStaticPaths() {
+  const SERIES_COLUMNS: Record<string, number> = {
+    "installation-work": 5,
+    "multi-slide-projection": 4,
+    "paintings": 2,
+  };
   const all = await getCollection("works");
   return WORK_CATEGORIES.map((cat) => {
     const entries = all.filter((w) => w.data.series === cat.series);
@@ -17,6 +22,7 @@ export async function getStaticPaths() {
         label: cat.label,
         series: cat.series,
         single,
+        columns: SERIES_COLUMNS[cat.series] ?? 3,
         groups: single ? [] : groupWorks(entries),
         merged: single ? mergeWorks(entries, cat.series) : null,
       },
@@ -24,19 +30,19 @@ export async function getStaticPaths() {
   });
 }
 
-const { label, single, groups, merged } = Astro.props;
+const { label, single, groups, merged, columns } = Astro.props;
 ---
 
 <BaseLayout title={`${label} — KONG,SUNG-HUN`} current="/works/">
   <div class="container cat-index">
     {
       single && merged ? (
-        <WorkDetail group={merged} backHref="/works/" />
+        <WorkDetail group={merged} backHref="/works/" singlePage={true} />
       ) : (
         <>
           <h1 class="title cat-title">{label}</h1>
           {groups.length > 0 ? (
-            <WorkGrid groups={groups} />
+            <WorkGrid groups={groups} columns={columns} />
           ) : (
             <p class="caption empty">아직 등록된 작업이 없습니다.</p>
           )}
@@ -48,7 +54,7 @@ const { label, single, groups, merged } = Astro.props;
 
 <style>
   .cat-index {
-    padding-block: var(--space-5);
+    padding-block: var(--space-7);
   }
   .cat-title {
     font-size: clamp(18px, 3vw, 28px);

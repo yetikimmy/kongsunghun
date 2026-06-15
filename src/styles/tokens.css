@@ -52,6 +52,7 @@
   --space-4: 24px;
   --space-5: 40px;
   --space-6: 64px;
+  --space-7: 96px;
 
   /* Breakpoint reference (used in media queries below) */
   --bp-mobile: 768px;

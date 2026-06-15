@@ -4,12 +4,13 @@ import type { WorkGroup } from "../lib/works";
 
 interface Props {
   groups: WorkGroup[];
+  columns?: number;
 }
-const { groups } = Astro.props;
+const { groups, columns = 3 } = Astro.props;
 const here = Astro.url.pathname;
 ---
 
-<ul class="grid" role="list">
+<ul class="grid" role="list" style={`--cols: ${columns}`}>
   {
     groups.map((group) => {
       const cover = group.cover;
@@ -45,7 +46,7 @@ const here = Astro.url.pathname;
 <style>
   .grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(var(--cols, 3), 1fr);
     gap: var(--space-5) var(--space-4);
     list-style: none;
     margin: var(--space-5) 0 0;
@@ -89,7 +90,7 @@ const here = Astro.url.pathname;
   }
   @media (max-width: 1024px) {
     .grid {
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(min(var(--cols, 3), 2), 1fr);
     }
   }
   @media (max-width: 480px) {

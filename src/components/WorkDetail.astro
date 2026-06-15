@@ -5,8 +5,9 @@ import type { WorkGroup } from "../lib/works";
 interface Props {
   group: WorkGroup;
   backHref: string;
+  singlePage?: boolean;
 }
-const { group, backHref } = Astro.props;
+const { group, backHref, singlePage = false } = Astro.props;
 const here = Astro.url.pathname;
 const rel = (p: string) => relativeHref(p, here);
 
@@ -18,21 +19,34 @@ const multiple = total > 1;
 <article class="detail" data-total={total}>
   <!-- 좌측: 작품 정보 (슬라이드별로 전환) -->
   <div class="detail-info">
-    {slides.map((s, i) => (
-      <div class="info-slide" data-index={i} hidden={i !== 0}>
-        <h1 class="title">{s.titleEn}</h1>
-        {s.titleKo && s.titleKo !== s.titleEn && <p class="title-ko">{s.titleKo}</p>}
-        <p class="meta">
-          {[s.year, s.medium, s.dimensions].filter(Boolean).join(" · ")}
-        </p>
-        {(s.descriptionKo || s.descriptionEn) && (
-          <div class="body-text">
-            {s.descriptionKo && <p>{s.descriptionKo}</p>}
-            {s.descriptionEn && <p lang="en">{s.descriptionEn}</p>}
-          </div>
+    {singlePage ? (
+      /* Single-page series (Blind Work): fixed title only, no per-slide description */
+      <div class="info-slide" data-index={0}>
+        <h1 class="title">{slides[0]?.titleEn}</h1>
+        {slides[0]?.titleKo && slides[0].titleKo !== slides[0].titleEn && (
+          <p class="title-ko">{slides[0].titleKo}</p>
         )}
+        <p class="meta">
+          {[slides[0]?.year, slides[0]?.medium, slides[0]?.dimensions].filter(Boolean).join(" · ")}
+        </p>
       </div>
-    ))}
+    ) : (
+      slides.map((s, i) => (
+        <div class="info-slide" data-index={i} hidden={i !== 0}>
+          <h1 class="title">{s.titleEn}</h1>
+          {s.titleKo && s.titleKo !== s.titleEn && <p class="title-ko">{s.titleKo}</p>}
+          <p class="meta">
+            {[s.year, s.medium, s.dimensions].filter(Boolean).join(" · ")}
+          </p>
+          {(s.descriptionKo || s.descriptionEn) && (
+            <div class="body-text">
+              {s.descriptionKo && <p>{s.descriptionKo}</p>}
+              {s.descriptionEn && <p lang="en">{s.descriptionEn}</p>}
+            </div>
+          )}
+        </div>
+      ))
+    )}
   </div>
 
   <!-- 우측: 이미지 carousel -->
@@ -75,6 +89,14 @@ const multiple = total > 1;
         <p class="caption media-caption" data-index={i} hidden={i !== 0}>{s.caption}</p>
       )
     ))}
+    {singlePage && slides.map((s, i) => (
+      (s.descriptionKo || s.descriptionEn) && (
+        <div class="body-text media-desc" data-index={i} hidden={i !== 0}>
+          {s.descriptionKo && <p>{s.descriptionKo}</p>}
+          {s.descriptionEn && <p lang="en">{s.descriptionEn}</p>}
+        </div>
+      )
+    ))}
   </div>
 
   <a class="back-link" href={rel(backHref)}>← 목록으로</a>
@@ -83,7 +105,7 @@ const multiple = total > 1;
 <style>
   .detail {
     display: grid;
-    grid-template-columns: minmax(0, 410px) minmax(0, 1fr);
+    grid-template-columns: minmax(0, 410px) minmax(0, calc(496 / 1440 * 100vw));
     gap: var(--space-6);
     align-items: start;
   }
@@ -191,6 +213,14 @@ const multiple = total > 1;
     margin-top: var(--space-3);
     line-height: 1.5;
   }
+  .media-desc {
+    margin-top: var(--space-4);
+    color: #a0a0a0;
+    line-height: var(--lh-body);
+  }
+  .media-desc p + p {
+    margin-top: var(--space-3);
+  }
 
   .back-link {
     grid-column: 1 / -1;
@@ -225,6 +255,7 @@ const multiple = total > 1;
       info: detail.querySelectorAll<HTMLElement>(".info-slide"),
       media: detail.querySelectorAll<HTMLElement>(".media-slide"),
       caption: detail.querySelectorAll<HTMLElement>(".media-caption"),
+      desc: detail.querySelectorAll<HTMLElement>(".media-desc"),
     };
     const prevBtn = detail.querySelector<HTMLButtonElement>(".pager-btn.prev");
     const nextBtn = detail.querySelector<HTMLButtonElement>(".pager-btn.next");
@@ -235,7 +266,7 @@ const multiple = total > 1;
 
     function show(n: number) {
       if (n < 0 || n >= total) return;
-      [groups.info, groups.media, groups.caption].forEach((set) => {
+      [groups.info, groups.media, groups.caption, groups.desc].forEach((set) => {
         set.forEach((el) => {
           const idx = Number(el.dataset.index);
           el.hidden = idx !== n;
