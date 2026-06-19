@@ -3,6 +3,7 @@ import { getCollection } from "astro:content";
 import BaseLayout from "../../../layouts/BaseLayout.astro";
 import WorkGrid from "../../../components/WorkGrid.astro";
 import WorkDetail from "../../../components/WorkDetail.astro";
+import LangToggle from "../../../components/LangToggle.astro";
 import { WORK_CATEGORIES } from "../../../lib/nav";
 import { groupWorks, mergeWorks, isSinglePageSeries } from "../../../lib/works";
 
@@ -47,14 +48,17 @@ const { label, single, groups, merged, columns, layout, showLangToggle } = Astro
       single && merged ? (
         <WorkDetail group={merged} backHref="/works/" singlePage={true} />
       ) : (
-        <>
-          <h1 class="title cat-title">{label}</h1>
+        <div data-lang-scope={showLangToggle || undefined}>
+          <div class="cat-head">
+            <h1 class="title cat-title">{label}</h1>
+            {showLangToggle && <LangToggle />}
+          </div>
           {groups.length > 0 ? (
             <WorkGrid groups={groups} columns={columns} layout={layout} showLangToggle={showLangToggle} />
           ) : (
             <p class="caption empty">아직 등록된 작업이 없습니다.</p>
           )}
-        </>
+        </div>
       )
     }
   </div>
@@ -64,6 +68,13 @@ const { label, single, groups, merged, columns, layout, showLangToggle } = Astro
   .cat-index {
     padding-top: var(--page-top);
     padding-bottom: var(--space-7);
+  }
+  .cat-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space-4);
+    flex-wrap: wrap;
   }
   .cat-title {
     font-size: clamp(18px, 3vw, 28px);

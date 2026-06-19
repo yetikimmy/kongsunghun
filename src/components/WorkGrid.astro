@@ -1,6 +1,5 @@
 ---
 import { relativeHref } from "../lib/href";
-import LangToggle from "./LangToggle.astro";
 import type { WorkGroup } from "../lib/works";
 
 interface Props {
@@ -14,40 +13,36 @@ const { groups, columns = 3, layout = "grid", showLangToggle = false } = Astro.p
 const here = Astro.url.pathname;
 ---
 
-{showLangToggle && (
-  <div class="grid-lang-bar" data-lang-scope>
-    <LangToggle />
-
-    {layout === "grid" ? (
-      <ul class="grid" role="list" style={`--cols: ${columns}`}>
-        {groups.map((group) => {
-          const cover = group.cover;
-          const count = group.slides.length;
-          return (
-            <li class="card">
-              <a href={relativeHref(`/works/${group.series}/${group.slug}/`, here)}>
-                <div class="thumb thumb--square">
-                  {cover ? (
-                    <img
-                      src={relativeHref(cover.src, here)}
-                      alt={cover.alt}
-                      loading="lazy"
-                      onerror="this.style.display='none'"
-                    />
-                  ) : (
-                    <span class="placeholder" aria-hidden="true" />
-                  )}
-                  {count > 1 && <span class="count" aria-label={`이미지 ${count}장`}>{count}</span>}
-                </div>
-                <p class="card-title card-title--center" data-lang="ko" hidden={false}>{group.titleKo}</p>
-                <p class="card-title card-title--center" data-lang="en" hidden={true}>{group.titleEn}</p>
-              </a>
-            </li>
-          );
-        })}
-      </ul>
-    ) : null}
-  </div>
+{showLangToggle && layout === "grid" && (
+  <ul class="grid" role="list" style={`--cols: ${columns}`}>
+    {groups.map((group) => {
+      const cover = group.cover;
+      const count = group.slides.length;
+      return (
+        <li class="card">
+          <a href={relativeHref(`/works/${group.series}/${group.slug}/`, here)}>
+            <div class="thumb thumb--square">
+              {cover ? (
+                <img
+                  src={relativeHref(cover.src, here)}
+                  alt={cover.alt}
+                  loading="lazy"
+                  onerror="this.style.display='none'"
+                />
+              ) : (
+                <span class="placeholder" aria-hidden="true" />
+              )}
+              {count > 1 && <span class="count" aria-label={`이미지 ${count}장`}>{count}</span>}
+            </div>
+            <div class="card-title-area">
+              <p class="card-title card-title--center" data-lang="ko">{group.titleKo}</p>
+              <p class="card-title card-title--center" data-lang="en" hidden={true}>{group.titleEn}</p>
+            </div>
+          </a>
+        </li>
+      );
+    })}
+  </ul>
 )}
 
 {!showLangToggle && layout === "grid" && (
@@ -117,15 +112,6 @@ const here = Astro.url.pathname;
 )}
 
 <style>
-  /* ── shared ── */
-  .grid-lang-bar {
-    margin-top: var(--space-5);
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-4);
-    align-items: flex-start;
-  }
-
   /* ── standard grid (multi-slide, blind, etc.) ── */
   .grid {
     display: grid;
@@ -170,6 +156,9 @@ const here = Astro.url.pathname;
     font-family: var(--font-mono);
     font-size: 10px;
     border-radius: 9px;
+  }
+  .card-title-area {
+    min-height: 34px; /* prevent layout shift on lang toggle */
   }
   .card-title {
     font-family: var(--font-body);
