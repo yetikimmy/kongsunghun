@@ -1,6 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { LOGO_LABEL, MAIN_NAV } from "../lib/nav";
+import { LOGO_LABEL } from "../lib/nav";
 import { relativeHref } from "../lib/href";
 
 const here = Astro.url.pathname;
@@ -9,18 +9,59 @@ const here = Astro.url.pathname;
 <BaseLayout title="KONG,SUNG-HUN" bare>
   <section class="landing">
     <div class="landing-media" aria-hidden="true">
-      <!-- Placeholder: replace with <video> once cover.mp4 is provided -->
+      <video
+        class="landing-video"
+        src={relativeHref("/assets/landing/공성훈-추락.mp4", here)}
+        autoplay
+        muted
+        loop
+        playsinline
+      ></video>
     </div>
     <div class="landing-center">
       <a class="landing-logo" href={relativeHref("/works/", here)}>{LOGO_LABEL}</a>
-      <nav class="landing-nav" aria-label="주 메뉴">
-        <ul>
-          {MAIN_NAV.map((item) => <li><a href={relativeHref(item.href, here)}>{item.label}</a></li>)}
-        </ul>
-      </nav>
     </div>
   </section>
 </BaseLayout>
+
+<style>
+  .landing {
+    position: relative;
+    min-height: 100vh;
+    background: var(--color-bg-invert, #000000);
+    color: var(--color-fg-invert, #ffffff);
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+  }
+  .landing-media {
+    position: absolute;
+    inset: 0;
+    background: #000;
+  }
+  .landing-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .landing-center {
+    position: relative;
+    text-align: center;
+    padding: var(--space-5, 40px);
+  }
+  .landing-logo {
+    display: inline-block;
+    font-family: var(--font-mono, ui-monospace, monospace);
+    font-size: clamp(28px, 6vw, var(--fs-logo-landing, 38px));
+    letter-spacing: var(--ls-logo-landing, 6.08px);
+    color: var(--color-fg-invert, #ffffff);
+    text-decoration: none;
+  }
+  .landing-logo:focus-visible {
+    opacity: 0.7;
+  }
+</style>
+
 
 <style>
   /* Literal fallbacks in var() keep the landing legible even if the bundled

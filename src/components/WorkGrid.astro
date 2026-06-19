@@ -1,18 +1,58 @@
 ---
 import { relativeHref } from "../lib/href";
+import LangToggle from "./LangToggle.astro";
 import type { WorkGroup } from "../lib/works";
 
 interface Props {
   groups: WorkGroup[];
   columns?: number;
+  /** "grid" = square thumbnail grid (default), "list" = horizontal image+text rows */
+  layout?: "grid" | "list";
+  showLangToggle?: boolean;
 }
-const { groups, columns = 3 } = Astro.props;
+const { groups, columns = 3, layout = "grid", showLangToggle = false } = Astro.props;
 const here = Astro.url.pathname;
 ---
 
-<ul class="grid" role="list" style={`--cols: ${columns}`}>
-  {
-    groups.map((group) => {
+{showLangToggle && (
+  <div class="grid-lang-bar" data-lang-scope>
+    <LangToggle />
+
+    {layout === "grid" ? (
+      <ul class="grid" role="list" style={`--cols: ${columns}`}>
+        {groups.map((group) => {
+          const cover = group.cover;
+          const count = group.slides.length;
+          return (
+            <li class="card">
+              <a href={relativeHref(`/works/${group.series}/${group.slug}/`, here)}>
+                <div class="thumb thumb--square">
+                  {cover ? (
+                    <img
+                      src={relativeHref(cover.src, here)}
+                      alt={cover.alt}
+                      loading="lazy"
+                      onerror="this.style.display='none'"
+                    />
+                  ) : (
+                    <span class="placeholder" aria-hidden="true" />
+                  )}
+                  {count > 1 && <span class="count" aria-label={`이미지 ${count}장`}>{count}</span>}
+                </div>
+                <p class="card-title card-title--center" data-lang="ko" hidden={false}>{group.titleKo}</p>
+                <p class="card-title card-title--center" data-lang="en" hidden={true}>{group.titleEn}</p>
+              </a>
+            </li>
+          );
+        })}
+      </ul>
+    ) : null}
+  </div>
+)}
+
+{!showLangToggle && layout === "grid" && (
+  <ul class="grid" role="list" style={`--cols: ${columns}`}>
+    {groups.map((group) => {
       const cover = group.cover;
       const count = group.slides.length;
       return (
@@ -39,11 +79,54 @@ const here = Astro.url.pathname;
           </a>
         </li>
       );
-    })
-  }
-</ul>
+    })}
+  </ul>
+)}
+
+{layout === "list" && (
+  <ul class="paint-list" role="list">
+    {groups.map((group) => {
+      const cover = group.cover;
+      return (
+        <li class="paint-item">
+          <a href={relativeHref(`/works/${group.series}/${group.slug}/`, here)}>
+            <div class="paint-thumb">
+              {cover ? (
+                <img
+                  src={relativeHref(cover.src, here)}
+                  alt={cover.alt}
+                  loading="lazy"
+                  onerror="this.style.display='none'"
+                />
+              ) : (
+                <span class="placeholder" aria-hidden="true" />
+              )}
+            </div>
+            <div class="paint-info">
+              <p class="paint-title">{group.titleKo}</p>
+              <p class="paint-meta">
+                {group.titleKo !== group.titleEn ? group.titleEn : ""}
+                {group.year ? (group.titleKo !== group.titleEn ? ` (${group.year})` : String(group.year)) : ""}
+              </p>
+            </div>
+          </a>
+        </li>
+      );
+    })}
+  </ul>
+)}
 
 <style>
+  /* ── shared ── */
+  .grid-lang-bar {
+    margin-top: var(--space-5);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    align-items: flex-start;
+  }
+
+  /* ── standard grid (multi-slide, blind, etc.) ── */
   .grid {
     display: grid;
     grid-template-columns: repeat(var(--cols, 3), 1fr);
@@ -58,7 +141,11 @@ const here = Astro.url.pathname;
     background: #f2f2f2;
     overflow: hidden;
   }
-  .thumb img {
+  .thumb--square {
+    aspect-ratio: 1 / 1;
+  }
+  .thumb img,
+  .thumb--square img {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -85,12 +172,76 @@ const here = Astro.url.pathname;
     border-radius: 9px;
   }
   .card-title {
+    font-family: var(--font-body);
     font-size: var(--fs-body);
+    color: #656565;
     margin-top: var(--space-2);
+    line-height: 15px;
   }
+  .card-title--center {
+    text-align: center;
+  }
+
+  /* ── Paintings horizontal list ── */
+  .paint-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 38px 92px;
+    list-style: none;
+    margin: var(--space-5) 0 0;
+    padding: 0;
+  }
+  .paint-item a {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    text-decoration: none;
+  }
+  .paint-item a:hover .paint-title {
+    text-decoration: underline;
+  }
+  .paint-thumb {
+    flex: 0 0 196px;
+    width: 196px;
+    height: 158px;
+    background: #f2f2f2;
+    overflow: hidden;
+  }
+  .paint-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .paint-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    min-width: 0;
+  }
+  .paint-title {
+    font-family: var(--font-body);
+    font-size: var(--fs-body);
+    line-height: 16px;
+    color: var(--color-fg);
+    margin: 0;
+  }
+  .paint-meta {
+    font-family: var(--font-body);
+    font-size: var(--fs-body);
+    line-height: 16px;
+    color: #656565;
+    margin: 0;
+  }
+
+  /* ── responsive ── */
   @media (max-width: 1024px) {
     .grid {
       grid-template-columns: repeat(min(var(--cols, 3), 2), 1fr);
+    }
+    .paint-list {
+      grid-template-columns: 1fr;
+      gap: 24px 0;
     }
   }
   @media (max-width: 480px) {
