@@ -3,6 +3,7 @@ import { getCollection } from "astro:content";
 import BaseLayout from "../../../layouts/BaseLayout.astro";
 import WorkGrid from "../../../components/WorkGrid.astro";
 import WorkDetail from "../../../components/WorkDetail.astro";
+import LangToggle from "../../../components/LangToggle.astro";
 import { WORK_CATEGORIES } from "../../../lib/nav";
 import { groupWorks, mergeWorks, isSinglePageSeries } from "../../../lib/works";
 
@@ -11,6 +12,12 @@ export async function getStaticPaths() {
     "installation-work": 5,
     "multi-slide-projection": 4,
     "paintings": 2,
+  };
+  const SERIES_LAYOUT: Record<string, "grid" | "list"> = {
+    "paintings": "list",
+  };
+  const SERIES_LANG_TOGGLE: Record<string, boolean> = {
+    "installation-work": true,
   };
   const all = await getCollection("works");
   return WORK_CATEGORIES.map((cat) => {
@@ -23,6 +30,8 @@ export async function getStaticPaths() {
         series: cat.series,
         single,
         columns: SERIES_COLUMNS[cat.series] ?? 3,
+        layout: SERIES_LAYOUT[cat.series] ?? "grid",
+        showLangToggle: SERIES_LANG_TOGGLE[cat.series] ?? false,
         groups: single ? [] : groupWorks(entries),
         merged: single ? mergeWorks(entries, cat.series) : null,
       },
@@ -30,7 +39,7 @@ export async function getStaticPaths() {
   });
 }
 
-const { label, single, groups, merged, columns } = Astro.props;
+const { label, single, groups, merged, columns, layout, showLangToggle } = Astro.props;
 ---
 
 <BaseLayout title={`${label} — KONG,SUNG-HUN`} current="/works/">
@@ -39,14 +48,17 @@ const { label, single, groups, merged, columns } = Astro.props;
       single && merged ? (
         <WorkDetail group={merged} backHref="/works/" singlePage={true} />
       ) : (
-        <>
-          <h1 class="title cat-title">{label}</h1>
+        <div data-lang-scope={showLangToggle || undefined}>
+          <div class="cat-head">
+            <h1 class="title cat-title">{label}</h1>
+            {showLangToggle && <LangToggle />}
+          </div>
           {groups.length > 0 ? (
-            <WorkGrid groups={groups} columns={columns} />
+            <WorkGrid groups={groups} columns={columns} layout={layout} showLangToggle={showLangToggle} />
           ) : (
             <p class="caption empty">아직 등록된 작업이 없습니다.</p>
           )}
-        </>
+        </div>
       )
     }
   </div>
@@ -56,6 +68,13 @@ const { label, single, groups, merged, columns } = Astro.props;
   .cat-index {
     padding-top: var(--page-top);
     padding-bottom: var(--space-7);
+  }
+  .cat-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space-4);
+    flex-wrap: wrap;
   }
   .cat-title {
     font-size: clamp(18px, 3vw, 28px);

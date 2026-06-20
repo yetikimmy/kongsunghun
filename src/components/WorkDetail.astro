@@ -32,21 +32,26 @@ const multiple = total > 1;
         )}
       </div>
     ) : (
-      slides.map((s, i) => (
-        <div class="info-slide" data-index={i} hidden={i !== 0}>
-          <h1 class="title">{s.titleEn}</h1>
-          {s.titleKo && s.titleKo !== s.titleEn && <p class="title-ko">{s.titleKo}</p>}
-          <p class="meta">
-            {[s.year, s.medium, s.dimensions].filter(Boolean).join(" · ")}
-          </p>
-          {(s.descriptionKo || s.descriptionEn) && (
-            <div class="body-text">
-              {s.descriptionKo && <p>{s.descriptionKo}</p>}
-              {s.descriptionEn && <p lang="en">{s.descriptionEn}</p>}
-            </div>
-          )}
-        </div>
-      ))
+      <>
+        {/* Group title is fixed — does not change when advancing slides */}
+        <h1 class="title">{group.titleEn}</h1>
+        {group.titleKo && group.titleKo !== group.titleEn && (
+          <p class="title-ko">{group.titleKo}</p>
+        )}
+        {slides.map((s, i) => (
+          <div class="info-slide" data-index={i} hidden={i !== 0}>
+            <p class="meta">
+              {[s.year, s.medium, s.dimensions].filter(Boolean).join(" · ")}
+            </p>
+            {(s.descriptionKo || s.descriptionEn) && (
+              <div class="body-text">
+                {s.descriptionKo && <p>{s.descriptionKo}</p>}
+                {s.descriptionEn && <p lang="en">{s.descriptionEn}</p>}
+              </div>
+            )}
+          </div>
+        ))}
+      </>
     )}
   </div>
 
