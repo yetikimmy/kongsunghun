@@ -1,53 +1,10 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import LangToggle from "../components/LangToggle.astro";
-import pages from "../../data/legacy-pages.generated.json";
-
-const { address, tel, email } = pages.contact;
-
-// The legacy contact block interleaves Korean and English lines. Split them so
-// the LangToggle can show one language at a time (Korean default).
-const ko = {
-  labels: { address: "주소", tel: "전화", email: "이메일" },
-  address: address.filter((l) => /[가-힣]/.test(l)),
-  tel: tel.filter((l) => /[가-힣]/.test(l)),
-};
-const en = {
-  labels: { address: "Address", tel: "Tel", email: "Email" },
-  address: address.filter((l) => !/[가-힣]/.test(l)),
-  tel: tel.filter((l) => !/[가-힣]/.test(l)),
-};
-const views = [
-  { lang: "ko" as const, data: ko },
-  { lang: "en" as const, data: en },
-];
 ---
 
 <BaseLayout title="CONTACT — KONG,SUNG-HUN" current="/contact/">
-  <div class="container contact-page" data-lang-scope>
-    <div class="contact-head">
-      <h1 class="title">CONTACT</h1>
-      <LangToggle />
-    </div>
-
-    {
-      views.map(({ lang, data }) => (
-        <dl class="contact-list" data-lang={lang} hidden={lang !== "ko"}>
-          <div class="contact-row">
-            <dt>{data.labels.address}</dt>
-            <dd>{data.address.map((line) => <span class="line">{line}</span>)}</dd>
-          </div>
-          <div class="contact-row">
-            <dt>{data.labels.tel}</dt>
-            <dd>{data.tel.map((line) => <span class="line">{line}</span>)}</dd>
-          </div>
-          <div class="contact-row">
-            <dt>{data.labels.email}</dt>
-            <dd><a href={`mailto:${email}`}>{email}</a></dd>
-          </div>
-        </dl>
-      ))
-    }
+  <div class="container contact-page">
+    <h1 class="title">CONTACT</h1>
   </div>
 </BaseLayout>
 

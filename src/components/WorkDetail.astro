@@ -40,9 +40,6 @@ const multiple = total > 1;
         )}
         {slides.map((s, i) => (
           <div class="info-slide" data-index={i} hidden={i !== 0}>
-            <p class="meta">
-              {[s.year, s.medium, s.dimensions].filter(Boolean).join(" · ")}
-            </p>
             {(s.descriptionKo || s.descriptionEn) && (
               <div class="body-text">
                 {s.descriptionKo && <p>{s.descriptionKo}</p>}
