@@ -23,7 +23,10 @@ const multiple = total > 1;
       /* Single-page series (Blind Work): fixed panel, no data-index → stays visible on every slide.
          Title shown as "BLIND WORK"; no per-slide meta line, description directly below. */
       <div class="info-panel">
-        <h1 class="title">BLIND WORK</h1>
+        <h1 class="title">
+          <span class="title-ko-line">개념 간의 교집합</span>
+          <span class="title-en-line">INTERSECTION OF CONCEPTS</span>
+        </h1>
         {(slides[0]?.descriptionKo || slides[0]?.descriptionEn) && (
           <div class="body-text">
             {slides[0].descriptionKo && <p>{slides[0].descriptionKo}</p>}
@@ -111,6 +114,18 @@ const multiple = total > 1;
     font-size: clamp(18px, 2.4vw, 28px);
     font-weight: 600;
     line-height: 1.25;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+  .title-ko-line {
+    font-family: var(--font-body);
+    font-size: clamp(14px, 1.6vw, 18px);
+    font-weight: 400;
+  }
+  .title-en-line {
+    font-size: clamp(18px, 2.4vw, 28px);
+    font-weight: 600;
   }
   .title-ko {
     font-family: var(--font-display);
