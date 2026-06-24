@@ -39,6 +39,7 @@ export interface WorkGroup {
   titleKo: string;
   titleEn: string;
   year: number | null;
+  location?: string;
   /** Cover image for index grids. */
   cover?: { src: string; alt: string };
   slides: WorkSlide[];
@@ -79,6 +80,7 @@ export function groupWorks(entries: CollectionEntry<"works">[]): WorkGroup[] {
         titleKo: d.titleKo,
         titleEn: d.titleEn,
         year: d.year,
+        location: d.location,
         cover: d.images[0]
           ? { src: d.images[0].src, alt: d.images[0].alt }
           : undefined,

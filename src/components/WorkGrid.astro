@@ -76,10 +76,12 @@ const isSquare = layout === "square-grid" || showLangToggle;
               )}
             </div>
             <div class="paint-info">
-              <p class="paint-title">{group.titleKo}</p>
+              <div class="paint-title-group">
+                <p class="paint-title">{group.titleKo}</p>
+                {group.titleKo !== group.titleEn && <p class="paint-title">{group.titleEn}</p>}
+              </div>
               <p class="paint-meta">
-                {group.titleKo !== group.titleEn ? group.titleEn : ""}
-                {group.year ? (group.titleKo !== group.titleEn ? ` (${group.year})` : String(group.year)) : ""}
+                {[group.location, group.year ? String(group.year) : ""].filter(Boolean).join("\n")}
               </p>
             </div>
           </a>
@@ -194,19 +196,25 @@ const isSquare = layout === "square-grid" || showLangToggle;
     height: 158px;
     min-width: 0;
   }
+  .paint-title-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
   .paint-title {
     font-family: var(--font-body);
     font-size: var(--fs-body);
-    line-height: 16px;
+    line-height: 18px;
     color: var(--color-fg);
     margin: 0;
   }
   .paint-meta {
     font-family: var(--font-body);
     font-size: var(--fs-body);
-    line-height: 16px;
+    line-height: 18px;
     color: #656565;
     margin: 0;
+    white-space: pre-line;
   }
 
   /* ── responsive ── */
