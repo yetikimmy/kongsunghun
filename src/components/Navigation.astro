@@ -129,8 +129,10 @@ const currentSeries = WORK_CATEGORIES.find((c) => here.startsWith(c.href))?.seri
   .dropdown .tab {
     display: flex;
     align-items: center;
+    justify-content: center;
+    width: 152px;
     height: 18px;
-    padding: 0 var(--space-1);
+    padding: 0;
     background: var(--color-tab-bg);
     color: var(--color-tab-text);
     font-family: var(--font-display);
@@ -138,6 +140,7 @@ const currentSeries = WORK_CATEGORIES.find((c) => here.startsWith(c.href))?.seri
     font-size: var(--fs-tab);
     letter-spacing: normal;
     transition: background 0.1s, color 0.1s;
+    white-space: nowrap;
   }
   .dropdown .tab:hover {
     background: var(--color-tab-bg-active);
@@ -235,9 +238,11 @@ const currentSeries = WORK_CATEGORIES.find((c) => here.startsWith(c.href))?.seri
       gap: var(--space-2);
     }
     .dropdown .tab {
+      width: auto;
       height: auto;
       padding: var(--space-1) var(--space-2);
       font-size: 14px;
+      justify-content: flex-start;
     }
   }
 </style>
