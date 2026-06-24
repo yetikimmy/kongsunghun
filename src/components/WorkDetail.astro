@@ -37,10 +37,10 @@ const multiple = total > 1;
     ) : (
       <>
         {/* Group title is fixed — does not change when advancing slides */}
-        <h1 class="title">{group.titleEn}</h1>
-        {group.titleKo && group.titleKo !== group.titleEn && (
-          <p class="title-ko">{group.titleKo}</p>
-        )}
+        <h1 class="title">
+          {group.titleKo && <span class="title-line">{group.titleKo}</span>}
+          {group.titleEn && group.titleEn !== group.titleKo && <span class="title-line">{group.titleEn}</span>}
+        </h1>
         {slides.map((s, i) => (
           <div class="info-slide" data-index={i} hidden={i !== 0}>
             {(s.descriptionKo || s.descriptionEn) && (
@@ -118,19 +118,12 @@ const multiple = total > 1;
     flex-direction: column;
     gap: var(--space-1);
   }
-  .title-ko-line {
-    font-family: var(--font-body);
-    font-size: clamp(14px, 1.6vw, 18px);
-    font-weight: 400;
-  }
-  .title-en-line {
+  .title-ko-line,
+  .title-en-line,
+  .title-line {
     font-size: clamp(18px, 2.4vw, 28px);
     font-weight: 600;
-  }
-  .title-ko {
     font-family: var(--font-display);
-    font-size: clamp(14px, 1.6vw, 18px);
-    margin-top: var(--space-1);
   }
   .meta {
     font-size: var(--fs-caption);
