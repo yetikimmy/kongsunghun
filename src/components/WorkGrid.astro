@@ -158,7 +158,15 @@ const here = Astro.url.pathname;
     border-radius: 9px;
   }
   .card-title-area {
-    min-height: 34px; /* prevent layout shift on lang toggle */
+    display: grid;
+  }
+  .card-title-area > * {
+    grid-area: 1 / 1;
+  }
+  /* keep both lang titles in-flow (visible or not) so card height never shifts */
+  .card-title-area [hidden] {
+    display: block !important;
+    visibility: hidden;
   }
   .card-title {
     font-family: var(--font-body);
