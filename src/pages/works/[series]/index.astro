@@ -13,7 +13,8 @@ export async function getStaticPaths() {
     "multi-slide-projection": 4,
     "paintings": 2,
   };
-  const SERIES_LAYOUT: Record<string, "grid" | "list"> = {
+  const SERIES_LAYOUT: Record<string, "grid" | "square-grid" | "list"> = {
+    "multi-slide-projection": "square-grid",
     "paintings": "list",
   };
   const SERIES_LANG_TOGGLE: Record<string, boolean> = {
