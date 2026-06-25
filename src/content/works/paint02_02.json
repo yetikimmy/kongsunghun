@@ -1,8 +1,8 @@
 {
   "slug": "paint02_02",
   "series": "paintings",
-  "titleKo": "밤길",
-  "titleEn": "A Road at Night",
+  "titleKo": "모든 것",
+  "titleEn": "All Those Things",
   "year": 2001,
   "medium": "Oil on Canvas",
   "dimensions": "130.3x193.9cm",
@@ -16,5 +16,6 @@
   ],
   "caption": "밤길 A Road at Night 2001 Oil on Canvas 130.3x193.9cm",
   "order": 13,
-  "legacyFile": "paint02_02.htm"
+  "legacyFile": "paint02_02.htm",
+  "location": "금산갤러리 Keumsan Gallery, Seoul"
 }

@@ -6,6 +6,11 @@
   box-sizing: border-box;
 }
 
+/* Protect [hidden] from being overridden by display:flex/grid on components */
+[hidden] {
+  display: none !important;
+}
+
 html {
   -webkit-text-size-adjust: 100%;
   /* Always reserve the vertical scrollbar gutter so short pages (CV, Contact)

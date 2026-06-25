@@ -1,8 +1,8 @@
 {
   "slug": "paint08_01",
   "series": "paintings",
-  "titleKo": "개",
-  "titleEn": "A Dog",
+  "titleKo": "High Light - The Message of Light",
+  "titleEn": "High Light - The Message of Light",
   "year": 2008,
   "medium": "Acrylic on Canvas",
   "dimensions": "80x80cm",
@@ -14,5 +14,6 @@
   ],
   "caption": "개 A Dog 2008 Acrylic on Canvas 80x80cm",
   "order": 51,
-  "legacyFile": "paint08_01.htm"
+  "legacyFile": "paint08_01.htm",
+  "location": "UNC Gallery, Seoul"
 }

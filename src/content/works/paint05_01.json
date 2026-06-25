@@ -1,8 +1,8 @@
 {
   "slug": "paint05_01",
   "series": "paintings",
-  "titleKo": "기념비",
-  "titleEn": "A Monument",
+  "titleKo": "공성훈 전",
+  "titleEn": "Kong, Sung Hun",
   "year": 2007,
   "medium": "Acrylic on Canvas",
   "dimensions": "60.6x90.9cm",
@@ -31,5 +31,6 @@
   ],
   "caption": "기념비 A Monument 2007 Acrylic on Canvas 60.6x90.9cm",
   "order": 45,
-  "legacyFile": "paint05_01.htm"
+  "legacyFile": "paint05_01.htm",
+  "location": "아트포럼 뉴게이트 Artforum Newgate"
 }

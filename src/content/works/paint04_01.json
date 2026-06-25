@@ -1,8 +1,8 @@
 {
   "slug": "paint04_01",
   "series": "paintings",
-  "titleKo": "벽제화장터 1",
-  "titleEn": "Crematory",
+  "titleKo": "Night of Suburbs",
+  "titleEn": "Night of Suburbs",
   "year": 2006,
   "medium": "Oil on canvas",
   "dimensions": "227.3x181.8cm",
@@ -16,5 +16,6 @@
   ],
   "caption": "벽제화장터 1, Crematory, 2006 Oil on canvas 227.3x181.8cm",
   "order": 38,
-  "legacyFile": "paint04_01.htm"
+  "legacyFile": "paint04_01.htm",
+  "location": "부산비엔날레 Busan Biennale"
 }

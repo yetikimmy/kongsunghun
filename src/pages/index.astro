@@ -8,6 +8,9 @@ const here = Astro.url.pathname;
 
 <BaseLayout title="KONG,SUNG-HUN" bare>
   <section class="landing">
+    <header class="landing-header">
+      <a class="landing-logo" href={relativeHref("/works/", here)}>{LOGO_LABEL}</a>
+    </header>
     <div class="landing-media" aria-hidden="true">
       <video
         class="landing-video"
@@ -18,106 +21,47 @@ const here = Astro.url.pathname;
         playsinline
       ></video>
     </div>
-    <div class="landing-center">
-      <a class="landing-logo" href={relativeHref("/works/", here)}>{LOGO_LABEL}</a>
-    </div>
   </section>
 </BaseLayout>
 
 <style>
   .landing {
-    position: relative;
-    min-height: 100vh;
-    background: var(--color-bg-invert, #000000);
-    color: var(--color-fg-invert, #ffffff);
-    display: grid;
-    place-items: center;
-    overflow: hidden;
-  }
-  .landing-media {
-    position: absolute;
-    inset: 0;
-    background: #000;
-  }
-  .landing-video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-  .landing-center {
-    position: relative;
-    text-align: center;
-    padding: var(--space-5, 40px);
-  }
-  .landing-logo {
-    display: inline-block;
-    font-family: var(--font-mono, ui-monospace, monospace);
-    font-size: clamp(28px, 6vw, var(--fs-logo-landing, 38px));
-    letter-spacing: var(--ls-logo-landing, 6.08px);
-    color: var(--color-fg-invert, #ffffff);
-    text-decoration: none;
-  }
-  .landing-logo:focus-visible {
-    opacity: 0.7;
-  }
-</style>
-
-
-<style>
-  /* Literal fallbacks in var() keep the landing legible even if the bundled
-     token stylesheet fails to load (e.g. a sub-path deploy regression). */
-  .landing {
-    position: relative;
-    min-height: 100vh;
-    background: var(--color-bg-invert, #000000);
-    color: var(--color-fg-invert, #ffffff);
-    display: grid;
-    place-items: center;
-    overflow: hidden;
-  }
-  .landing-media {
-    position: absolute;
-    inset: 0;
-    background: #111;
-  }
-  .landing-video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-  .landing-center {
-    position: relative;
-    text-align: center;
-    padding: var(--space-5, 40px);
-  }
-  .landing-logo {
-    display: inline-block;
-    font-family: var(--font-mono, ui-monospace, monospace);
-    font-size: clamp(28px, 6vw, var(--fs-logo-landing, 38px));
-    letter-spacing: var(--ls-logo-landing, 6.08px);
-    color: var(--color-fg-invert, #ffffff);
-    text-decoration: none;
-  }
-  .landing-logo:focus-visible {
-    opacity: 0.7;
-  }
-  .landing-nav ul {
     display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: var(--space-3, 16px) var(--space-5, 40px);
-    list-style: none;
-    margin: var(--space-5, 40px) 0 0;
-    padding: 0;
-    font-family: var(--font-mono, ui-monospace, monospace);
-    font-size: var(--fs-nav, 14px);
+    flex-direction: column;
+    min-height: 100vh;
+    background: #000;
+    color: #fff;
+    overflow: hidden;
   }
-  .landing-nav a {
-    color: inherit;
+  .landing-header {
+    position: relative;
+    z-index: 10;
+    padding: 90px var(--space-5, 40px) var(--space-4, 24px);
+    flex-shrink: 0;
+    text-align: center;
+  }
+  .landing-logo {
+    display: inline-block;
+    font-family: var(--font-mono, ui-monospace, monospace);
+    font-size: 28px;
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    color: #fff;
     text-decoration: none;
   }
-  .landing-nav a:hover,
-  .landing-nav a:focus-visible {
-    text-decoration: underline;
+  .landing-media {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    min-height: 0;
+  }
+  .landing-video {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    display: block;
   }
 </style>

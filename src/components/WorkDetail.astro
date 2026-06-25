@@ -23,7 +23,10 @@ const multiple = total > 1;
       /* Single-page series (Blind Work): fixed panel, no data-index → stays visible on every slide.
          Title shown as "BLIND WORK"; no per-slide meta line, description directly below. */
       <div class="info-panel">
-        <h1 class="title">BLIND WORK</h1>
+        <h1 class="title">
+          <span class="title-ko-line">개념 간의 교집합</span>
+          <span class="title-en-line">INTERSECTION OF CONCEPTS</span>
+        </h1>
         {(slides[0]?.descriptionKo || slides[0]?.descriptionEn) && (
           <div class="body-text">
             {slides[0].descriptionKo && <p>{slides[0].descriptionKo}</p>}
@@ -34,10 +37,10 @@ const multiple = total > 1;
     ) : (
       <>
         {/* Group title is fixed — does not change when advancing slides */}
-        <h1 class="title">{group.titleEn}</h1>
-        {group.titleKo && group.titleKo !== group.titleEn && (
-          <p class="title-ko">{group.titleKo}</p>
-        )}
+        <h1 class="title">
+          {group.titleKo && <span class="title-line">{group.titleKo}</span>}
+          {group.titleEn && group.titleEn !== group.titleKo && <span class="title-line">{group.titleEn}</span>}
+        </h1>
         {slides.map((s, i) => (
           <div class="info-slide" data-index={i} hidden={i !== 0}>
             {(s.descriptionKo || s.descriptionEn) && (
@@ -111,11 +114,16 @@ const multiple = total > 1;
     font-size: clamp(18px, 2.4vw, 28px);
     font-weight: 600;
     line-height: 1.25;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
   }
-  .title-ko {
+  .title-ko-line,
+  .title-en-line,
+  .title-line {
+    font-size: clamp(18px, 2.4vw, 28px);
+    font-weight: 600;
     font-family: var(--font-display);
-    font-size: clamp(14px, 1.6vw, 18px);
-    margin-top: var(--space-1);
   }
   .meta {
     font-size: var(--fs-caption);

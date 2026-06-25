@@ -1,8 +1,8 @@
 {
   "slug": "paint01_03",
   "series": "paintings",
-  "titleKo": "밤",
-  "titleEn": "In the Night",
+  "titleKo": "공성훈의 개와 밤 그림",
+  "titleEn": "Kong, Sung Hun's Dog and Night Painting",
   "year": 2000,
   "medium": "Oil on Canvas",
   "dimensions": "130.3x162.2cm",
@@ -16,5 +16,6 @@
   ],
   "caption": "밤 In the Night 2000 Oil on Canvas 130.3x162.2cm",
   "order": 3,
-  "legacyFile": "paint01_03.htm"
+  "legacyFile": "paint01_03.htm",
+  "location": "갤러리 우덕 Gallery Wooduk, Seoul"
 }

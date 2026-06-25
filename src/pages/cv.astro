@@ -3,8 +3,6 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import LangToggle from "../components/LangToggle.astro";
 import pages from "../../data/legacy-pages.generated.json";
 
-// The Korean (cv.htm) and English (cv02.htm) CVs are rendered as two complete,
-// independent blocks; the LangToggle shows one at a time (Korean default).
 const { ko, en } = pages.cv;
 
 const blocks = [
@@ -15,28 +13,33 @@ const blocks = [
 
 <BaseLayout title="C.V. — KONG,SUNG-HUN" current="/cv/">
   <div class="container cv-page" data-lang-scope>
-    <div class="cv-head">
-      <h1 class="title">C.V.</h1>
-      <LangToggle />
-    </div>
+    <div class="cv-layout">
+      <div class="cv-content">
+        <h1 class="title">C.V.</h1>
 
-    {
-      blocks.map(({ lang, cv }) => (
-        <div class="cv-block" lang={lang === "ko" ? "ko" : "en"} data-lang={lang} hidden={lang !== "ko"}>
-          {cv.intro && <p class="bio">{cv.intro}</p>}
-          {cv.sections.map((s) => (
-            <section class="cv-section">
-              <h2 class="cv-heading">{s.heading}</h2>
-              <ul class="cv-list" role="list">
-                {s.items.map((item) => (
-                  <li class="cv-item">{item}</li>
-                ))}
-              </ul>
-            </section>
-          ))}
-        </div>
-      ))
-    }
+        {
+          blocks.map(({ lang, cv }) => (
+            <div class="cv-block" lang={lang === "ko" ? "ko" : "en"} data-lang={lang} hidden={lang !== "ko"}>
+              {cv.intro && <p class="bio">{cv.intro}</p>}
+              {cv.sections.map((s) => (
+                <section class="cv-section">
+                  <h2 class="cv-heading">{s.heading}</h2>
+                  <ul class="cv-list" role="list">
+                    {s.items.map((item) => (
+                      <li class="cv-item">{item}</li>
+                    ))}
+                  </ul>
+                </section>
+              ))}
+            </div>
+          ))
+        }
+      </div>
+
+      <div class="cv-toggle">
+        <LangToggle />
+      </div>
+    </div>
   </div>
 </BaseLayout>
 
@@ -45,40 +48,84 @@ const blocks = [
     padding-top: var(--page-top);
     padding-bottom: var(--space-6);
   }
-  .cv-head {
+  .cv-layout {
     display: flex;
     align-items: flex-start;
-    justify-content: space-between;
-    gap: var(--space-4);
-    flex-wrap: wrap;
+    gap: 0;
+  }
+  .cv-content {
+    flex: 0 0 830px;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+  }
+  .cv-toggle {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    padding-top: 6px;
+  }
+  .title {
+    font-family: var(--font-display);
+    font-size: clamp(18px, 2.4vw, 28px);
+    font-weight: 600;
+    line-height: 1.25;
   }
   .bio {
-    margin: var(--space-4) 0 var(--space-5);
     color: var(--color-muted);
     font-family: var(--font-body);
+    font-size: var(--fs-body);
+    line-height: 18px;
+    margin: 0;
+  }
+  .cv-block {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
   }
   .cv-section {
-    margin-top: var(--space-5);
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
   }
   .cv-heading {
-    font-family: var(--font-mono-label);
-    font-size: var(--fs-nav);
-    text-transform: uppercase;
-    letter-spacing: 0.02em;
-    padding-bottom: var(--space-2);
-    border-bottom: 1px solid var(--color-line);
+    font-family: var(--font-body);
+    font-size: var(--fs-body);
+    font-weight: 400;
+    line-height: 18px;
+    color: var(--color-muted);
   }
   .cv-list {
     list-style: none;
-    margin: var(--space-3) 0 0;
+    margin: 0;
     padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
   }
   .cv-item {
-    padding-block: var(--space-2);
-    max-width: 80ch;
     font-family: var(--font-body);
+    font-size: var(--fs-body);
+    line-height: 18px;
+    color: var(--color-muted);
   }
-  .cv-item + .cv-item {
-    border-top: 1px solid var(--color-line);
+
+  @media (max-width: 1024px) {
+    .cv-content {
+      flex: 1;
+    }
+    .cv-toggle {
+      flex: 0 0 auto;
+    }
+  }
+  @media (max-width: 768px) {
+    .cv-layout {
+      flex-direction: column;
+      gap: var(--space-4);
+    }
+    .cv-toggle {
+      justify-content: flex-start;
+    }
   }
 </style>
