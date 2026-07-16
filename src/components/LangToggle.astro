@@ -1,15 +1,14 @@
 ---
 /**
  * Korean / English language switch, matching the Figma C.V. & Contact frames
- * (top-right "Korean | English" with a divider). Toggles visibility of
- * sibling elements marked with [data-lang="ko"] / [data-lang="en"] inside the
- * nearest ancestor that has the `data-lang-scope` attribute. Korean is default.
+ * (top-right "Korean English"). Toggles visibility of sibling elements marked
+ * with [data-lang="ko"] / [data-lang="en"] inside the nearest ancestor that has
+ * the `data-lang-scope` attribute. Korean is default.
  */
 ---
 
 <div class="lang-toggle" role="group" aria-label="언어 선택">
   <button type="button" class="lang-btn active" data-lang-set="ko" aria-pressed="true">Korean</button>
-  <span class="divider" aria-hidden="true"></span>
   <button type="button" class="lang-btn" data-lang-set="en" aria-pressed="false">English</button>
 </div>
 
@@ -19,7 +18,7 @@
     align-items: center;
     gap: var(--space-2);
     font-family: var(--font-display);
-    font-size: var(--fs-nav);
+    font-size: 11px;
   }
   .lang-btn {
     background: none;
@@ -36,11 +35,6 @@
   }
   .lang-btn.active {
     color: var(--color-nav-pressed);
-  }
-  .divider {
-    width: 1px;
-    height: 10px;
-    background: var(--color-line);
   }
 </style>
 
