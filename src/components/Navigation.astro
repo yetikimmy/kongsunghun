@@ -10,14 +10,7 @@ const here = Astro.url.pathname;
 const currentSeries = WORK_CATEGORIES.find((c) => here.startsWith(c.href))?.series;
 ---
 
-<!-- 햄버거 버튼: 모바일에서만 표시 -->
-<button class="hamburger" aria-label="메뉴 열기" aria-expanded="false" aria-controls="nav-menu">
-  ☰
-</button>
-
-<nav class="nav" id="nav-menu" aria-label="주 메뉴">
-  <!-- 모바일 닫기 버튼 -->
-  <button class="nav-close" aria-label="메뉴 닫기">✕</button>
+<nav class="nav" aria-label="주 메뉴">
   <ul>
     {
       MAIN_NAV.map((item) => {
@@ -28,6 +21,7 @@ const currentSeries = WORK_CATEGORIES.find((c) => here.startsWith(c.href))?.seri
             <a
               href={relativeHref(item.href, here)}
               aria-current={isCurrent ? "page" : undefined}
+              aria-expanded={hasDropdown ? "false" : undefined}
             >
               {item.label}
             </a>
@@ -54,21 +48,7 @@ const currentSeries = WORK_CATEGORIES.find((c) => here.startsWith(c.href))?.seri
   </ul>
 </nav>
 
-<!-- 모바일 오버레이 배경 -->
-<div class="nav-overlay" aria-hidden="true"></div>
-
 <style>
-  /* ── 데스크탑 기본 ── */
-  .hamburger {
-    display: none;
-  }
-  .nav-close {
-    display: none;
-  }
-  .nav-overlay {
-    display: none;
-  }
-
   .nav ul {
     display: flex;
     gap: 36px;
@@ -110,7 +90,8 @@ const currentSeries = WORK_CATEGORIES.find((c) => here.startsWith(c.href))?.seri
     z-index: 100;
   }
   .nav-item.has-dropdown:hover .dropdown,
-  .nav-item.has-dropdown:focus-within .dropdown {
+  .nav-item.has-dropdown:focus-within .dropdown,
+  .nav-item.has-dropdown.open .dropdown {
     opacity: 1;
     visibility: visible;
     pointer-events: auto;
@@ -152,82 +133,30 @@ const currentSeries = WORK_CATEGORIES.find((c) => here.startsWith(c.href))?.seri
     color: var(--color-tab-text-active);
   }
 
-  /* ── 모바일 (768px 미만) ── */
+  /* ── 모바일 (768px 이하): 로고 아래 인라인 네비게이션 ── */
   @media (max-width: 768px) {
-    .hamburger {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: none;
-      border: none;
-      cursor: pointer;
-      font-size: 20px;
-      color: var(--color-nav-default);
-      padding: var(--space-1);
-      line-height: 1;
-      margin-left: auto;
-    }
-
     .nav {
-      position: fixed;
-      top: 0;
-      right: 0;
-      width: 240px;
-      height: 100vh;
-      background: var(--color-bg);
-      z-index: 200;
-      padding: var(--space-5) var(--space-4);
-      transform: translateX(100%);
-      transition: transform 0.25s ease;
-      box-shadow: -4px 0 24px rgba(0,0,0,0.08);
-    }
-    .nav.open {
-      transform: translateX(0);
-    }
-
-    .nav-close {
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
       width: 100%;
-      background: none;
-      border: none;
-      cursor: pointer;
-      font-size: 18px;
-      color: var(--color-nav-default);
-      padding: 0;
-      margin-bottom: var(--space-5);
     }
-
-    .nav-overlay {
-      display: block;
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.3);
-      z-index: 150;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.25s ease;
-    }
-    .nav-overlay.open {
-      opacity: 1;
-      pointer-events: auto;
-    }
-
     .nav ul {
-      flex-direction: column;
       gap: var(--space-4);
-      font-size: 16px;
+      font-size: 13px;
+      flex-wrap: wrap;
     }
 
-    /* 모바일에서 WORKS 드롭다운: 항상 표시 */
+    /* WORKS 드롭다운: 탭하면 아래로 펼쳐짐 */
     .dropdown {
       position: static;
-      opacity: 1;
-      visibility: visible;
-      pointer-events: auto;
-      padding-top: var(--space-2);
+      padding-top: 0;
       transition: none;
+      white-space: normal;
+    }
+    /* 기본은 접힘, WORKS 항목을 탭해 .open이 되면 펼쳐짐 */
+    .nav-item.has-dropdown .dropdown {
+      display: none;
+    }
+    .nav-item.has-dropdown.open .dropdown {
+      display: block;
     }
     .nav-item.has-dropdown > a {
       padding-bottom: 0;
@@ -236,42 +165,47 @@ const currentSeries = WORK_CATEGORIES.find((c) => here.startsWith(c.href))?.seri
     .dropdown ul {
       flex-direction: column;
       gap: var(--space-2);
+      padding-top: var(--space-2);
     }
     .dropdown .tab {
       width: auto;
       height: auto;
       padding: var(--space-1) var(--space-2);
-      font-size: 14px;
-      justify-content: flex-start;
+      font-size: 13px;
     }
   }
 </style>
 
 <script>
-  const hamburger = document.querySelector<HTMLButtonElement>('.hamburger');
-  const navMenu = document.querySelector<HTMLElement>('#nav-menu');
-  const navClose = document.querySelector<HTMLButtonElement>('.nav-close');
-  const overlay = document.querySelector<HTMLElement>('.nav-overlay');
+  // 모바일(터치)에서 WORKS 탭을 누르면 하위 드롭다운을 펼치거나 접는다.
+  // 데스크탑에서는 hover로 동작하므로 이 핸들러는 좁은 화면에서만 링크 이동을 가로챈다.
+  const MOBILE = "(max-width: 768px)";
 
-  function openMenu() {
-    navMenu?.classList.add('open');
-    overlay?.classList.add('open');
-    hamburger?.setAttribute('aria-expanded', 'true');
-    document.body.style.overflow = 'hidden';
-  }
-  function closeMenu() {
-    navMenu?.classList.remove('open');
-    overlay?.classList.remove('open');
-    hamburger?.setAttribute('aria-expanded', 'false');
-    document.body.style.overflow = '';
-  }
+  document.querySelectorAll<HTMLElement>(".nav-item.has-dropdown").forEach((item) => {
+    const trigger = item.querySelector<HTMLAnchorElement>(":scope > a");
+    if (!trigger) return;
 
-  hamburger?.addEventListener('click', openMenu);
-  navClose?.addEventListener('click', closeMenu);
-  overlay?.addEventListener('click', closeMenu);
+    trigger.addEventListener("click", (e) => {
+      if (!window.matchMedia(MOBILE).matches) return; // 데스크탑은 기본 링크 동작
+      const isOpen = item.classList.contains("open");
+      if (!isOpen) {
+        // 첫 탭: 링크 이동 대신 드롭다운 펼치기
+        e.preventDefault();
+        item.classList.add("open");
+        trigger.setAttribute("aria-expanded", "true");
+      }
+      // 이미 열려 있으면 그대로 링크(WORKS 인덱스)로 이동
+    });
+  });
 
-  // ESC 키로 닫기
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') closeMenu();
+  // 바깥 영역을 탭하면 드롭다운 닫기
+  document.addEventListener("click", (e) => {
+    if (!window.matchMedia(MOBILE).matches) return;
+    document.querySelectorAll<HTMLElement>(".nav-item.has-dropdown.open").forEach((item) => {
+      if (!item.contains(e.target as Node)) {
+        item.classList.remove("open");
+        item.querySelector<HTMLAnchorElement>(":scope > a")?.setAttribute("aria-expanded", "false");
+      }
+    });
   });
 </script>
