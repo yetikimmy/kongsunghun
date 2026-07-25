@@ -56,7 +56,7 @@ const currentSeries = WORK_CATEGORIES.find((c) => here.startsWith(c.href))?.seri
     margin: 0;
     padding: 0;
     font-family: var(--font-mono);
-    font-size: var(--fs-nav);
+    font-size: calc(var(--fs-nav) + 0.5px);
   }
   .nav-item {
     position: relative;
@@ -113,7 +113,8 @@ const currentSeries = WORK_CATEGORIES.find((c) => here.startsWith(c.href))?.seri
     justify-content: flex-start;
     width: 160px;
     height: 18px;
-    padding: 0 0 0 4px;
+    /* 좌우 내부 패딩 각 +1px (좌 4→5, 우 0→1) */
+    padding: 0 1px 0 5px;
     background: var(--color-tab-bg);
     color: var(--color-tab-text);
     font-family: var(--font-display);
