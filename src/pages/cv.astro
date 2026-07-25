@@ -9,6 +9,12 @@ const blocks = [
   { lang: "ko" as const, cv: ko },
   { lang: "en" as const, cv: en },
 ];
+
+// 항목이 4자리 연도로 시작하면 연도와 내용을 분리해 사이 간격(15px)을 준다.
+const splitYear = (item: string) => {
+  const m = item.match(/^(\d{4})\s+([\s\S]*)$/);
+  return m ? { year: m[1], desc: m[2] } : null;
+};
 ---
 
 <BaseLayout title="C.V. — KONG,SUNG-HUN" current="/cv/">
@@ -25,9 +31,17 @@ const blocks = [
                 <section class="cv-section">
                   <h2 class="cv-heading">{s.heading}</h2>
                   <ul class="cv-list" role="list">
-                    {s.items.map((item) => (
-                      <li class="cv-item">{item}</li>
-                    ))}
+                    {s.items.map((item) => {
+                      const p = splitYear(item);
+                      return p ? (
+                        <li class="cv-item">
+                          <span class="cv-year">{p.year}</span>
+                          <span class="cv-desc">{p.desc}</span>
+                        </li>
+                      ) : (
+                        <li class="cv-item cv-item--plain">{item}</li>
+                      );
+                    })}
                   </ul>
                 </section>
               ))}
@@ -92,7 +106,7 @@ const blocks = [
   .cv-heading {
     font-family: var(--font-body);
     font-size: var(--fs-body);
-    font-weight: 400;
+    font-weight: 700;
     line-height: 18px;
     color: var(--color-muted);
   }
@@ -105,10 +119,23 @@ const blocks = [
     gap: 2px;
   }
   .cv-item {
+    display: flex;
     font-family: var(--font-body);
     font-size: var(--fs-body);
     line-height: 18px;
     color: var(--color-muted);
+  }
+  .cv-item--plain {
+    display: block;
+  }
+  /* 연도와 내용 사이 간격 15px (내용이 여러 줄이면 연도 기준 hanging indent) */
+  .cv-year {
+    flex: none;
+    margin-right: 15px;
+  }
+  .cv-desc {
+    flex: 1;
+    min-width: 0;
   }
 
   @media (max-width: 1024px) {
