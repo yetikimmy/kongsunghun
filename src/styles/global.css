@@ -60,12 +60,14 @@ img {
 }
 
 .container {
-  /* 고정 폭(데스크탑 --content-max) + 중앙 정렬.
-     화면을 늘이거나 줄여도 콘텐츠 폭은 유지되고 양옆 margin(auto)만 변한다.
-     ≤768px에서는 --content-max 가 100% 로 바뀌어 모바일 레이아웃으로 전환된다. */
+  /* 고정 폭(데스크탑 1000px) 콘텐츠 열 + 중앙 정렬.
+     화면을 늘이거나 줄여도 콘텐츠 폭은 1000px 로 유지되고 양옆 margin(auto)만
+     균등하게 변한다 (1440 뷰포트 → 좌우 220px). 패딩을 두지 않아 콘텐츠 열이
+     정확히 1000px 가 되며 Figma 프레임(x=220, width=1000)과 일치한다.
+     ≤768px 에서는 --content-max 가 100% 로 바뀌어 모바일 레이아웃으로 전환된다. */
   width: var(--content-max);
   margin-inline: auto;
-  padding-inline: var(--space-5);
+  padding-inline: 0;
 }
 
 /* ── 반응형 타이포그래피 ── */
@@ -80,14 +82,7 @@ img {
   color: var(--color-muted);
 }
 
-/* ── 태블릿 (1024px 이하) ── */
-@media (max-width: 1024px) {
-  .container {
-    padding-inline: var(--space-4);
-  }
-}
-
-/* ── 모바일 (768px 이하) ── */
+/* ── 모바일 (768px 이하): 유동 폭 + 좌우 여백 복원 ── */
 @media (max-width: 768px) {
   .container {
     padding-inline: var(--space-3);

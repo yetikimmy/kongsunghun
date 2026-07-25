@@ -54,7 +54,7 @@
   --page-top: clamp(60px, 9vw, 84px);
 
   /* Layout */
-  --content-max: 1400px;   /* content area on 1440 desktop */
+  --content-max: 1000px;   /* content column on 1440 desktop → 220px margins each side */
   --page-gutter: 8px;      /* 12-col gutter feel */
   --columns: 12;
 

@@ -36,7 +36,9 @@ const here = Astro.url.pathname;
     align-items: center;
     justify-content: flex-start;
     gap: 58px;
-    padding-block: var(--space-4);
+    /* 상단 여백 +15px (로고·네비게이션 윗부분) */
+    padding-top: calc(var(--space-4) + 15px);
+    padding-bottom: var(--space-4);
   }
   .logo {
     font-family: var(--font-mono);
@@ -55,7 +57,9 @@ const here = Astro.url.pathname;
       flex-direction: column;
       align-items: flex-start;
       gap: var(--space-3);
-      padding-block: var(--space-3);
+      /* 상단 여백 +15px */
+      padding-top: calc(var(--space-3) + 15px);
+      padding-bottom: var(--space-3);
     }
     .logo {
       font-size: clamp(16px, 5vw, 22px);
