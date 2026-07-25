@@ -8,9 +8,10 @@ interface Props {
 const { current } = Astro.props;
 const here = Astro.url.pathname;
 const currentSeries = WORK_CATEGORIES.find((c) => here.startsWith(c.href))?.series;
-// Works 섹션(개요·시리즈·상세)에 있을 때 드롭다운을 고정으로 펼쳐 현재 시리즈를
-// 강조한다. current 프롭이 "/works/" 이거나 경로가 works 하위면 활성.
-const onWorks = here.includes("/works") || (current ?? "").startsWith("/works");
+// 특정 시리즈(블라인드/설치/멀티슬라이드/회화) 및 그 상세 페이지에서만 드롭다운을
+// 고정으로 펼쳐 현재 시리즈를 강조한다. Works 개요("20세기, 라는 소년" = /works/)는
+// 예외로 currentSeries 가 없어 드롭다운이 접힌 상태가 기본이다.
+const onWorks = !!currentSeries;
 ---
 
 <nav class="nav" aria-label="주 메뉴">
