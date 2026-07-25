@@ -96,7 +96,7 @@ const stripNumberDot = (t: string) => t.replace(/^(\s*\d+)\.\s*$/, "$1");
     max-width: 1000px;
     color: #8c8c8c;
     font-size: 13px;
-    line-height: var(--lh-body);
+    line-height: calc(var(--lh-body) + 1px);
   }
   .essay-heading {
     font-family: var(--font-display);
