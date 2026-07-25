@@ -8,6 +8,9 @@ interface Props {
 const { current } = Astro.props;
 const here = Astro.url.pathname;
 const currentSeries = WORK_CATEGORIES.find((c) => here.startsWith(c.href))?.series;
+// Works 섹션(개요·시리즈·상세)에 있을 때 드롭다운을 고정으로 펼쳐 현재 시리즈를
+// 강조한다. current 프롭이 "/works/" 이거나 경로가 works 하위면 활성.
+const onWorks = here.includes("/works") || (current ?? "").startsWith("/works");
 ---
 
 <nav class="nav" aria-label="주 메뉴">
@@ -17,7 +20,7 @@ const currentSeries = WORK_CATEGORIES.find((c) => here.startsWith(c.href))?.seri
         const isCurrent = current && item.href.startsWith(current);
         const hasDropdown = item.label === "WORKS";
         return (
-          <li class:list={["nav-item", { "has-dropdown": hasDropdown }]}>
+          <li class:list={["nav-item", { "has-dropdown": hasDropdown, pinned: hasDropdown && onWorks }]}>
             <a
               href={relativeHref(item.href, here)}
               aria-current={isCurrent ? "page" : undefined}
@@ -91,7 +94,8 @@ const currentSeries = WORK_CATEGORIES.find((c) => here.startsWith(c.href))?.seri
   }
   .nav-item.has-dropdown:hover .dropdown,
   .nav-item.has-dropdown:focus-within .dropdown,
-  .nav-item.has-dropdown.open .dropdown {
+  .nav-item.has-dropdown.open .dropdown,
+  .nav-item.has-dropdown.pinned .dropdown {
     opacity: 1;
     visibility: visible;
     pointer-events: auto;
@@ -156,7 +160,8 @@ const currentSeries = WORK_CATEGORIES.find((c) => here.startsWith(c.href))?.seri
     .nav-item.has-dropdown .dropdown {
       display: none;
     }
-    .nav-item.has-dropdown.open .dropdown {
+    .nav-item.has-dropdown.open .dropdown,
+    .nav-item.has-dropdown.pinned .dropdown {
       display: block;
     }
     .nav-item.has-dropdown > a {
