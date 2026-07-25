@@ -85,15 +85,15 @@ const stripNumberDot = (t: string) => t.replace(/^(\s*\d+)\.\s*$/, "$1");
   .overview-body {
     margin: var(--space-6) 0 0;
     max-width: 1000px;
-    color: #a0a0a0;
-    font-size: calc(var(--fs-body) + 1px);
+    color: #8c8c8c;
+    font-size: calc(var(--fs-body) + 2px);
     line-height: var(--lh-body);
   }
   .body-heading {
     font-family: var(--font-display);
     font-size: 16px;
     color: var(--color-fg);
-    margin: var(--space-5) 0 calc(var(--space-3) - 2px);
+    margin: var(--space-5) 0 calc(var(--space-3) - 4px);
   }
   .body-para + .body-para,
   .body-para + .body-caption {
@@ -110,7 +110,8 @@ const stripNumberDot = (t: string) => t.replace(/^(\s*\d+)\.\s*$/, "$1");
   }
   .body-caption {
     color: var(--color-muted);
-    font-style: italic;
+    font-style: normal;
+    font-size: 12.5px;
     margin-top: var(--space-2);
   }
   .body-signature {
@@ -120,6 +121,10 @@ const stripNumberDot = (t: string) => t.replace(/^(\s*\d+)\.\s*$/, "$1");
   }
   .body-signature:first-of-type {
     margin-top: var(--space-5);
+  }
+  /* 연속된 서명 줄(작가명 / 매체출처)은 한 줄 띄지 않고 바로 다음 줄에 붙임 */
+  .body-signature + .body-signature {
+    margin-top: 0;
   }
 
   @media (max-width: 768px) {
