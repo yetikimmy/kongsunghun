@@ -90,7 +90,7 @@ const splitYear = (item: string) => {
     color: var(--color-muted);
     font-family: var(--font-body);
     font-size: var(--fs-body);
-    line-height: 18px;
+    line-height: 19px;
     margin: 0;
   }
   .cv-block {
@@ -107,7 +107,7 @@ const splitYear = (item: string) => {
     font-family: var(--font-body);
     font-size: var(--fs-body);
     font-weight: 700;
-    line-height: 18px;
+    line-height: 19px;
     color: var(--color-muted);
   }
   .cv-list {
@@ -122,7 +122,7 @@ const splitYear = (item: string) => {
     display: flex;
     font-family: var(--font-body);
     font-size: var(--fs-body);
-    line-height: 18px;
+    line-height: 19px;
     color: var(--color-muted);
   }
   .cv-item--plain {
@@ -132,6 +132,8 @@ const splitYear = (item: string) => {
   .cv-year {
     flex: none;
     margin-right: 15px;
+    /* 모든 연도가 4자리이므로 등폭 숫자로 폭을 통일 → 내용 시작점 일직선 정렬 */
+    font-variant-numeric: tabular-nums;
   }
   .cv-desc {
     flex: 1;
