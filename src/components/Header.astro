@@ -33,7 +33,8 @@ const here = Astro.url.pathname;
   }
   .header-inner {
     display: flex;
-    align-items: center;
+    /* 로고(큰 서체)와 네비게이션(작은 서체)의 글자 베이스라인을 일직선으로 정렬 */
+    align-items: baseline;
     justify-content: flex-start;
     gap: 58px;
     /* 상단 여백 +15px (로고·네비게이션 윗부분) */
