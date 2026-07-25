@@ -1,6 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { LOGO_LABEL } from "../lib/nav";
+import Logo from "../components/Logo.astro";
 import { relativeHref } from "../lib/href";
 
 const here = Astro.url.pathname;
@@ -9,7 +9,7 @@ const here = Astro.url.pathname;
 <BaseLayout title="KONG,SUNG-HUN" bare>
   <section class="landing">
     <header class="landing-header">
-      <a class="landing-logo" href={relativeHref("/works/", here)}>{LOGO_LABEL}</a>
+      <a class="landing-logo" href={relativeHref("/works/", here)}><Logo /></a>
     </header>
     <div class="landing-media" aria-hidden="true">
       <video

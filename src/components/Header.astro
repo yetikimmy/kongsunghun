@@ -1,6 +1,6 @@
 ---
 import Navigation from "./Navigation.astro";
-import { LOGO_LABEL } from "../lib/nav";
+import Logo from "./Logo.astro";
 import { relativeHref } from "../lib/href";
 
 interface Props {
@@ -13,7 +13,7 @@ const here = Astro.url.pathname;
 
 <header class:list={["header", { invert }]}>
   <div class="container header-inner">
-    <a class="logo" href={relativeHref("/", here)}>{LOGO_LABEL}</a>
+    <a class="logo" href={relativeHref("/", here)}><Logo /></a>
     <Navigation current={current} />
   </div>
 </header>

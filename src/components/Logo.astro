@@ -1,0 +1,21 @@
+---
+/**
+ * "KONG,SUNG-HUN" 로고 텍스트.
+ * 특정 글자 쌍의 커닝을 미세 조정한다:
+ *   K↔O : -2px, S↔U : -1px (뒤 글자에 음수 margin-left)
+ * 폰트/크기/letter-spacing 등은 사용처(.logo / .landing-logo)에서 지정한다.
+ */
+---
+
+<span class="logo-text"
+  >K<span class="kern-ko">O</span>NG,S<span class="kern-su">U</span>NG-HUN</span
+>
+
+<style>
+  .kern-ko {
+    margin-left: -2px;
+  }
+  .kern-su {
+    margin-left: -1px;
+  }
+</style>
