@@ -103,7 +103,8 @@ const multiple = total > 1;
 <style>
   .detail {
     display: grid;
-    grid-template-columns: minmax(0, 410px) minmax(0, calc(496 / 1440 * 100vw));
+    /* 고정 폭 컬럼 — 뷰포트에 따라 변하지 않도록 vw 대신 px 사용 */
+    grid-template-columns: minmax(0, 410px) minmax(0, 496px);
     gap: var(--space-6);
     align-items: start;
   }

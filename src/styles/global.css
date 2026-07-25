@@ -60,8 +60,10 @@ img {
 }
 
 .container {
-  width: 100%;
-  max-width: var(--content-max);
+  /* 고정 폭(데스크탑 --content-max) + 중앙 정렬.
+     화면을 늘이거나 줄여도 콘텐츠 폭은 유지되고 양옆 margin(auto)만 변한다.
+     ≤768px에서는 --content-max 가 100% 로 바뀌어 모바일 레이아웃으로 전환된다. */
+  width: var(--content-max);
   margin-inline: auto;
   padding-inline: var(--space-5);
 }
