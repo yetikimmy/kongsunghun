@@ -11,6 +11,9 @@ const blocks = [
   { lang: "ko" as const, body: overview.ko },
   { lang: "en" as const, body: overview.en },
 ];
+
+// 문단 시작 넘버링("1.", "2." …)에서 뒤의 "." 기호를 제거해 "1", "2" 로 표시.
+const stripNumberDot = (t: string) => t.replace(/^(\s*\d+)\.\s*$/, "$1");
 ---
 
 <BaseLayout title="WORKS — KONG,SUNG-HUN" current="/works/">
@@ -33,7 +36,7 @@ const blocks = [
         >
           {body.map((b) =>
             b.kind === "heading" ? (
-              <h2 class="body-heading">{b.text}</h2>
+              <h2 class="body-heading">{stripNumberDot(b.text)}</h2>
             ) : b.kind === "figure" ? (
               <figure class="body-figure">
                 {b.img && <img src={b.img} alt={b.caption} loading="lazy" />}
@@ -83,14 +86,14 @@ const blocks = [
     margin: var(--space-6) 0 0;
     max-width: 1000px;
     color: #a0a0a0;
-    font-size: var(--fs-body);
+    font-size: calc(var(--fs-body) + 1px);
     line-height: var(--lh-body);
   }
   .body-heading {
     font-family: var(--font-display);
     font-size: 16px;
     color: var(--color-fg);
-    margin: var(--space-5) 0 var(--space-3);
+    margin: var(--space-5) 0 calc(var(--space-3) - 2px);
   }
   .body-para + .body-para,
   .body-para + .body-caption {

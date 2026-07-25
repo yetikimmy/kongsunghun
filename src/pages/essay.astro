@@ -17,6 +17,9 @@ const blocks = [
   { lang: "ko" as const, essay: ko },
   { lang: "en" as const, essay: en },
 ];
+
+// 문단 시작 넘버링("1.", "2." …)에서 뒤의 "." 기호를 제거해 "1", "2" 로 표시.
+const stripNumberDot = (t: string) => t.replace(/^(\s*\d+)\.\s*$/, "$1");
 ---
 
 <BaseLayout title="ESSAY — KONG,SUNG-HUN" current="/essay/">
@@ -47,7 +50,7 @@ const blocks = [
         >
           {essay.paragraphs.map((p) =>
             p.kind === "heading" ? (
-              <h2 class="essay-heading">{p.text}</h2>
+              <h2 class="essay-heading">{stripNumberDot(p.text)}</h2>
             ) : p.kind === "signature" ? (
               <p class="essay-signature">{p.text}</p>
             ) : (
@@ -92,7 +95,7 @@ const blocks = [
     margin-top: var(--space-6);
     max-width: 1000px;
     color: #a0a0a0;
-    font-size: var(--fs-body);
+    font-size: calc(var(--fs-body) + 1px);
     line-height: var(--lh-body);
   }
   .essay-heading {
@@ -100,7 +103,7 @@ const blocks = [
     font-size: 16px;
     color: var(--color-fg);
     margin-top: var(--space-5);
-    margin-bottom: var(--space-3);
+    margin-bottom: calc(var(--space-3) - 2px);
   }
   .essay-para {
     margin: var(--space-3) 0;
