@@ -158,8 +158,9 @@ const withBreaks = (t: string) => TITLE_BREAKS[t] ?? t;
     font-family: var(--font-body);
     font-size: var(--fs-body);
     color: #656565;
-    margin-top: var(--space-2);
-    line-height: 15px;
+    /* 썸네일 ↔ 제목 간격 +2px, 2줄 제목 행간 +1px */
+    margin-top: 10px;
+    line-height: 16px;
   }
   .card-title--center {
     text-align: center;
