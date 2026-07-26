@@ -115,7 +115,8 @@ const stripNumberDot = (t: string) => t.replace(/^(\s*\d+)\.\s*$/, "$1");
     margin: var(--space-3) 0;
   }
   .essay-signature {
-    margin-top: var(--space-5);
+    /* 본문 마지막 문장과 작가 이름 사이 2줄 더 띄움 */
+    margin-top: calc(var(--space-5) + 50px);
     color: var(--color-muted);
     text-align: right;
   }
