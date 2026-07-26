@@ -20,6 +20,12 @@ const blocks = [
 
 // 문단 시작 넘버링("1.", "2." …)에서 뒤의 "." 기호를 제거해 "1", "2" 로 표시.
 const stripNumberDot = (t: string) => t.replace(/^(\s*\d+)\.\s*$/, "$1");
+
+// 대화 문단("* 공을 : …", "* 공갑 : …")에서 앞의 "*" 를 떼고 화자 이름을 분리한다.
+const dialogue = (text: string) => {
+  const m = text.match(/^\*\s*([^:]+?)\s*:\s*([\s\S]*)$/);
+  return m ? { speaker: m[1], rest: m[2] } : null;
+};
 ---
 
 <BaseLayout title="ESSAY — KONG,SUNG-HUN" current="/essay/">
@@ -48,15 +54,20 @@ const stripNumberDot = (t: string) => t.replace(/^(\s*\d+)\.\s*$/, "$1");
           data-lang={lang}
           hidden={lang !== "ko"}
         >
-          {essay.paragraphs.map((p) =>
-            p.kind === "heading" ? (
-              <h2 class="essay-heading">{stripNumberDot(p.text)}</h2>
-            ) : p.kind === "signature" ? (
-              <p class="essay-signature">{p.text}</p>
+          {essay.paragraphs.map((p) => {
+            if (p.kind === "heading")
+              return <h2 class="essay-heading">{stripNumberDot(p.text)}</h2>;
+            if (p.kind === "signature")
+              return <p class="essay-signature">{p.text}</p>;
+            const d = dialogue(p.text);
+            return d ? (
+              <p class="essay-para">
+                <strong class="speaker">{d.speaker}</strong> : {d.rest}
+              </p>
             ) : (
               <p class="essay-para">{p.text}</p>
-            ),
-          )}
+            );
+          })}
         </article>
       ))
     }
@@ -113,6 +124,10 @@ const stripNumberDot = (t: string) => t.replace(/^(\s*\d+)\.\s*$/, "$1");
   }
   .essay-para {
     margin: var(--space-3) 0;
+  }
+  /* 대화 화자(공을 / 공갑 …) 볼드 */
+  .essay-para .speaker {
+    font-weight: 700;
   }
   .essay-signature {
     /* 본문 마지막 문장과 작가 이름 사이 2줄 더 띄움 */
