@@ -74,7 +74,8 @@ const multiple = total > 1;
               alt={s.alt}
               width={s.width}
               height={s.height}
-              loading={i === 0 ? "eager" : "lazy"}
+              loading="eager"
+              fetchpriority={i === 0 ? "high" : "low"}
               onerror="this.closest('figure').classList.add('img-missing')"
             />
           ) : (
@@ -253,6 +254,12 @@ const multiple = total > 1;
   document.querySelectorAll<HTMLElement>(".detail").forEach((detail) => {
     const total = Number(detail.dataset.total || "1");
     if (total <= 1) return;
+
+    // 모든 슬라이드 이미지를 미리 디코드해 두어, 다음 이미지로 넘길 때
+    // 흰 화면이 잠깐 뜨는 로딩 지연을 없앤다.
+    detail.querySelectorAll<HTMLImageElement>(".media-slide img").forEach((img) => {
+      if (img.decode) img.decode().catch(() => {});
+    });
 
     const groups = {
       info: detail.querySelectorAll<HTMLElement>(".info-slide"),
