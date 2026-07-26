@@ -159,17 +159,11 @@ const groupSignatures = (arr: any[]) => {
     margin-top: var(--space-2);
   }
   .body-signature {
-    margin-top: var(--space-2);
+    /* 마지막 문단과 서명 사이 두 줄 정도 간격 */
+    margin-top: 48px;
     text-align: right;
     color: var(--color-muted);
     line-height: 18px;
-  }
-  .body-signature:first-of-type {
-    margin-top: var(--space-5);
-  }
-  /* 연속된 서명 줄(작가명 / 매체출처)은 한 줄 띄지 않고 바로 다음 줄에 붙임 */
-  .body-signature + .body-signature {
-    margin-top: 0;
   }
   /* 꺾쇠 제목(<호수공원> 등)이 중간에 잘리지 않도록 */
   .nowrap {
