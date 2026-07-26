@@ -62,7 +62,7 @@ const dialogue = (text: string) => {
             const d = dialogue(p.text);
             return d ? (
               <p class="essay-para">
-                <strong class="speaker">{d.speaker}</strong> : {d.rest}
+                <strong class="speaker">{d.speaker}</strong>{d.rest}
               </p>
             ) : (
               <p class="essay-para">{p.text}</p>
@@ -125,9 +125,10 @@ const dialogue = (text: string) => {
   .essay-para {
     margin: var(--space-3) 0;
   }
-  /* 대화 화자(공을 / 공갑 …) 볼드 */
+  /* 대화 화자(공을 / 공갑 …) 볼드 + ":" 대신 살짝 넓힌 간격으로 내용과 분리 */
   .essay-para .speaker {
     font-weight: 700;
+    margin-right: 10px;
   }
   .essay-signature {
     /* 본문 마지막 문장과 작가 이름 사이 2줄 더 띄움 */
