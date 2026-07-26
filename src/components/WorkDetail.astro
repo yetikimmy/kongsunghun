@@ -98,7 +98,7 @@ const multiple = total > 1;
     ))}
   </div>
 
-  <a class="back-link" href={rel(backHref)}>← 목록으로</a>
+  <a class="back-link" href={rel(backHref)}><span class="back-chevron" aria-hidden="true"></span>목록으로</a>
 </article>
 
 <style>
@@ -239,9 +239,22 @@ const multiple = total > 1;
   .back-link {
     grid-column: 1 / -1;
     margin-top: var(--space-6);
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
     font-family: var(--font-mono);
     font-size: var(--fs-nav);
-    color: var(--color-nav-default);
+    /* 이미지 네비게이션 버튼과 동일한 진한 회색 */
+    color: #999999;
+    transition: color 0.15s;
+  }
+  /* 왼쪽 꺾쇠(chevron) 아이콘 */
+  .back-chevron {
+    width: 6px;
+    height: 6px;
+    border-left: 1.5px solid currentColor;
+    border-bottom: 1.5px solid currentColor;
+    transform: rotate(45deg);
   }
   .back-link:hover {
     color: var(--color-nav-pressed);
