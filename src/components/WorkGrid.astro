@@ -158,6 +158,36 @@ const isSquare = layout === "square-grid" || showLangToggle;
     text-align: center;
   }
 
+  /* ── hover 인터랙션 (installation work · multi slide projection) ──
+     밑줄 대신 썸네일이 부드럽게 확대되고 제목 색이 진해진다. */
+  .card a {
+    display: block;
+    text-decoration: none;
+  }
+  .thumb img {
+    transition: transform 0.45s cubic-bezier(0.2, 0.6, 0.2, 1);
+  }
+  .card a:hover .thumb img,
+  .card a:focus-visible .thumb img {
+    transform: scale(1.05);
+  }
+  .card-title {
+    transition: color 0.25s ease;
+  }
+  .card a:hover .card-title,
+  .card a:focus-visible .card-title {
+    color: #000;
+    text-decoration: none;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .thumb img,
+    .card a:hover .thumb img,
+    .card a:focus-visible .thumb img {
+      transition: none;
+      transform: none;
+    }
+  }
+
   /* ── Paintings horizontal list ── */
   .paint-list {
     display: grid;
