@@ -118,9 +118,9 @@ const dialogue = (text: string) => {
     margin-top: var(--space-5);
     margin-bottom: calc(var(--space-3) - 4px);
   }
-  /* 앞 문단 뒤에 오는 다음 넘버 문단은 3줄 정도 더 띄운다 (첫 넘버는 제외) */
+  /* 앞 문단 뒤에 오는 다음 넘버 문단 간격 (첫 넘버는 제외) */
   .essay-para + .essay-heading {
-    margin-top: calc(var(--space-5) + 75px);
+    margin-top: calc(var(--space-5) + 25px);
   }
   .essay-para {
     margin: var(--space-3) 0;
@@ -128,7 +128,7 @@ const dialogue = (text: string) => {
   /* 대화 화자(공을 / 공갑 …) 볼드 + ":" 대신 살짝 넓힌 간격으로 내용과 분리 */
   .essay-para .speaker {
     font-weight: 700;
-    margin-right: 10px;
+    margin-right: 14px;
   }
   .essay-signature {
     /* 본문 마지막 문장과 작가 이름 사이 2줄 더 띄움 */
