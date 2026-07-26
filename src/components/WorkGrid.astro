@@ -12,6 +12,13 @@ interface Props {
 const { groups, columns = 3, layout = "grid", showLangToggle = false } = Astro.props;
 const here = Astro.url.pathname;
 const isSquare = layout === "square-grid" || showLangToggle;
+
+// 특정 썸네일 제목의 줄바꿈 위치를 지정한다 (\n 위치에서 개행).
+const TITLE_BREAKS: Record<string, string> = {
+  "완벽한 리얼리티, 완벽한 평면성을 위한 프로젝트": "완벽한 리얼리티, 완벽한 평면성을\n위한 프로젝트",
+  "미술관에서는 감전과 추락에 주의합시다": "미술관에서는\n감전과 추락에 주의합시다",
+};
+const withBreaks = (t: string) => TITLE_BREAKS[t] ?? t;
 ---
 
 {(layout === "grid" || layout === "square-grid") && (
@@ -37,7 +44,7 @@ const isSquare = layout === "square-grid" || showLangToggle;
             </div>
             {isSquare ? (
               <div class="card-title-area">
-                <p class="card-title card-title--center" data-lang="ko">{group.titleKo}</p>
+                <p class="card-title card-title--center" data-lang="ko">{withBreaks(group.titleKo)}</p>
                 <p class="card-title card-title--center" data-lang="en" hidden={true}>{group.titleEn}</p>
               </div>
             ) : (
@@ -156,6 +163,7 @@ const isSquare = layout === "square-grid" || showLangToggle;
   }
   .card-title--center {
     text-align: center;
+    white-space: pre-line;
   }
 
   /* ── hover 인터랙션 (installation work · multi slide projection) ──
