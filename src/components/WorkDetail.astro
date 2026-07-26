@@ -243,17 +243,17 @@ const multiple = total > 1;
     align-items: center;
     gap: 7px;
     font-family: var(--font-mono);
-    font-size: var(--fs-nav);
+    font-size: calc(var(--fs-nav) - 1px);
     /* 이미지 네비게이션 버튼과 동일한 진한 회색 */
     color: #999999;
     transition: color 0.15s;
   }
-  /* 왼쪽 꺾쇠(chevron) 아이콘 */
+  /* 왼쪽 꺾쇠(chevron) 아이콘 — 글자 획과 비슷하게 얇게 */
   .back-chevron {
     width: 6px;
     height: 6px;
-    border-left: 1.5px solid currentColor;
-    border-bottom: 1.5px solid currentColor;
+    border-left: 1px solid currentColor;
+    border-bottom: 1px solid currentColor;
     transform: rotate(45deg);
   }
   .back-link:hover {
