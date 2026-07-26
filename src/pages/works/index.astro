@@ -88,6 +88,8 @@ const stripNumberDot = (t: string) => t.replace(/^(\s*\d+)\.\s*$/, "$1");
     color: #8c8c8c;
     font-size: 13px;
     line-height: calc(var(--lh-body) + 1px);
+    word-break: keep-all;
+    overflow-wrap: break-word;
   }
   .body-heading {
     font-family: var(--font-display);

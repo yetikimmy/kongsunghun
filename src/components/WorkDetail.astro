@@ -137,6 +137,9 @@ const multiple = total > 1;
     color: #8c8c8c;
     font-size: 13px;
     line-height: calc(var(--lh-body) + 1px);
+    /* 한글 어절(단어)이 줄바꿈으로 잘리지 않도록; 긴 영문 단어만 예외적으로 분리 */
+    word-break: keep-all;
+    overflow-wrap: break-word;
   }
   .body-text p + p {
     margin-top: var(--space-3);
