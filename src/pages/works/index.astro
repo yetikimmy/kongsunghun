@@ -19,6 +19,23 @@ const stripNumberDot = (t: string) => t.replace(/^(\s*\d+)\.\s*$/, "$1");
 // 분리해 nowrap 으로 감싸고 앞에 줄바꿈 기회(ZWSP)를 둔다.
 const segmentBrackets = (text: string) => text.split(/(<[^>]+>)/).filter((s) => s !== "");
 const isBracket = (s: string) => /^<[^>]+>$/.test(s);
+
+// 연속된 signature 블록(작가명 / 매체출처)을 한 문단으로 합쳐, 블록 간 간격 없이
+// 바로 다음 줄에 붙도록 한다.
+const groupSignatures = (arr: any[]) => {
+  const out: any[] = [];
+  for (const b of arr) {
+    const last = out[out.length - 1];
+    if (b.kind === "signature" && last && last.kind === "signature") {
+      last.lines.push(b.text);
+    } else if (b.kind === "signature") {
+      out.push({ kind: "signature", lines: [b.text] });
+    } else {
+      out.push(b);
+    }
+  }
+  return out;
+};
 ---
 
 <BaseLayout title="WORKS — KONG,SUNG-HUN" current="/works/">
@@ -39,7 +56,7 @@ const isBracket = (s: string) => /^<[^>]+>$/.test(s);
           data-lang={lang}
           hidden={lang !== "ko"}
         >
-          {body.map((b) =>
+          {groupSignatures(body).map((b) =>
             b.kind === "heading" ? (
               <h2 class="body-heading">{stripNumberDot(b.text)}</h2>
             ) : b.kind === "figure" ? (
@@ -48,7 +65,16 @@ const isBracket = (s: string) => /^<[^>]+>$/.test(s);
                 <figcaption class="body-caption">{b.caption}</figcaption>
               </figure>
             ) : b.kind === "signature" ? (
-              <p class="body-signature">{b.text}</p>
+              <p class="body-signature">
+                {b.lines.map((l: string, i: number) =>
+                  i === 0 ? l : (
+                    <>
+                      <br />
+                      {l}
+                    </>
+                  ),
+                )}
+              </p>
             ) : (
               <p class="body-para">
                 {segmentBrackets(b.text).map((seg) =>
