@@ -60,7 +60,7 @@ const multiple = total > 1;
     {multiple && (
       <div class="pager">
         <button class="pager-btn prev" aria-label="이전 이미지" disabled>Back</button>
-        <span class="pager-pos"><span class="pager-current">1</span> / {total}</span>
+        <span class="pager-pos"><span class="pager-current">1</span><span class="pager-slash">/</span>{total}</span>
         <button class="pager-btn next" aria-label="다음 이미지">Next</button>
       </div>
     )}
@@ -151,7 +151,7 @@ const multiple = total > 1;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 8px;
+    margin-bottom: 4px;
     font-family: var(--font-mono);
     font-size: calc(var(--fs-nav) - 2px);
   }
@@ -173,7 +173,13 @@ const multiple = total > 1;
     cursor: default;
   }
   .pager-pos {
-    color: var(--color-muted);
+    /* 본문 텍스트와 동일한 회색, 페이저보다 1px 작게 */
+    color: #8c8c8c;
+    font-size: calc(var(--fs-nav) - 3px);
+  }
+  /* "/" 양옆 간격을 일반 스페이스보다 약간 줄임 */
+  .pager-slash {
+    margin: 0 2px;
   }
 
   .frame {
