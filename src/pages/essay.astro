@@ -107,6 +107,10 @@ const stripNumberDot = (t: string) => t.replace(/^(\s*\d+)\.\s*$/, "$1");
     margin-top: var(--space-5);
     margin-bottom: calc(var(--space-3) - 4px);
   }
+  /* 앞 문단 뒤에 오는 다음 넘버 문단은 3줄 정도 더 띄운다 (첫 넘버는 제외) */
+  .essay-para + .essay-heading {
+    margin-top: calc(var(--space-5) + 75px);
+  }
   .essay-para {
     margin: var(--space-3) 0;
   }
