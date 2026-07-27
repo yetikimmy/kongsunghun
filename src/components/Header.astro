@@ -35,9 +35,7 @@ const here = Astro.url.pathname;
     display: flex;
     /* 로고(큰 서체)와 네비게이션(작은 서체)의 글자 베이스라인을 일직선으로 정렬 */
     align-items: baseline;
-    /* 로고는 왼쪽 끝, 네비게이션은 오른쪽 끝 → 헤더가 콘텐츠 열(1000px) 전체 폭을
-       채워 본문·썸네일 리스트와 양옆이 정렬된다 */
-    justify-content: space-between;
+    justify-content: flex-start;
     gap: 58px;
     /* 상단 여백 (로고·네비게이션 윗부분) */
     padding-top: calc(var(--space-4) + 17px);
