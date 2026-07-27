@@ -189,30 +189,25 @@ const onWorks = !!currentSeries;
 </style>
 
 <script>
-  // 모바일(터치)에서 WORKS 탭을 누르면 하위 드롭다운을 펼치거나 접는다.
-  // 데스크탑에서는 hover로 동작하므로 이 핸들러는 좁은 화면에서만 링크 이동을 가로챈다.
-  const MOBILE = "(max-width: 768px)";
-
+  // WORKS 탭을 클릭하면 hover 상태가 아니어도 드롭다운이 펼쳐진 채 유지된다.
+  // (모바일·데스크탑 공통) 첫 클릭은 링크 이동 대신 드롭다운을 열고, 이미 열려
+  // 있으면 그대로 WORKS 인덱스로 이동한다.
   document.querySelectorAll<HTMLElement>(".nav-item.has-dropdown").forEach((item) => {
     const trigger = item.querySelector<HTMLAnchorElement>(":scope > a");
     if (!trigger) return;
 
     trigger.addEventListener("click", (e) => {
-      if (!window.matchMedia(MOBILE).matches) return; // 데스크탑은 기본 링크 동작
       const isOpen = item.classList.contains("open");
       if (!isOpen) {
-        // 첫 탭: 링크 이동 대신 드롭다운 펼치기
         e.preventDefault();
         item.classList.add("open");
         trigger.setAttribute("aria-expanded", "true");
       }
-      // 이미 열려 있으면 그대로 링크(WORKS 인덱스)로 이동
     });
   });
 
-  // 바깥 영역을 탭하면 드롭다운 닫기
+  // 바깥 영역을 클릭하면 드롭다운 닫기
   document.addEventListener("click", (e) => {
-    if (!window.matchMedia(MOBILE).matches) return;
     document.querySelectorAll<HTMLElement>(".nav-item.has-dropdown.open").forEach((item) => {
       if (!item.contains(e.target as Node)) {
         item.classList.remove("open");
