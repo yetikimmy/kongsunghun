@@ -177,9 +177,16 @@ const groupBlocks = (arr: any[]) => {
   .body-figure--large img {
     max-width: 744px;
   }
-  /* Camera Obscura → 전체 폭의 80% */
+  /* Camera Obscura → 전체 폭의 92% (기존 80%에서 15% 더 키움) */
   .body-figure--wide img {
-    max-width: 80%;
+    max-width: 92%;
+  }
+  /* 나란히 있는 pair 를 제외한 단일 사진은 사진·캡션을 중앙 정렬 */
+  .body-figure:not(.body-figure--pair) img {
+    margin-inline: auto;
+  }
+  .body-figure:not(.body-figure--pair) .body-caption {
+    text-align: center;
   }
   /* 개 / 눈오는 밤 → 좌우 2열 배치 (세로 스크롤 절약), 동일한 정방형으로 라인업 */
   .figure-row {
