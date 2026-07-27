@@ -59,7 +59,7 @@ const multiple = total > 1;
   <div class="detail-media">
     {multiple && (
       <div class="pager">
-        <button class="pager-btn prev" aria-label="이전 이미지" disabled>Back</button>
+        <button class="pager-btn prev" aria-label="이전 이미지" disabled>Prev</button>
         <span class="pager-pos"><span class="pager-current">1</span><span class="pager-slash">/</span>{total}</span>
         <button class="pager-btn next" aria-label="다음 이미지">Next</button>
       </div>
@@ -164,6 +164,8 @@ const multiple = total > 1;
     cursor: pointer;
     font-family: inherit;
     font-size: inherit;
+    /* Prev / Next 자간을 살짝 다듬음 */
+    letter-spacing: 0.02em;
     /* 활성 버튼이 비활성처럼 보이지 않도록 조금 더 진한 회색으로 통일 */
     color: #999999;
     padding: 0;
