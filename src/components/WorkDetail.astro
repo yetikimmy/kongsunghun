@@ -61,7 +61,7 @@ const multiple = total > 1;
       <div class="pager">
         <button class="pager-btn prev" aria-label="이전 이미지" disabled>Prev</button>
         <span class="pager-pos"><span class="pager-current">1</span><span class="pager-slash">/</span>{total}</span>
-        <button class="pager-btn next" aria-label="다음 이미지">Next</button>
+        <button class="pager-btn next" aria-label="다음 이미지">Nex<span class="kern-xt">t</span></button>
       </div>
     )}
 
@@ -166,6 +166,10 @@ const multiple = total > 1;
     font-size: inherit;
     /* Prev / Next 자간을 더 좁게 */
     letter-spacing: -0.04em;
+  }
+  /* 모노스페이스라 넓어 보이는 Next 의 x–t 간격만 추가로 좁힘 */
+  .kern-xt {
+    margin-left: -0.12em;
     /* 활성 버튼이 비활성처럼 보이지 않도록 조금 더 진한 회색으로 통일 */
     color: #999999;
     padding: 0;
