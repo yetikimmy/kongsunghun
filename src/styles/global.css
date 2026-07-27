@@ -11,6 +11,18 @@
   display: none !important;
 }
 
+/* Works 드롭다운이 열려 있을 때, 헤더의 흰 배경(전체 폭)을 드롭다운 높이만큼
+   아래로 확장해 스크롤되는 본문이 드롭다운 옆(왼쪽)에서 비쳐 보이지 않게 한다.
+   헤더가 전체 폭이므로 box-shadow(블러 0)가 전체 폭 흰 띠 역할을 한다. */
+@media (min-width: 769px) {
+  .header:has(.nav-item.has-dropdown:hover),
+  .header:has(.nav-item.has-dropdown:focus-within),
+  .header:has(.nav-item.has-dropdown.open),
+  .header:has(.nav-item.has-dropdown.pinned) {
+    box-shadow: 0 34px 0 0 var(--color-bg);
+  }
+}
+
 html {
   -webkit-text-size-adjust: 100%;
   /* Always reserve the vertical scrollbar gutter so short pages (CV, Contact)

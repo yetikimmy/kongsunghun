@@ -38,7 +38,7 @@ const {
     <a class="visually-hidden" href="#main">본문 바로가기</a>
     <div class="page">
       {!bare && <Header current={current} invert={invertHeader} />}
-      <main id="main" class="main">
+      <main id="main" class:list={["main", { "main--headered": !bare }]}>
         <slot />
       </main>
     </div>
@@ -48,5 +48,9 @@ const {
 <style>
   .main {
     flex: 1;
+  }
+  /* 헤더가 있는 모든 페이지 본문을 12px 아래로 (랜딩은 bare 라 제외) */
+  .main--headered {
+    padding-top: 12px;
   }
 </style>
