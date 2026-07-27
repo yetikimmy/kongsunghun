@@ -18,9 +18,11 @@ const segmentBrackets = (text: string) => text.split(/(<[^>]+>)/).filter((s) => 
 const isBracket = (s: string) => /^<[^>]+>$/.test(s);
 
 // 이미지 크기/배치 힌트: 특정 이미지는 크게, 특정 이미지들은 2열로 나란히.
-const LARGE_FIGS = ["boy01", "boy02", "boy05"]; // Blind-Work / Camera Obscura / Rolling My Head → 1.5배
+const WIDE_FIGS = ["boy02"]; // Camera Obscura → 전체 폭의 80%
+const LARGE_FIGS = ["boy01", "boy05"]; // Blind-Work / Rolling My Head → 1.5배
 const PAIR_FIGS = ["boy03", "boy04"]; // 개 / 눈오는 밤 → 좌우 2열 배치
 const figName = (img?: string) => (img ?? "").split("/").pop()?.replace(/\.\w+$/, "") ?? "";
+const isWideFig = (b: any) => b.kind === "figure" && WIDE_FIGS.includes(figName(b.img));
 const isLargeFig = (b: any) => b.kind === "figure" && LARGE_FIGS.includes(figName(b.img));
 const isPairFig = (b: any) => b.kind === "figure" && PAIR_FIGS.includes(figName(b.img));
 
@@ -75,7 +77,7 @@ const groupBlocks = (arr: any[]) => {
                 ))}
               </div>
             ) : b.kind === "figure" ? (
-              <figure class:list={["body-figure", { "body-figure--large": isLargeFig(b) }]}>
+              <figure class:list={["body-figure", { "body-figure--large": isLargeFig(b), "body-figure--wide": isWideFig(b) }]}>
                 {b.img && <img src={b.img} alt={b.caption} loading="lazy" />}
                 <figcaption class="body-caption">{b.caption}</figcaption>
               </figure>
@@ -171,15 +173,20 @@ const groupBlocks = (arr: any[]) => {
     height: auto;
     display: block;
   }
-  /* Blind-Work / Camera Obscura / Rolling My Head → 1.5배 */
+  /* Blind-Work / Rolling My Head → 1.5배 */
   .body-figure--large img {
     max-width: 744px;
   }
-  /* 개 / 눈오는 밤 → 좌우 2열 배치 (세로 스크롤 절약) */
+  /* Camera Obscura → 전체 폭의 80% */
+  .body-figure--wide img {
+    max-width: 80%;
+  }
+  /* 개 / 눈오는 밤 → 좌우 2열 배치 (세로 스크롤 절약), 동일한 정방형으로 라인업 */
   .figure-row {
     display: flex;
     gap: var(--space-4);
     margin: var(--space-5) 0;
+    align-items: flex-start;
   }
   .figure-row .body-figure--pair {
     flex: 1;
@@ -187,7 +194,10 @@ const groupBlocks = (arr: any[]) => {
     margin: 0;
   }
   .figure-row .body-figure--pair img {
+    width: 100%;
     max-width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
   }
   .body-caption {
     color: var(--color-muted);
