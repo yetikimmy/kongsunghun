@@ -139,6 +139,10 @@ const groupSignatures = (arr: any[]) => {
     color: var(--color-fg);
     margin: var(--space-5) 0 calc(var(--space-3) - 4px);
   }
+  /* 새 넘버 문단 시작 시 한 줄 더 띄움 (첫 넘버는 제외) */
+  .body-heading:not(:first-child) {
+    margin-top: calc(var(--space-5) + 25px);
+  }
   .body-para + .body-para,
   .body-para + .body-caption {
     margin-top: var(--space-3);
