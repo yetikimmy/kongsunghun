@@ -84,7 +84,10 @@ const onWorks = !!currentSeries;
   .dropdown {
     position: absolute;
     top: 100%;
-    left: 0;
+    /* 네비게이션이 우측 정렬되므로 드롭다운을 우측 기준으로 열어 화면 밖으로
+       넘치지 않게 한다 */
+    right: 0;
+    left: auto;
     /* 드롭다운 상단 오프셋 */
     padding-top: 7px;
     padding-bottom: var(--space-2);
