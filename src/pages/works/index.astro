@@ -12,9 +12,6 @@ const blocks = [
   { lang: "en" as const, body: overview.en },
 ];
 
-// 문단 시작 넘버링("1.", "2." …)에서 뒤의 "." 기호를 제거해 "1", "2" 로 표시.
-const stripNumberDot = (t: string) => t.replace(/^(\s*\d+)\.\s*$/, "$1");
-
 // 본문 속 꺾쇠 제목(<호수공원> 등)이 줄바꿈으로 쪼개지지 않도록, 해당 토큰만
 // 분리해 nowrap 으로 감싸고 앞에 줄바꿈 기회(ZWSP)를 둔다.
 const segmentBrackets = (text: string) => text.split(/(<[^>]+>)/).filter((s) => s !== "");
@@ -58,7 +55,7 @@ const groupSignatures = (arr: any[]) => {
         >
           {groupSignatures(body).map((b) =>
             b.kind === "heading" ? (
-              <h2 class="body-heading">{stripNumberDot(b.text)}</h2>
+              <h2 class="body-heading">{b.text}</h2>
             ) : b.kind === "figure" ? (
               <figure class="body-figure">
                 {b.img && <img src={b.img} alt={b.caption} loading="lazy" />}
