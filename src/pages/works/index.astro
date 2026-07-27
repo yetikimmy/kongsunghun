@@ -17,9 +17,15 @@ const blocks = [
 const segmentBrackets = (text: string) => text.split(/(<[^>]+>)/).filter((s) => s !== "");
 const isBracket = (s: string) => /^<[^>]+>$/.test(s);
 
-// 연속된 signature 블록(작가명 / 매체출처)을 한 문단으로 합쳐, 블록 간 간격 없이
-// 바로 다음 줄에 붙도록 한다.
-const groupSignatures = (arr: any[]) => {
+// 이미지 크기/배치 힌트: 특정 이미지는 크게, 특정 이미지들은 2열로 나란히.
+const LARGE_FIGS = ["boy01", "boy02", "boy05"]; // Blind-Work / Camera Obscura / Rolling My Head → 1.5배
+const PAIR_FIGS = ["boy03", "boy04"]; // 개 / 눈오는 밤 → 좌우 2열 배치
+const figName = (img?: string) => (img ?? "").split("/").pop()?.replace(/\.\w+$/, "") ?? "";
+const isLargeFig = (b: any) => b.kind === "figure" && LARGE_FIGS.includes(figName(b.img));
+const isPairFig = (b: any) => b.kind === "figure" && PAIR_FIGS.includes(figName(b.img));
+
+// 블록 전처리: 연속 signature 를 한 문단으로 합치고, 연속 pair 이미지를 한 행으로 묶는다.
+const groupBlocks = (arr: any[]) => {
   const out: any[] = [];
   for (const b of arr) {
     const last = out[out.length - 1];
@@ -27,6 +33,9 @@ const groupSignatures = (arr: any[]) => {
       last.lines.push(b.text);
     } else if (b.kind === "signature") {
       out.push({ kind: "signature", lines: [b.text] });
+    } else if (isPairFig(b)) {
+      if (last && last.kind === "figure-pair") last.figures.push(b);
+      else out.push({ kind: "figure-pair", figures: [b] });
     } else {
       out.push(b);
     }
@@ -53,11 +62,20 @@ const groupSignatures = (arr: any[]) => {
           data-lang={lang}
           hidden={lang !== "ko"}
         >
-          {groupSignatures(body).map((b) =>
+          {groupBlocks(body).map((b) =>
             b.kind === "heading" ? (
               <h2 class="body-heading">{b.text}</h2>
+            ) : b.kind === "figure-pair" ? (
+              <div class="figure-row">
+                {b.figures.map((f: any) => (
+                  <figure class="body-figure body-figure--pair">
+                    {f.img && <img src={f.img} alt={f.caption} loading="lazy" />}
+                    <figcaption class="body-caption">{f.caption}</figcaption>
+                  </figure>
+                ))}
+              </div>
             ) : b.kind === "figure" ? (
-              <figure class="body-figure">
+              <figure class:list={["body-figure", { "body-figure--large": isLargeFig(b) }]}>
                 {b.img && <img src={b.img} alt={b.caption} loading="lazy" />}
                 <figcaption class="body-caption">{b.caption}</figcaption>
               </figure>
@@ -152,6 +170,24 @@ const groupSignatures = (arr: any[]) => {
     max-width: 496px;
     height: auto;
     display: block;
+  }
+  /* Blind-Work / Camera Obscura / Rolling My Head → 1.5배 */
+  .body-figure--large img {
+    max-width: 744px;
+  }
+  /* 개 / 눈오는 밤 → 좌우 2열 배치 (세로 스크롤 절약) */
+  .figure-row {
+    display: flex;
+    gap: var(--space-4);
+    margin: var(--space-5) 0;
+  }
+  .figure-row .body-figure--pair {
+    flex: 1;
+    min-width: 0;
+    margin: 0;
+  }
+  .figure-row .body-figure--pair img {
+    max-width: 100%;
   }
   .body-caption {
     color: var(--color-muted);
