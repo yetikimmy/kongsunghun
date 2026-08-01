@@ -53,6 +53,7 @@ const multiple = total > 1;
         ))}
       </>
     )}
+    <a class="back-link" href={rel(backHref)}><span class="back-chevron" aria-hidden="true"></span>목록으로</a>
   </div>
 
   <!-- 우측: 이미지 carousel -->
@@ -98,7 +99,6 @@ const multiple = total > 1;
     ))}
   </div>
 
-  <a class="back-link" href={rel(backHref)}><span class="back-chevron" aria-hidden="true"></span>목록으로</a>
 </article>
 
 <style>
@@ -243,9 +243,10 @@ const multiple = total > 1;
   }
 
   .back-link {
-    grid-column: 1 / -1;
+    /* 좌측 본문 텍스트 끝에서 80px 아래 (이미지 높이와 무관) */
     margin-top: 80px;
-    display: inline-flex;
+    display: flex;
+    width: fit-content;
     align-items: center;
     gap: 5px;
     font-family: var(--font-mono);
