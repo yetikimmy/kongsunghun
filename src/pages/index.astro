@@ -64,4 +64,14 @@ const here = Astro.url.pathname;
     height: auto;
     display: block;
   }
+
+  /* 모바일: 로고를 조금 줄이고 살짝 아래로 */
+  @media (max-width: 768px) {
+    .landing-header {
+      padding-top: 118px;
+    }
+    .landing-logo {
+      font-size: 22px;
+    }
+  }
 </style>
