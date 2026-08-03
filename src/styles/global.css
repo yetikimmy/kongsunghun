@@ -19,7 +19,7 @@
   .header:has(.nav-item.has-dropdown:focus-within),
   .header:has(.nav-item.has-dropdown.open),
   .header:has(.nav-item.has-dropdown.pinned) {
-    box-shadow: 0 10px 0 0 var(--color-bg);
+    box-shadow: 0 8px 0 0 var(--color-bg);
   }
 }
 
