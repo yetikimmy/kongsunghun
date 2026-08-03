@@ -26,7 +26,18 @@ const splitYear = (item: string) => {
         {
           blocks.map(({ lang, cv }) => (
             <div class="cv-block" lang={lang === "ko" ? "ko" : "en"} data-lang={lang} hidden={lang !== "ko"}>
-              {cv.intro && <p class="bio">{cv.intro}</p>}
+              {cv.intro &&
+                (() => {
+                  const p = splitYear(cv.intro);
+                  return p ? (
+                    <p class="bio">
+                      <span class="cv-year">{p.year}</span>
+                      <span class="cv-desc">{p.desc}</span>
+                    </p>
+                  ) : (
+                    <p class="bio">{cv.intro}</p>
+                  );
+                })()}
               {cv.sections.map((s) => (
                 <section class="cv-section">
                   <h2 class="cv-heading">{s.heading}</h2>
@@ -87,6 +98,7 @@ const splitYear = (item: string) => {
     line-height: 1.25;
   }
   .bio {
+    display: flex;
     color: var(--color-muted);
     font-family: var(--font-body);
     font-size: 12.5px;
