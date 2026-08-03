@@ -195,7 +195,7 @@ const onWorks = !!currentSeries;
   // WORKS 탭을 클릭하면 hover 상태가 아니어도 드롭다운이 펼쳐진 채 유지된다.
   // (모바일·데스크탑 공통) 첫 클릭은 링크 이동 대신 드롭다운을 열고, 이미 열려
   // 있으면 그대로 WORKS 인덱스로 이동한다.
-  const CLOSE_DELAY = 500; // hover 후 마우스가 벗어나도 유지되는 시간(ms)
+  const CLOSE_DELAY = 800; // hover 후 마우스가 벗어나도 유지되는 시간(ms)
 
   document.querySelectorAll<HTMLElement>(".nav-item.has-dropdown").forEach((item) => {
     const trigger = item.querySelector<HTMLAnchorElement>(":scope > a");
