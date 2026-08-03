@@ -166,14 +166,14 @@ const multiple = total > 1;
     font-size: inherit;
     /* Prev / Next 자간을 더 좁게 */
     letter-spacing: -0.04em;
-  }
-  /* 모노스페이스라 넓어 보이는 Next 의 x–t 간격만 추가로 좁힘 */
-  .kern-xt {
-    margin-left: -0.12em;
     /* 활성 버튼이 비활성처럼 보이지 않도록 조금 더 진한 회색으로 통일 */
     color: #999999;
     padding: 0;
     transition: color 0.15s;
+  }
+  /* 모노스페이스라 넓어 보이는 Next 의 x–t 간격만 추가로 좁힘 (색은 버튼에서 상속) */
+  .kern-xt {
+    margin-left: -0.12em;
   }
   .pager-btn:hover:not(:disabled) {
     color: var(--color-nav-pressed);
