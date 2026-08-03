@@ -26,6 +26,8 @@ const here = Astro.url.pathname;
     top: 0;
     z-index: 100;
     background: var(--color-bg);
+    /* 드롭다운 배경(box-shadow)이 닫힐 때 함께 자연스럽게 사라지도록 */
+    transition: box-shadow 0.25s ease;
   }
   .header.invert {
     background: var(--color-bg-invert);
