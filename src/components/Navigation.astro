@@ -158,11 +158,10 @@ const onWorks = !!currentSeries;
       flex-wrap: wrap;
     }
 
-    /* WORKS 드롭다운: 탭하면 아래로 펼쳐짐 */
+    /* WORKS 드롭다운: 탭하면 아래로 펼쳐지되, absolute 로 띄워 나머지 nav 항목
+       (ESSAY/C.V./CONTACT) 위치가 밀리지 않도록 한다. (position/배경은 기본값 상속) */
     .dropdown {
-      position: static;
-      padding-top: 0;
-      transition: none;
+      padding-top: var(--space-2);
       white-space: normal;
     }
     /* 기본은 접힘, WORKS 항목을 탭해 .open이 되면 펼쳐짐 */
