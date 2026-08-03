@@ -165,7 +165,8 @@ const groupBlocks = (arr: any[]) => {
     margin-top: var(--space-3);
   }
   .body-figure {
-    margin: var(--space-5) 0;
+    /* 작품(이미지+캡션) 위·아래 간격 (기존 40px + 24px) */
+    margin: calc(var(--space-5) + 24px) 0;
   }
   .body-figure img {
     width: 100%;
@@ -192,7 +193,7 @@ const groupBlocks = (arr: any[]) => {
   .figure-row {
     display: flex;
     gap: var(--space-4);
-    margin: var(--space-5) 0;
+    margin: calc(var(--space-5) + 24px) 0;
     align-items: flex-start;
   }
   .figure-row .body-figure--pair {
@@ -205,6 +206,10 @@ const groupBlocks = (arr: any[]) => {
     max-width: 100%;
     aspect-ratio: 1 / 1;
     object-fit: cover;
+  }
+  /* 개 / 눈오는 밤 캡션을 각 이미지에 중앙 정렬 */
+  .figure-row .body-figure--pair .body-caption {
+    text-align: center;
   }
   .body-caption {
     color: var(--color-muted);
