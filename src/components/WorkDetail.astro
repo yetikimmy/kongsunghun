@@ -14,6 +14,12 @@ const rel = (p: string) => relativeHref(p, here);
 const slides = group.slides;
 const total = slides.length;
 const multiple = total > 1;
+
+// 특정 상세 제목의 줄바꿈 위치 지정 (\n 위치에서 개행, white-space: pre-line).
+const TITLE_BREAKS: Record<string, string> = {
+  "미술관에서는 감전과 추락에 주의합시다": "미술관에서는\n감전과 추락에 주의합시다",
+};
+const breakTitle = (t: string) => TITLE_BREAKS[t] ?? t;
 ---
 
 <article class="detail" data-total={total}>
@@ -38,7 +44,7 @@ const multiple = total > 1;
       <>
         {/* Group title is fixed — does not change when advancing slides */}
         <h1 class="title">
-          {group.titleKo && <span class="title-line">{group.titleKo}</span>}
+          {group.titleKo && <span class="title-line">{breakTitle(group.titleKo)}</span>}
           {group.titleEn && group.titleEn !== group.titleKo && <span class="title-line">{group.titleEn}</span>}
         </h1>
         {slides.map((s, i) => (
@@ -126,6 +132,7 @@ const multiple = total > 1;
     font-size: clamp(18px, 2.4vw, 28px);
     font-weight: 600;
     font-family: var(--font-display);
+    white-space: pre-line;
   }
   .meta {
     font-size: var(--fs-caption);
