@@ -94,8 +94,7 @@ const onWorks = !!currentSeries;
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
-    /* 닫힐 때 자연스럽게 사라지도록 페이드 (크기는 고정, opacity 만 전환) */
-    transition: opacity 0.25s ease, visibility 0s linear 0.25s;
+    /* 전환 없이 즉시 표시/숨김 → 전체 폭 흰 프레임과 타이밍 완전 일치 */
     white-space: nowrap;
     z-index: 100;
   }
@@ -106,8 +105,6 @@ const onWorks = !!currentSeries;
     opacity: 1;
     visibility: visible;
     pointer-events: auto;
-    /* 열릴 때는 즉시 표시 (visibility 지연 제거) */
-    transition: opacity 0.25s ease, visibility 0s;
   }
   .nav-item.has-dropdown > a {
     padding-bottom: var(--space-2);
