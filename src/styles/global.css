@@ -15,12 +15,26 @@
    아래로 확장해 스크롤되는 본문이 드롭다운 옆(왼쪽)에서 비쳐 보이지 않게 한다.
    헤더가 전체 폭이므로 box-shadow(블러 0)가 전체 폭 흰 띠 역할을 한다. */
 @media (min-width: 769px) {
-  /* 드롭다운 유지 상태(.open: JS hover-intent, .pinned: works 페이지)와 동일하게
-     구동해 나올 때·사라질 때 타이밍을 드롭다운과 일치시킨다. 높이는 드롭다운
-     하단과 맞춘다(전체 폭 흰 프레임 아래 끝 = 드롭다운 흰 아래 끝). */
-  .header:has(.nav-item.has-dropdown.open),
-  .header:has(.nav-item.has-dropdown.pinned) {
-    box-shadow: 0 17px 0 0 var(--color-bg);
+  /* 전체 폭 흰 프레임(헤더 아래로 드롭다운을 덮는 배경). 드롭다운과 "완전히 동일한"
+     방식으로 나타나고 사라지도록 box-shadow(크기 성장) 대신 고정 높이 요소의
+     opacity 페이드를 쓴다. 구동 상태(.open/.pinned)와 전환(opacity 0.25s ease)이
+     드롭다운과 동일 → 타이밍 일치. */
+  .header::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    height: 17px;
+    background: var(--color-bg);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease;
+    z-index: -1;
+  }
+  .header:has(.nav-item.has-dropdown.open)::after,
+  .header:has(.nav-item.has-dropdown.pinned)::after {
+    opacity: 1;
   }
 }
 
