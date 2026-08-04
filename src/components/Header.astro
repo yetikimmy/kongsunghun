@@ -41,7 +41,7 @@ const here = Astro.url.pathname;
     gap: 58px;
     /* 상단 여백 (로고·네비게이션 윗부분) */
     padding-top: calc(var(--space-4) + 17px);
-    padding-bottom: var(--space-4);
+    padding-bottom: calc(var(--space-4) - 8px);
   }
   .logo {
     font-family: var(--font-mono);
@@ -62,7 +62,7 @@ const here = Astro.url.pathname;
       gap: var(--space-3);
       /* 상단 여백 */
       padding-top: calc(var(--space-3) + 17px);
-      padding-bottom: var(--space-3);
+      padding-bottom: calc(var(--space-3) - 3px);
     }
     .logo {
       font-size: clamp(16px, 5vw, 22px);

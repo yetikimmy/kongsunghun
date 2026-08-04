@@ -166,6 +166,10 @@ const splitYear = (item: string) => {
     }
   }
   @media (max-width: 768px) {
+    .cv-page {
+      /* 본문 시작을 18px 위로 (드롭다운은 열릴 때 별도로 공간 확보 → 겹치지 않음) */
+      padding-top: calc(var(--page-top) - 18px);
+    }
     .cv-layout {
       flex-direction: column;
       gap: var(--space-4);

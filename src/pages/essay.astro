@@ -136,10 +136,15 @@ const dialogue = (text: string) => {
     color: var(--color-muted);
     text-align: right;
     white-space: pre-line;
+    /* Works 페이지 작가명(.body-signature)과 행간 통일 */
+    font-size: 13px;
+    line-height: 18px;
   }
 
   @media (max-width: 768px) {
     .essay-page {
+      /* 본문 시작을 18px 위로 (드롭다운은 열릴 때 별도로 공간을 확보하므로 겹치지 않음) */
+      padding-top: calc(var(--page-top) - 18px);
       padding-bottom: var(--space-5);
     }
   }

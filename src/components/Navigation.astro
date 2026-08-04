@@ -195,6 +195,20 @@ const onWorks = !!currentSeries;
   // (모바일·데스크탑 공통) 첫 클릭은 링크 이동 대신 드롭다운을 열고, 이미 열려
   // 있으면 그대로 WORKS 인덱스로 이동한다.
   const CLOSE_DELAY = 800; // hover 후 마우스가 벗어나도 유지되는 시간(ms)
+  const MOBILE = "(max-width: 768px)";
+  const navEl = document.querySelector<HTMLElement>(".nav");
+
+  // 모바일: 드롭다운은 absolute 라 흐름을 밀지 않으므로, 열린 동안 그 높이만큼
+  // .nav 아래 여백을 만들어 본문이 드롭다운 아래로 내려가 겹치지 않게 한다.
+  const reserveSpace = (item: HTMLElement) => {
+    if (!navEl) return;
+    const dd = item.querySelector<HTMLElement>(".dropdown");
+    if (window.matchMedia(MOBILE).matches && item.classList.contains("open") && dd) {
+      navEl.style.marginBottom = `${dd.offsetHeight}px`;
+    } else {
+      navEl.style.marginBottom = "";
+    }
+  };
 
   document.querySelectorAll<HTMLElement>(".nav-item.has-dropdown").forEach((item) => {
     const trigger = item.querySelector<HTMLAnchorElement>(":scope > a");
@@ -203,10 +217,12 @@ const onWorks = !!currentSeries;
     const open = () => {
       item.classList.add("open");
       trigger.setAttribute("aria-expanded", "true");
+      reserveSpace(item);
     };
     const close = () => {
       item.classList.remove("open");
       trigger.setAttribute("aria-expanded", "false");
+      reserveSpace(item);
     };
 
     trigger.addEventListener("click", (e) => {
@@ -235,7 +251,13 @@ const onWorks = !!currentSeries;
       if (!item.contains(e.target as Node)) {
         item.classList.remove("open");
         item.querySelector<HTMLAnchorElement>(":scope > a")?.setAttribute("aria-expanded", "false");
+        reserveSpace(item);
       }
     });
+  });
+
+  // 화면 크기가 바뀌면 예약 여백을 다시 계산 (데스크탑 전환 시 제거)
+  window.addEventListener("resize", () => {
+    document.querySelectorAll<HTMLElement>(".nav-item.has-dropdown").forEach(reserveSpace);
   });
 </script>

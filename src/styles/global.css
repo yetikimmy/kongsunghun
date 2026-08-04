@@ -15,11 +15,12 @@
    아래로 확장해 스크롤되는 본문이 드롭다운 옆(왼쪽)에서 비쳐 보이지 않게 한다.
    헤더가 전체 폭이므로 box-shadow(블러 0)가 전체 폭 흰 띠 역할을 한다. */
 @media (min-width: 769px) {
-  .header:has(.nav-item.has-dropdown:hover),
-  .header:has(.nav-item.has-dropdown:focus-within),
+  /* 드롭다운 유지 상태(.open: JS hover-intent, .pinned: works 페이지)와 동일하게
+     구동해 나올 때·사라질 때 타이밍을 드롭다운과 일치시킨다. 높이는 드롭다운
+     하단과 맞춘다(전체 폭 흰 프레임 아래 끝 = 드롭다운 흰 아래 끝). */
   .header:has(.nav-item.has-dropdown.open),
   .header:has(.nav-item.has-dropdown.pinned) {
-    box-shadow: 0 8px 0 0 var(--color-bg);
+    box-shadow: 0 17px 0 0 var(--color-bg);
   }
 }
 
