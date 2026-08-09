@@ -151,9 +151,12 @@ const groupBlocks = (arr: any[]) => {
     overflow-wrap: break-word;
   }
   .body-heading {
-    font-family: var(--font-display);
-    font-size: 16px;
-    color: var(--color-fg);
+    /* 넘버링을 본문 텍스트와 동일한 타이포그래피로 */
+    font-family: var(--font-body);
+    font-size: 13px;
+    font-weight: 400;
+    line-height: calc(var(--lh-body) + 1px);
+    color: #8c8c8c;
     margin: var(--space-5) 0 calc(var(--space-3) - 4px);
   }
   /* 새 넘버 문단 시작 시 한 줄 더 띄움 (첫 넘버는 제외) */
