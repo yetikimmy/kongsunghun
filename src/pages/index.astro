@@ -75,16 +75,18 @@ const here = Astro.url.pathname;
       top: 0;
       left: 0;
       right: 0;
-      padding-top: 118px;
+      /* 로고 살짝 아래로 */
+      padding-top: 130px;
     }
     .landing-logo {
-      font-size: 26px;
+      /* 로고 살짝 작게 */
+      font-size: 24px;
     }
     .landing-media {
       position: absolute;
       inset: 0;
-      /* 영상을 살짝 아래로 */
-      transform: translateY(20px);
+      /* 영상을 화면 세로 중앙보다 살짝 위로 */
+      transform: translateY(-24px);
     }
   }
 </style>
