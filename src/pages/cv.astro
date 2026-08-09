@@ -173,9 +173,16 @@ const splitYear = (item: string) => {
     .cv-layout {
       flex-direction: column;
       gap: var(--space-4);
+      /* 토글 절대배치 기준 */
+      position: relative;
     }
+    /* Korean|English 토글을 페이지 타이틀 윗선에 맞춰 우상단 정렬 (essay 참고) */
     .cv-toggle {
-      justify-content: flex-start;
+      position: absolute;
+      top: 0;
+      right: 0;
+      padding-top: 0;
+      justify-content: flex-end;
     }
   }
 </style>
