@@ -237,6 +237,12 @@ const breakTitle = (t: string) => TITLE_BREAKS[t] ?? t;
   }
   .zone-prev { left: 0; cursor: w-resize; }
   .zone-next { right: 0; cursor: e-resize; }
+  /* 터치 기기: 좌우 탭 영역 비활성화 → 스와이프(슬라이드)로만 넘김 */
+  @media (hover: none) and (pointer: coarse) {
+    .zone {
+      pointer-events: none;
+    }
+  }
 
   .media-caption {
     margin-top: 8px;
@@ -333,6 +339,31 @@ const breakTitle = (t: string) => TITLE_BREAKS[t] ?? t;
     detail.addEventListener("keydown", (e) => {
       if (e.key === "ArrowLeft") show(current - 1);
       if (e.key === "ArrowRight") show(current + 1);
+    });
+
+    // 터치: 좌우 스와이프로 넘기기 (모바일)
+    const frame = detail.querySelector<HTMLElement>(".frame");
+    let startX = 0;
+    let startY = 0;
+    let swiping = false;
+    frame?.addEventListener(
+      "touchstart",
+      (e) => {
+        startX = e.touches[0].clientX;
+        startY = e.touches[0].clientY;
+        swiping = true;
+      },
+      { passive: true },
+    );
+    frame?.addEventListener("touchend", (e) => {
+      if (!swiping) return;
+      swiping = false;
+      const dx = e.changedTouches[0].clientX - startX;
+      const dy = e.changedTouches[0].clientY - startY;
+      // 수평 이동이 충분하고 세로보다 클 때만 슬라이드로 인식
+      if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) {
+        show(dx < 0 ? current + 1 : current - 1);
+      }
     });
   });
 </script>
