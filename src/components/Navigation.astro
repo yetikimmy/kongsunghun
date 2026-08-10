@@ -128,8 +128,9 @@ const onWorks = !!currentSeries;
     background: var(--color-tab-bg);
     color: var(--color-tab-text);
     font-family: var(--font-display);
-    font-weight: 500;
-    font-size: var(--fs-tab);
+    /* 현재보다 1px 작게 + 아주 약간 얇게 */
+    font-weight: 450;
+    font-size: calc(var(--fs-tab) - 1px);
     letter-spacing: normal;
     transition: background 0.1s, color 0.1s;
     white-space: nowrap;
