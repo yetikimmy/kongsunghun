@@ -61,6 +61,8 @@ const onWorks = !!currentSeries;
     padding: 0;
     font-family: var(--font-mono);
     font-size: calc(var(--fs-nav) + 0.5px);
+    /* WORKS/ESSAY/C.V./CONTACT 자간을 일관되게 정돈 */
+    letter-spacing: 0.03em;
   }
   .nav-item {
     position: relative;
@@ -116,12 +118,16 @@ const onWorks = !!currentSeries;
     list-style: none;
     margin: 0;
     padding: 0;
+    /* 드롭다운 폭(JS로 WORKS~콘텐츠 우측 끝)에 맞춰 탭이 균등 분배되도록 */
+    width: 100%;
   }
   .dropdown .tab {
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    width: 160px;
+    /* 고정 폭 대신 균등 분배 → 오른쪽 끝이 본문 우측 라인에 맞음 */
+    flex: 1;
+    min-width: 0;
     height: 18px;
     /* 좌우 내부 패딩 각 +1px (좌 4→5, 우 0→1) */
     padding: 0 1px 0 5px;
@@ -195,6 +201,27 @@ const onWorks = !!currentSeries;
   const CLOSE_DELAY = 800; // hover 후 마우스가 벗어나도 유지되는 시간(ms)
   const MOBILE = "(max-width: 768px)";
   const navEl = document.querySelector<HTMLElement>(".nav");
+
+  // 데스크탑: 드롭다운 폭을 WORKS 좌측 ~ 본문(헤더 콘텐츠) 우측 끝까지로 맞춰
+  // 탭들이 그리드처럼 본문 우측 라인에 정렬되도록 한다.
+  const headerInner = document.querySelector<HTMLElement>(".header .container");
+  const sizeDropdowns = () => {
+    const desktop = !window.matchMedia(MOBILE).matches;
+    document.querySelectorAll<HTMLElement>(".nav-item.has-dropdown").forEach((item) => {
+      const dd = item.querySelector<HTMLElement>(".dropdown");
+      if (!dd) return;
+      if (desktop && headerInner) {
+        const w = headerInner.getBoundingClientRect().right - item.getBoundingClientRect().left;
+        dd.style.width = `${Math.max(0, Math.round(w))}px`;
+      } else {
+        dd.style.width = "";
+      }
+    });
+  };
+  sizeDropdowns();
+  window.addEventListener("resize", sizeDropdowns);
+  // 폰트 로드 후 로고 폭이 바뀌면 위치가 달라지므로 다시 계산
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(sizeDropdowns);
 
   // 모바일: 드롭다운은 absolute 라 흐름을 밀지 않으므로, 열린 동안 그 높이만큼
   // .nav 아래 여백을 만들어 본문이 드롭다운 아래로 내려가 겹치지 않게 한다.
