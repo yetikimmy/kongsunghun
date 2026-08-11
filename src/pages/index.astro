@@ -42,10 +42,12 @@ const here = Astro.url.pathname;
   }
   .landing-logo {
     display: inline-block;
-    font-family: var(--font-mono, ui-monospace, monospace);
+    /* 헤더 로고(.logo)와 완전히 동일한 형태 (크기·자간·굵기·폰트) */
+    font-family: var(--font-mono);
     font-size: 26px;
     font-weight: 400;
     letter-spacing: 0.12em;
+    white-space: nowrap;
     color: #fff;
     text-decoration: none;
   }
@@ -79,8 +81,8 @@ const here = Astro.url.pathname;
       padding-top: 130px;
     }
     .landing-logo {
-      /* 로고 살짝 작게 */
-      font-size: 24px;
+      /* 헤더 로고와 동일한 모바일 크기 */
+      font-size: clamp(16px, 5vw, 22px);
     }
     .landing-media {
       position: absolute;

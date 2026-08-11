@@ -1,22 +1,21 @@
 ---
 /**
- * Korean / English language switch, matching the Figma C.V. & Contact frames
- * (top-right "Korean English"). Toggles visibility of sibling elements marked
- * with [data-lang="ko"] / [data-lang="en"] inside the nearest ancestor that has
- * the `data-lang-scope` attribute. Korean is default.
+ * 언어 전환 (단일 버튼 토글).
+ * 버튼에는 "전환할 언어"가 표시된다:
+ *   - 본문이 한글일 때  → 버튼 "ENGLISH" (누르면 영어로)
+ *   - 본문이 영어일 때  → 버튼 "KOREAN"  (누르면 한글로)
+ * data-lang-scope 조상 안의 [data-lang="ko"|"en"] 요소 표시를 토글한다. 한글 기본.
  */
 ---
 
-<div class="lang-toggle" role="group" aria-label="언어 선택">
-  <button type="button" class="lang-btn active" data-lang-set="ko" aria-pressed="true">KOREAN</button>
-  <button type="button" class="lang-btn" data-lang-set="en" aria-pressed="false">ENGLISH</button>
+<div class="lang-toggle">
+  <button type="button" class="lang-btn" aria-label="언어 전환">ENGLISH</button>
 </div>
 
 <style>
   .lang-toggle {
     display: inline-flex;
     align-items: center;
-    gap: 14px;
     font-family: var(--font-display);
     font-size: 10.5px;
     text-transform: uppercase;
@@ -32,9 +31,6 @@
     transition: color 0.15s;
   }
   .lang-btn:hover {
-    color: var(--color-nav-hover);
-  }
-  .lang-btn.active {
     color: var(--color-nav-pressed);
   }
 </style>
@@ -43,22 +39,21 @@
   document.querySelectorAll<HTMLElement>(".lang-toggle").forEach((toggle) => {
     const scope =
       toggle.closest<HTMLElement>("[data-lang-scope]") ?? document.body;
-    const buttons = toggle.querySelectorAll<HTMLButtonElement>(".lang-btn");
+    const btn = toggle.querySelector<HTMLButtonElement>(".lang-btn");
+    if (!btn) return;
 
-    function setLang(lang: string) {
-      buttons.forEach((b) => {
-        const active = b.dataset.langSet === lang;
-        b.classList.toggle("active", active);
-        b.setAttribute("aria-pressed", String(active));
-      });
+    let current = "ko";
+
+    function apply(lang: string) {
       scope.querySelectorAll<HTMLElement>("[data-lang]").forEach((el) => {
         el.hidden = el.dataset.lang !== lang;
       });
+      current = lang;
+      // 버튼에는 '전환할' 언어를 표시
+      btn!.textContent = lang === "ko" ? "ENGLISH" : "KOREAN";
     }
 
-    buttons.forEach((b) =>
-      b.addEventListener("click", () => setLang(b.dataset.langSet || "ko")),
-    );
-    setLang("ko");
+    btn.addEventListener("click", () => apply(current === "ko" ? "en" : "ko"));
+    apply("ko");
   });
 </script>
