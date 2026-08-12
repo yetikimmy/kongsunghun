@@ -63,9 +63,8 @@ const onWorks = !!currentSeries;
     font-size: calc(var(--fs-nav) + 0.5px);
   }
   .nav-item {
-    /* 데스크탑: static → 드롭다운이 헤더 콘텐츠(.header-inner) 기준으로 배치되어
-       좌우 끝이 본문 좌우 끝과 정렬된다. (모바일에서는 relative 로 복원) */
-    position: static;
+    /* 드롭다운이 WORKS 항목 기준으로 배치되도록 (왼쪽 = WORKS 시작점) */
+    position: relative;
   }
   .nav a {
     color: var(--color-nav-default);
@@ -86,9 +85,11 @@ const onWorks = !!currentSeries;
   .dropdown {
     position: absolute;
     top: 100%;
-    /* 좌우를 헤더 콘텐츠 열 양끝에 앵커 → 본문 좌우 끝과 정렬, 탭은 균등 확장 */
+    /* 왼쪽 = WORKS 시작점. 폭은 JS 로 콘텐츠 우측 끝까지 설정(탭은 flex:1 균등 확장).
+       JS 미적용 시에도 탭이 균등하도록 폴백 폭을 둔다. */
     left: 0;
-    right: 0;
+    width: 660px;
+    max-width: calc(100vw - 40px);
     /* 드롭다운 상단 오프셋 */
     padding-top: 7px;
     padding-bottom: var(--space-2);
@@ -163,15 +164,12 @@ const onWorks = !!currentSeries;
       font-size: 13px;
       flex-wrap: wrap;
     }
-    /* 모바일에선 드롭다운을 WORKS 항목 기준으로 (좌우 전체폭 앵커 해제) */
-    .nav-item {
-      position: relative;
-    }
 
     /* WORKS 드롭다운: 탭하면 아래로 펼쳐지되, absolute 로 띄워 나머지 nav 항목
-       (ESSAY/C.V./CONTACT) 위치가 밀리지 않도록 한다. (position/배경은 기본값 상속) */
+       (ESSAY/C.V./CONTACT) 위치가 밀리지 않도록 한다. 모바일은 JS 폭 설정 없이
+       기본 폭(내용) 사용 → 아래 script 에서 데스크탑에서만 폭을 설정한다. */
     .dropdown {
-      right: auto;
+      width: auto;
       padding-top: var(--space-2);
       white-space: normal;
     }
@@ -208,6 +206,28 @@ const onWorks = !!currentSeries;
   const CLOSE_DELAY = 800; // hover 후 마우스가 벗어나도 유지되는 시간(ms)
   const MOBILE = "(max-width: 768px)";
   const navEl = document.querySelector<HTMLElement>(".nav");
+
+  // 데스크탑: 드롭다운 폭 = WORKS 왼쪽 ~ 본문(헤더 콘텐츠) 오른쪽 끝.
+  // 왼쪽은 WORKS 에 고정(CSS left:0), 오른쪽 끝만 콘텐츠 우측에 맞춘다.
+  const headerInner = document.querySelector<HTMLElement>(".header-inner");
+  const sizeDropdowns = () => {
+    const desktop = !window.matchMedia(MOBILE).matches;
+    document.querySelectorAll<HTMLElement>(".nav-item.has-dropdown").forEach((item) => {
+      const dd = item.querySelector<HTMLElement>(".dropdown");
+      if (!dd) return;
+      if (desktop && headerInner) {
+        const w = headerInner.getBoundingClientRect().right - item.getBoundingClientRect().left;
+        dd.style.width = w > 0 ? `${Math.round(w)}px` : "";
+      } else {
+        dd.style.width = "";
+      }
+    });
+  };
+  sizeDropdowns();
+  requestAnimationFrame(sizeDropdowns);
+  window.addEventListener("load", sizeDropdowns);
+  window.addEventListener("resize", sizeDropdowns);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(sizeDropdowns);
 
   // 모바일: 드롭다운은 absolute 라 흐름을 밀지 않으므로, 열린 동안 그 높이만큼
   // .nav 아래 여백을 만들어 본문이 드롭다운 아래로 내려가 겹치지 않게 한다.
