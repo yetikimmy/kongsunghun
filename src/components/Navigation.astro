@@ -63,10 +63,7 @@ const onWorks = !!currentSeries;
     font-size: calc(var(--fs-nav) + 0.5px);
   }
   .nav-item {
-    /* 데스크탑: static → 드롭다운이 헤더 콘텐츠(.header-inner) 기준으로 배치.
-       오른쪽 끝(right:0)이 본문 오른쪽 라인에 CSS 로 확실히 고정된다.
-       (모바일에서는 relative 로 복원 → WORKS 기준) */
-    position: static;
+    position: relative;
   }
   .nav a {
     color: var(--color-nav-default);
@@ -87,10 +84,7 @@ const onWorks = !!currentSeries;
   .dropdown {
     position: absolute;
     top: 100%;
-    /* 오른쪽 = 본문(콘텐츠 열) 오른쪽 끝에 CSS 로 고정. 왼쪽 = WORKS 시작점(JS 로
-       정확히, 미적용 시 폴백 292px). 탭은 flex:1 로 그 사이를 균등 확장. */
-    right: 0;
-    left: 292px;
+    left: 0;
     /* 드롭다운 상단 오프셋 */
     padding-top: 7px;
     padding-bottom: var(--space-2);
@@ -122,16 +116,12 @@ const onWorks = !!currentSeries;
     list-style: none;
     margin: 0;
     padding: 0;
-    /* 드롭다운 폭(JS로 WORKS~콘텐츠 우측 끝)에 맞춰 탭이 균등 분배되도록 */
-    width: 100%;
   }
   .dropdown .tab {
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    /* 고정 폭 대신 균등 분배 → 오른쪽 끝이 본문 그리드 우측 라인에 맞음 */
-    flex: 1;
-    min-width: 0;
+    width: 160px;
     height: 18px;
     /* 좌우 내부 패딩 각 +1px (좌 4→5, 우 0→1) */
     padding: 0 1px 0 5px;
@@ -165,17 +155,10 @@ const onWorks = !!currentSeries;
       font-size: 13px;
       flex-wrap: wrap;
     }
-    /* 모바일: 드롭다운을 WORKS 항목 기준으로 (헤더 콘텐츠 앵커 해제) */
-    .nav-item {
-      position: relative;
-    }
 
     /* WORKS 드롭다운: 탭하면 아래로 펼쳐지되, absolute 로 띄워 나머지 nav 항목
-       (ESSAY/C.V./CONTACT) 위치가 밀리지 않도록 한다. */
+       (ESSAY/C.V./CONTACT) 위치가 밀리지 않도록 한다. (position/배경은 기본값 상속) */
     .dropdown {
-      left: 0;
-      right: auto;
-      width: auto;
       padding-top: var(--space-2);
       white-space: normal;
     }
@@ -212,28 +195,6 @@ const onWorks = !!currentSeries;
   const CLOSE_DELAY = 800; // hover 후 마우스가 벗어나도 유지되는 시간(ms)
   const MOBILE = "(max-width: 768px)";
   const navEl = document.querySelector<HTMLElement>(".nav");
-
-  // 데스크탑: 드롭다운의 오른쪽 끝은 CSS(right:0)로 본문 오른쪽에 고정된다.
-  // 여기서는 왼쪽만 WORKS 시작점(헤더 콘텐츠 좌측 기준 offset)에 맞춘다.
-  const headerInner = document.querySelector<HTMLElement>(".header-inner");
-  const sizeDropdowns = () => {
-    const desktop = !window.matchMedia(MOBILE).matches;
-    document.querySelectorAll<HTMLElement>(".nav-item.has-dropdown").forEach((item) => {
-      const dd = item.querySelector<HTMLElement>(".dropdown");
-      if (!dd) return;
-      if (desktop && headerInner) {
-        const left = item.getBoundingClientRect().left - headerInner.getBoundingClientRect().left;
-        dd.style.left = left > 0 ? `${Math.round(left)}px` : "";
-      } else {
-        dd.style.left = "";
-      }
-    });
-  };
-  sizeDropdowns();
-  requestAnimationFrame(sizeDropdowns);
-  window.addEventListener("load", sizeDropdowns);
-  window.addEventListener("resize", sizeDropdowns);
-  if (document.fonts && document.fonts.ready) document.fonts.ready.then(sizeDropdowns);
 
   // 모바일: 드롭다운은 absolute 라 흐름을 밀지 않으므로, 열린 동안 그 높이만큼
   // .nav 아래 여백을 만들어 본문이 드롭다운 아래로 내려가 겹치지 않게 한다.
