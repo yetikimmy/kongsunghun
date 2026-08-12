@@ -160,8 +160,8 @@ const breakTitle = (t: string) => TITLE_BREAKS[t] ?? t;
   .pager {
     display: flex;
     align-items: center;
-    /* 인디케이터(00/00)를 이미지 오른쪽 끝에 정렬 */
-    justify-content: flex-end;
+    /* 인디케이터(00/00)를 이미지 왼쪽에 정렬 */
+    justify-content: flex-start;
     margin-bottom: 4px;
     font-family: var(--font-mono);
     font-size: calc(var(--fs-nav) - 2.5px);
@@ -236,14 +236,15 @@ const breakTitle = (t: string) => TITLE_BREAKS[t] ?? t;
     cursor: pointer;
     padding: 0;
   }
-  /* 좌우 화살표 커서 (반투명 원 + 흰 chevron) — 기본보다 약간 더 눈에 띄게 */
+  /* 좌우 화살표 커서 — 각진(miter) 흰 chevron + 어두운 헤일로(가독성). 라운드/원 제거,
+     이전보다 약 50% 작게 (40 → 20px) */
   .zone-prev {
     left: 0;
-    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40'%3E%3Ccircle cx='20' cy='20' r='16' fill='rgba(0,0,0,0.4)'/%3E%3Cpath d='M23 12 15 20 23 28' fill='none' stroke='white' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") 20 20, w-resize;
+    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20'%3E%3Cpath d='M12 5 7 10 12 15' fill='none' stroke='black' stroke-opacity='0.5' stroke-width='3.4'/%3E%3Cpath d='M12 5 7 10 12 15' fill='none' stroke='white' stroke-width='1.6'/%3E%3C/svg%3E") 10 10, w-resize;
   }
   .zone-next {
     right: 0;
-    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40'%3E%3Ccircle cx='20' cy='20' r='16' fill='rgba(0,0,0,0.4)'/%3E%3Cpath d='M17 12 25 20 17 28' fill='none' stroke='white' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") 20 20, e-resize;
+    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20'%3E%3Cpath d='M8 5 13 10 8 15' fill='none' stroke='black' stroke-opacity='0.5' stroke-width='3.4'/%3E%3Cpath d='M8 5 13 10 8 15' fill='none' stroke='white' stroke-width='1.6'/%3E%3C/svg%3E") 10 10, e-resize;
   }
   /* 터치 기기: 좌우 탭 영역 비활성화 → 스와이프(슬라이드)로만 넘김 */
   @media (hover: none) and (pointer: coarse) {
