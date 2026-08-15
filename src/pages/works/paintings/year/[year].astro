@@ -1,0 +1,112 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../../../layouts/BaseLayout.astro";
+import { relativeHref } from "../../../../lib/href";
+
+export async function getStaticPaths() {
+  const all = await getCollection("works");
+  const paintings = all.filter((w) => w.data.series === "paintings" && w.data.year);
+  const years = [...new Set(paintings.map((w) => w.data.year as number))];
+  return years.map((year) => ({
+    params: { year: String(year) },
+    props: {
+      year,
+      works: paintings
+        .filter((w) => w.data.year === year)
+        .sort((a, b) => a.data.order - b.data.order)
+        .map((w) => w.data),
+    },
+  }));
+}
+
+const { year, works } = Astro.props;
+const here = Astro.url.pathname;
+const rel = (p: string) => relativeHref(p, here);
+---
+
+<BaseLayout title={`Paintings ${year} — KONG,SUNG-HUN`} current="/works/">
+  <div class="container year-page">
+    <h1 class="title year-title">{year}</h1>
+
+    <ul class="year-grid" role="list">
+      {works.map((w) => (
+        <li class="year-item">
+          {w.images?.[0]?.src && (
+            <div class="year-thumb">
+              <img src={rel(w.images[0].src)} alt={w.images[0].alt} loading="lazy" />
+            </div>
+          )}
+          {w.caption && <p class="caption year-caption">{w.caption}</p>}
+        </li>
+      ))}
+    </ul>
+
+    <a class="back-link" href={rel("/works/paintings/")}>
+      <span class="back-chevron" aria-hidden="true"></span>목록으로
+    </a>
+  </div>
+</BaseLayout>
+
+<style>
+  .year-page {
+    padding-top: var(--page-top);
+    padding-bottom: var(--space-7);
+  }
+  .year-title {
+    font-family: var(--font-display);
+    font-size: clamp(18px, 3vw, 28px);
+    margin-bottom: var(--space-5);
+  }
+  .year-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-6) var(--space-5);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .year-thumb {
+    background: #f2f2f2;
+    overflow: hidden;
+  }
+  .year-thumb img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .year-caption {
+    margin-top: 10px;
+    font-size: 11px;
+    line-height: 14px;
+    color: #9e9e9e;
+    word-break: break-word;
+  }
+  .back-link {
+    margin-top: var(--space-7);
+    display: flex;
+    width: fit-content;
+    align-items: center;
+    gap: 5px;
+    font-family: var(--font-mono);
+    font-size: calc(var(--fs-nav) - 1px);
+    color: #999999;
+    transition: color 0.15s;
+  }
+  .back-chevron {
+    width: 6px;
+    height: 6px;
+    border-left: 1px solid currentColor;
+    border-bottom: 1px solid currentColor;
+    transform: rotate(45deg);
+  }
+  .back-link:hover {
+    color: var(--color-nav-pressed);
+    text-decoration: none;
+  }
+
+  @media (max-width: 640px) {
+    .year-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
