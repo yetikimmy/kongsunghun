@@ -19,6 +19,7 @@ export async function getStaticPaths() {
   };
   const SERIES_LANG_TOGGLE: Record<string, boolean> = {
     "installation-work": true,
+    "paintings": true,
   };
   const all = await getCollection("works");
   return WORK_CATEGORIES.map((cat) => {
