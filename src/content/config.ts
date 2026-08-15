@@ -27,6 +27,9 @@ const works = defineCollection({
     dimensions: z.string().optional(),
     /** Exhibition venue / place, when the legacy caption recorded one. */
     location: z.string().optional(),
+    /** Venue split into Korean / English for the language toggle. */
+    locationKo: z.string().optional(),
+    locationEn: z.string().optional(),
     descriptionKo: z.string().optional(),
     descriptionEn: z.string().optional(),
     images: z.array(imageSchema).default([]),

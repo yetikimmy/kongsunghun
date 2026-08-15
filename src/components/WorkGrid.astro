@@ -105,7 +105,14 @@ const withBreaks = (t: string) => TITLE_BREAKS[t] ?? t;
                   </>
                 )}
               </div>
-              <p class="paint-meta">{group.location}</p>
+              {showLangToggle ? (
+                <div class="paint-meta-group">
+                  <p class="paint-meta" data-lang="ko">{group.locationKo ?? group.location}</p>
+                  <p class="paint-meta" data-lang="en" hidden>{group.locationEn ?? group.location}</p>
+                </div>
+              ) : (
+                <p class="paint-meta">{group.location}</p>
+              )}
             </div>
           </a>
         </li>
@@ -289,7 +296,8 @@ const withBreaks = (t: string) => TITLE_BREAKS[t] ?? t;
     font-family: var(--font-body);
     font-size: var(--fs-body);
     line-height: 18px;
-    color: #656565;
+    /* 갤러리(소장처) 색상을 연도와 동일하게 */
+    color: #8a8a8a;
     margin: 0;
     white-space: pre-line;
   }
