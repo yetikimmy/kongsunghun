@@ -84,12 +84,13 @@ const withBreaks = (t: string) => TITLE_BREAKS[t] ?? t;
             </div>
             <div class="paint-info">
               <div class="paint-title-group">
-                <p class="paint-title">{group.titleKo}</p>
+                <p class="paint-title">
+                  {group.titleKo}
+                  {group.year && <span class="paint-year">{group.year}</span>}
+                </p>
                 {group.titleKo !== group.titleEn && <p class="paint-title">{group.titleEn}</p>}
               </div>
-              <p class="paint-meta">
-                {[group.location, group.year ? String(group.year) : ""].filter(Boolean).join("\n")}
-              </p>
+              <p class="paint-meta">{group.location}</p>
             </div>
           </a>
         </li>
@@ -262,6 +263,12 @@ const withBreaks = (t: string) => TITLE_BREAKS[t] ?? t;
     color: var(--color-fg);
     margin: 0;
     transition: color 0.25s ease;
+  }
+  /* 제목 옆 연도 — 제목보다 20% 작게 */
+  .paint-year {
+    margin-left: 0.4em;
+    font-size: 0.8em;
+    color: #656565;
   }
   .paint-meta {
     font-family: var(--font-body);
