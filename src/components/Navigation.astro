@@ -258,4 +258,24 @@ const onWorks = !!currentSeries;
   window.addEventListener("resize", () => {
     document.querySelectorAll<HTMLElement>(".nav-item.has-dropdown").forEach(reserveSpace);
   });
+
+  // 시리즈 페이지에서 고정으로 펼쳐진(pinned) 드롭다운은, 본문을 보기 위해
+  // 아래로 스크롤하면 접히고 다시 맨 위로 스크롤하면 나타난다.
+  // (pinned 클래스를 스크롤 위치에 따라 토글 → hover/클릭 동작은 그대로 유지)
+  const pinnedItem = document.querySelector<HTMLElement>(".nav-item.has-dropdown.pinned");
+  if (pinnedItem) {
+    const SCROLL_THRESHOLD = 8; // px, 맨 위에서 이만큼 벗어나면 접힘
+    const trigger = pinnedItem.querySelector<HTMLAnchorElement>(":scope > a");
+    const syncPinned = () => {
+      const atTop = window.scrollY <= SCROLL_THRESHOLD;
+      pinnedItem.classList.toggle("pinned", atTop);
+      // 스크롤로 접힐 때는 hover로 임시로 열린 상태(open)도 정리
+      if (!atTop && !pinnedItem.matches(":hover")) {
+        pinnedItem.classList.remove("open");
+        trigger?.setAttribute("aria-expanded", "false");
+      }
+    };
+    syncPinned();
+    window.addEventListener("scroll", syncPinned, { passive: true });
+  }
 </script>
