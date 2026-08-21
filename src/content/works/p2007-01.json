@@ -1,0 +1,23 @@
+{
+  "slug": "p2007-01",
+  "series": "paintings",
+  "titleKo": "자유로",
+  "titleEn": "자유로",
+  "year": 2007,
+  "medium": "Oil on Canvas",
+  "images": [
+         {
+           "src": "/assets/works/web/p2007-01.jpg",
+           "alt": "자유로 — Oil on Canvas, 2007",
+           "width": 1200,
+           "height": 857
+         }
+       ],
+  "caption": "자유로 2007 Oil on Canvas 65.1x90.9cm",
+  "order": 95,
+  "dimensions": "65.1x90.9cm",
+  "manualReview": true,
+  "reviewNotes": [
+            "title corrected via master spreadsheet (file said 자유공원)"
+          ]
+}

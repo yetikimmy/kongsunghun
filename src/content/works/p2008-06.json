@@ -1,0 +1,19 @@
+{
+  "slug": "p2008-06",
+  "series": "paintings",
+  "titleKo": "오리와 해병전우회",
+  "titleEn": "오리와 해병전우회",
+  "year": 2008,
+  "medium": "Acrylic on Canvas",
+  "images": [
+         {
+           "src": "/assets/works/web/p2008-06.jpg",
+           "alt": "오리와 해병전우회 — Acrylic on Canvas, 2008",
+           "width": 1200,
+           "height": 595
+         }
+       ],
+  "caption": "오리와 해병전우회 2008 Acrylic on Canvas 100x200cm",
+  "order": 107,
+  "dimensions": "100x200cm"
+}

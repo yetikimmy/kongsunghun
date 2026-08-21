@@ -1,0 +1,19 @@
+{
+  "slug": "p2007-04",
+  "series": "paintings",
+  "titleKo": "장흥가는길",
+  "titleEn": "장흥가는길",
+  "year": 2007,
+  "medium": "Acrylic on Canvas",
+  "images": [
+         {
+           "src": "/assets/works/web/p2007-04.jpg",
+           "alt": "장흥가는길 — Acrylic on Canvas, 2007",
+           "width": 933,
+           "height": 1400
+         }
+       ],
+  "caption": "장흥가는길 2007 Acrylic on Canvas 120x60cm",
+  "order": 98,
+  "dimensions": "120x60cm"
+}

@@ -1,0 +1,19 @@
+{
+  "slug": "p2008-10",
+  "series": "paintings",
+  "titleKo": "바위와 촛불",
+  "titleEn": "바위와 촛불",
+  "year": 2008,
+  "medium": "Acrylic on Canvas",
+  "images": [
+         {
+           "src": "/assets/works/web/p2008-10.jpg",
+           "alt": "바위와 촛불 — Acrylic on Canvas, 2008",
+           "width": 1200,
+           "height": 592
+         }
+       ],
+  "caption": "바위와 촛불 2008 Acrylic on Canvas 60x120cm",
+  "order": 111,
+  "dimensions": "60x120cm"
+}

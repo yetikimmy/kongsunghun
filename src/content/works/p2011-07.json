@@ -1,0 +1,19 @@
+{
+  "slug": "p2011-07",
+  "series": "paintings",
+  "titleKo": "노을(섭지코지)",
+  "titleEn": "노을(섭지코지)",
+  "year": 2011,
+  "medium": "Oil on Canvas",
+  "images": [
+         {
+           "src": "/assets/works/web/p2011-07.jpg",
+           "alt": "노을(섭지코지) — Oil on Canvas, 2011",
+           "width": 1200,
+           "height": 956
+         }
+       ],
+  "caption": "노을(섭지코지) 2011 Oil on Canvas 72.7x90.9cm",
+  "order": 128,
+  "dimensions": "72.7x90.9cm"
+}

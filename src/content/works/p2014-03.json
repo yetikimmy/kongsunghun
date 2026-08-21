@@ -1,0 +1,19 @@
+{
+  "slug": "p2014-03",
+  "series": "paintings",
+  "titleKo": "흰머리와 연기",
+  "titleEn": "흰머리와 연기",
+  "year": 2014,
+  "medium": "Oil on Canvas",
+  "images": [
+         {
+           "src": "/assets/works/web/p2014-03.jpg",
+           "alt": "흰머리와 연기 — Oil on Canvas, 2014",
+           "width": 1123,
+           "height": 1400
+         }
+       ],
+  "caption": "흰머리와 연기 2014 Oil on Canvas 227.3x181.8cm",
+  "order": 161,
+  "dimensions": "227.3x181.8cm"
+}

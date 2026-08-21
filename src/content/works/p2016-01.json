@@ -1,0 +1,19 @@
+{
+  "slug": "p2016-01",
+  "series": "paintings",
+  "titleKo": "두 노인",
+  "titleEn": "두 노인",
+  "year": 2016,
+  "medium": "Oil on Canvas",
+  "images": [
+         {
+           "src": "/assets/works/web/p2016-01.jpg",
+           "alt": "두 노인 — Oil on Canvas, 2016",
+           "width": 1200,
+           "height": 1201
+         }
+       ],
+  "caption": "두 노인 2016 Oil on Canvas 120x120cm",
+  "order": 171,
+  "dimensions": "120x120cm"
+}

@@ -1,0 +1,19 @@
+{
+  "slug": "p2014-04",
+  "series": "paintings",
+  "titleKo": "무궁화와 비행기구름",
+  "titleEn": "무궁화와 비행기구름",
+  "year": 2014,
+  "medium": "Oil on Canvas",
+  "images": [
+         {
+           "src": "/assets/works/web/p2014-04.jpg",
+           "alt": "무궁화와 비행기구름 — Oil on Canvas, 2014",
+           "width": 1115,
+           "height": 1400
+         }
+       ],
+  "caption": "무궁화와 비행기구름 2014 Oil on Canvas 227.3x181.8cm",
+  "order": 162,
+  "dimensions": "227.3x181.8cm"
+}

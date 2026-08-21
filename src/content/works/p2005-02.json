@@ -1,0 +1,19 @@
+{
+  "slug": "p2005-02",
+  "series": "paintings",
+  "titleKo": "A Dog",
+  "titleEn": "A Dog",
+  "year": 2005,
+  "medium": "Acrylic on Canvas",
+  "images": [
+         {
+           "src": "/assets/works/web/p2005-02.jpg",
+           "alt": "A Dog — Acrylic on Canvas, 2005",
+           "width": 844,
+           "height": 841
+         }
+       ],
+  "caption": "A Dog 2005 Acrylic on Canvas 120x120cm",
+  "order": 93,
+  "dimensions": "120x120cm"
+}

@@ -1,0 +1,19 @@
+{
+  "slug": "p2000-01",
+  "series": "paintings",
+  "titleKo": "여자(1)",
+  "titleEn": "A Woman",
+  "year": 2000,
+  "medium": "Oil on Canvas",
+  "images": [
+         {
+           "src": "/assets/works/web/p2000-01.jpg",
+           "alt": "A Woman — Oil on Canvas, 2000",
+           "width": 1075,
+           "height": 1082
+         }
+       ],
+  "caption": "여자(1) A Woman 2000 Oil on Canvas 150x150cm",
+  "order": 87,
+  "dimensions": "150x150cm"
+}

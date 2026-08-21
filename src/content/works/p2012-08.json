@@ -1,0 +1,19 @@
+{
+  "slug": "p2012-08",
+  "series": "paintings",
+  "titleKo": "물보라",
+  "titleEn": "물보라",
+  "year": 2012,
+  "medium": "Oil on Canvas",
+  "images": [
+         {
+           "src": "/assets/works/web/p2012-08.jpg",
+           "alt": "물보라 — Oil on Canvas, 2012",
+           "width": 937,
+           "height": 1400
+         }
+       ],
+  "caption": "물보라 2012 Oil on Canvas 145.5x97cm",
+  "order": 140,
+  "dimensions": "145.5x97cm"
+}

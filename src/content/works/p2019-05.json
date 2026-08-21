@@ -1,0 +1,35 @@
+{
+  "slug": "p2019-05",
+  "series": "paintings",
+  "titleKo": "덩굴",
+  "titleEn": "덩굴",
+  "year": 2019,
+  "medium": "Oil on Canvas",
+  "images": [
+         {
+           "src": "/assets/works/web/p2019-05.jpg",
+           "alt": "덩굴 — Oil on Canvas, 2019",
+           "width": 1200,
+           "height": 749
+         },
+         {
+           "src": "/assets/works/web/p2019-05-2.jpg",
+           "alt": "덩굴 — Oil on Canvas, 2019",
+           "width": 1121,
+           "height": 1400
+         },
+         {
+           "src": "/assets/works/web/p2019-05-3.jpg",
+           "alt": "덩굴 — Oil on Canvas, 2019",
+           "width": 1121,
+           "height": 1400
+         }
+       ],
+  "caption": "덩굴 2019 Oil on Canvas 227.3x363.6cm",
+  "order": 181,
+  "dimensions": "227.3x363.6cm",
+  "manualReview": true,
+  "reviewNotes": [
+            "NOT in cross-reference spreadsheet - treated as one diptych (files 56+57); verify with artist"
+          ]
+}

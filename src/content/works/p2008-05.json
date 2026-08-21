@@ -1,0 +1,23 @@
+{
+  "slug": "p2008-05",
+  "series": "paintings",
+  "titleKo": "호수가의 남녀",
+  "titleEn": "호수가의 남녀",
+  "year": 2008,
+  "medium": "Acrylic on Canvas",
+  "images": [
+         {
+           "src": "/assets/works/web/p2008-05.jpg",
+           "alt": "호수가의 남녀 — Acrylic on Canvas, 2008",
+           "width": 1200,
+           "height": 1203
+         }
+       ],
+  "caption": "호수가의 남녀 2008 Acrylic on Canvas 120x120cm",
+  "order": 106,
+  "dimensions": "120x120cm",
+  "manualReview": true,
+  "reviewNotes": [
+            "no medium/dims in filename; title per master (호숫가 spelling)"
+          ]
+}

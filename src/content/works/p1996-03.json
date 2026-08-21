@@ -1,0 +1,18 @@
+{
+  "slug": "p1996-03",
+  "series": "paintings",
+  "titleKo": "먼지그림(북한산)",
+  "titleEn": "먼지그림(북한산)",
+  "year": 1996,
+  "medium": "Dust and Acrylic on Canvas",
+  "images": [
+         {
+           "src": "/assets/works/web/p1996-03.jpg",
+           "alt": "먼지그림(북한산) — Dust and Acrylic on Canvas, 1996",
+           "width": 1200,
+           "height": 356
+         }
+       ],
+  "caption": "먼지그림(북한산) 1996 Dust and Acrylic on Canvas",
+  "order": 0.03
+}

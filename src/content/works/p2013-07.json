@@ -1,0 +1,19 @@
+{
+  "slug": "p2013-07",
+  "series": "paintings",
+  "titleKo": "소나무숲",
+  "titleEn": "소나무숲",
+  "year": 2013,
+  "medium": "Oil on Canvas",
+  "images": [
+         {
+           "src": "/assets/works/web/p2013-07.jpg",
+           "alt": "소나무숲 — Oil on Canvas, 2013",
+           "width": 1117,
+           "height": 1400
+         }
+       ],
+  "caption": "소나무숲 2013 Oil on Canvas 227.3x181.8cm",
+  "order": 158,
+  "dimensions": "227.3x181.8cm"
+}

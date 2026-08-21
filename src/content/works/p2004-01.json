@@ -1,0 +1,23 @@
+{
+  "slug": "p2004-01",
+  "series": "paintings",
+  "titleKo": "날마다 좋은 날 되소서",
+  "titleEn": "날마다 좋은 날 되소서",
+  "year": 2004,
+  "medium": "Oil on Canvas",
+  "images": [
+         {
+           "src": "/assets/works/web/p2004-01.jpg",
+           "alt": "날마다 좋은 날 되소서 — Oil on Canvas, 2004",
+           "width": 1200,
+           "height": 1200
+         }
+       ],
+  "caption": "날마다 좋은 날 되소서 2004 Oil on Canvas 150x150cm",
+  "order": 90,
+  "dimensions": "150x150cm",
+  "manualReview": true,
+  "reviewNotes": [
+            "title corrected via master spreadsheet"
+          ]
+}

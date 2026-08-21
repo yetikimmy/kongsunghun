@@ -1,0 +1,19 @@
+{
+  "slug": "p2009-08",
+  "series": "paintings",
+  "titleKo": "담배피는남자",
+  "titleEn": "담배피는남자",
+  "year": 2009,
+  "medium": "Oil on Canvas",
+  "images": [
+         {
+           "src": "/assets/works/web/p2009-08.jpg",
+           "alt": "담배피는남자 — Oil on Canvas, 2009",
+           "width": 1200,
+           "height": 1327
+         }
+       ],
+  "caption": "담배피는남자 2009 Oil on Canvas 112x123.7cm",
+  "order": 120,
+  "dimensions": "112x123.7cm"
+}

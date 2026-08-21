@@ -1,0 +1,19 @@
+{
+  "slug": "p2019-02",
+  "series": "paintings",
+  "titleKo": "웅덩이2",
+  "titleEn": "웅덩이2",
+  "year": 2019,
+  "medium": "Oil on Canvas",
+  "images": [
+         {
+           "src": "/assets/works/web/p2019-02.jpg",
+           "alt": "웅덩이2 — Oil on Canvas, 2019",
+           "width": 1115,
+           "height": 1400
+         }
+       ],
+  "caption": "웅덩이2 2019 Oil on Canvas 227.3x181.8cm",
+  "order": 178,
+  "dimensions": "227.3x181.8cm"
+}

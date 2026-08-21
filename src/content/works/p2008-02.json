@@ -1,0 +1,19 @@
+{
+  "slug": "p2008-02",
+  "series": "paintings",
+  "titleKo": "오리와 연꽃",
+  "titleEn": "오리와 연꽃",
+  "year": 2008,
+  "medium": "Oil on Canvas",
+  "images": [
+         {
+           "src": "/assets/works/web/p2008-02.jpg",
+           "alt": "오리와 연꽃 — Oil on Canvas, 2008",
+           "width": 1113,
+           "height": 1400
+         }
+       ],
+  "caption": "오리와 연꽃 2008 Oil on Canvas 227.3x181.8cm",
+  "order": 103,
+  "dimensions": "227.3x181.8cm"
+}

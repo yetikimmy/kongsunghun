@@ -1,0 +1,19 @@
+{
+  "slug": "p2012-01",
+  "series": "paintings",
+  "titleKo": "불꽃놀이",
+  "titleEn": "불꽃놀이",
+  "year": 2012,
+  "medium": "Oil on Canvas",
+  "images": [
+         {
+           "src": "/assets/works/web/p2012-01.jpg",
+           "alt": "불꽃놀이 — Oil on Canvas, 2012",
+           "width": 1116,
+           "height": 1400
+         }
+       ],
+  "caption": "불꽃놀이 2012 Oil on Canvas 152x122cm",
+  "order": 133,
+  "dimensions": "152x122cm"
+}

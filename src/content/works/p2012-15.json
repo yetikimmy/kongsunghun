@@ -1,0 +1,19 @@
+{
+  "slug": "p2012-15",
+  "series": "paintings",
+  "titleKo": "폭포",
+  "titleEn": "폭포",
+  "year": 2012,
+  "medium": "Oil on Canvas",
+  "images": [
+         {
+           "src": "/assets/works/web/p2012-15.jpg",
+           "alt": "폭포 — Oil on Canvas, 2012",
+           "width": 1200,
+           "height": 1133
+         }
+       ],
+  "caption": "폭포 2012 Oil on Canvas 154x163cm",
+  "order": 147,
+  "dimensions": "154x163cm"
+}

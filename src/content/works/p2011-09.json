@@ -1,0 +1,19 @@
+{
+  "slug": "p2011-09",
+  "series": "paintings",
+  "titleKo": "담배 피우는 남자(태종대)",
+  "titleEn": "담배 피우는 남자(태종대)",
+  "year": 2011,
+  "medium": "Oil on Canvas",
+  "images": [
+         {
+           "src": "/assets/works/web/p2011-09.jpg",
+           "alt": "담배 피우는 남자(태종대) — Oil on Canvas, 2011",
+           "width": 935,
+           "height": 1400
+         }
+       ],
+  "caption": "담배 피우는 남자(태종대) 2011 Oil on Canvas 182x121.8cm",
+  "order": 130,
+  "dimensions": "182x121.8cm"
+}

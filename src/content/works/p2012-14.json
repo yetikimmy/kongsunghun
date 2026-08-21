@@ -1,0 +1,19 @@
+{
+  "slug": "p2012-14",
+  "series": "paintings",
+  "titleKo": "촛불",
+  "titleEn": "촛불",
+  "year": 2012,
+  "medium": "Acrylic on Canvas",
+  "images": [
+         {
+           "src": "/assets/works/web/p2012-14.jpg",
+           "alt": "촛불 — Acrylic on Canvas, 2012",
+           "width": 1200,
+           "height": 1362
+         }
+       ],
+  "caption": "촛불 2012 Acrylic on Canvas 170x150cm",
+  "order": 146,
+  "dimensions": "170x150cm"
+}

@@ -1,0 +1,19 @@
+{
+  "slug": "p2012-03",
+  "series": "paintings",
+  "titleKo": "뱃길",
+  "titleEn": "뱃길",
+  "year": 2012,
+  "medium": "Oil on Canvas",
+  "images": [
+         {
+           "src": "/assets/works/web/p2012-03.jpg",
+           "alt": "뱃길 — Oil on Canvas, 2012",
+           "width": 1200,
+           "height": 807
+         }
+       ],
+  "caption": "뱃길 2012 Oil on Canvas 130.3x193.9cm",
+  "order": 135,
+  "dimensions": "130.3x193.9cm"
+}

@@ -1,0 +1,19 @@
+{
+  "slug": "p2019-01",
+  "series": "paintings",
+  "titleKo": "파도",
+  "titleEn": "파도",
+  "year": 2019,
+  "medium": "Oil on Canvas",
+  "images": [
+         {
+           "src": "/assets/works/web/p2019-01.jpg",
+           "alt": "파도 — Oil on Canvas, 2019",
+           "width": 1119,
+           "height": 1400
+         }
+       ],
+  "caption": "파도 2019 Oil on Canvas 227.3x181.8cm",
+  "order": 177,
+  "dimensions": "227.3x181.8cm"
+}

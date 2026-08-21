@@ -1,0 +1,19 @@
+{
+  "slug": "p2009-07",
+  "series": "paintings",
+  "titleKo": "전화하는 남자",
+  "titleEn": "전화하는 남자",
+  "year": 2009,
+  "medium": "Oil on Canvas",
+  "images": [
+         {
+           "src": "/assets/works/web/p2009-07.jpg",
+           "alt": "전화하는 남자 — Oil on Canvas, 2009",
+           "width": 1200,
+           "height": 1200
+         }
+       ],
+  "caption": "전화하는 남자 2009 Oil on Canvas 120x120cm",
+  "order": 119,
+  "dimensions": "120x120cm"
+}

@@ -1,0 +1,19 @@
+{
+  "slug": "p2011-10",
+  "series": "paintings",
+  "titleKo": "형제바위",
+  "titleEn": "형제바위",
+  "year": 2011,
+  "medium": "Oil on Canvas",
+  "images": [
+         {
+           "src": "/assets/works/web/p2011-10.jpg",
+           "alt": "형제바위 — Oil on Canvas, 2011",
+           "width": 1043,
+           "height": 1400
+         }
+       ],
+  "caption": "형제바위 2011 Oil on Canvas 183x137cm",
+  "order": 131,
+  "dimensions": "183x137cm"
+}

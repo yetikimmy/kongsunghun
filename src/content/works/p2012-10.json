@@ -1,0 +1,19 @@
+{
+  "slug": "p2012-10",
+  "series": "paintings",
+  "titleKo": "동굴",
+  "titleEn": "동굴",
+  "year": 2012,
+  "medium": "Acrylic on Canvas",
+  "images": [
+         {
+           "src": "/assets/works/web/p2012-10.jpg",
+           "alt": "동굴 — Acrylic on Canvas, 2012",
+           "width": 1200,
+           "height": 629
+         }
+       ],
+  "caption": "동굴 2012 Acrylic on Canvas 115x219cm",
+  "order": 142,
+  "dimensions": "115x219cm"
+}

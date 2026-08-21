@@ -1,0 +1,19 @@
+{
+  "slug": "p2008-07",
+  "series": "paintings",
+  "titleKo": "Goyang Flower City",
+  "titleEn": "Goyang Flower City",
+  "year": 2008,
+  "medium": "Oil on Canvas",
+  "images": [
+         {
+           "src": "/assets/works/web/p2008-07.jpg",
+           "alt": "Goyang Flower City — Oil on Canvas, 2008",
+           "width": 1200,
+           "height": 921
+         }
+       ],
+  "caption": "Goyang Flower City 2008 Oil on Canvas 112.1x145.5cm",
+  "order": 108,
+  "dimensions": "112.1x145.5cm"
+}

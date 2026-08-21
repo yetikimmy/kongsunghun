@@ -1,0 +1,19 @@
+{
+  "slug": "p1996-02",
+  "series": "paintings",
+  "titleKo": "먼지그림-나무",
+  "titleEn": "Dust Painting (A Tree1)",
+  "year": 1996,
+  "medium": "Dust and Acrylic on Canvas",
+  "images": [
+         {
+           "src": "/assets/works/web/p1996-02.jpg",
+           "alt": "Dust Painting (A Tree1) — Dust and Acrylic on Canvas, 1996",
+           "width": 1200,
+           "height": 961
+         }
+       ],
+  "caption": "먼지그림-나무 Dust Painting (A Tree1) 1996 Dust and Acrylic on Canvas 112.1x145.5cm",
+  "order": 0.02,
+  "dimensions": "112.1x145.5cm"
+}

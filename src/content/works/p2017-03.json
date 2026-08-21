@@ -1,0 +1,19 @@
+{
+  "slug": "p2017-03",
+  "series": "paintings",
+  "titleKo": "아침바다",
+  "titleEn": "아침바다",
+  "year": 2017,
+  "medium": "Oil on Canvas",
+  "images": [
+         {
+           "src": "/assets/works/web/p2017-03.jpg",
+           "alt": "아침바다 — Oil on Canvas, 2017",
+           "width": 1043,
+           "height": 1400
+         }
+       ],
+  "caption": "아침바다 2017 Oil on Canvas 101x76cm",
+  "order": 174,
+  "dimensions": "101x76cm"
+}

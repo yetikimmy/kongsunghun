@@ -1,0 +1,23 @@
+{
+  "slug": "p2011-11",
+  "series": "paintings",
+  "titleKo": "청와대-국회의사당-촛불 그리고 연꽃",
+  "titleEn": "청와대-국회의사당-촛불 그리고 연꽃",
+  "year": 2011,
+  "medium": "Oil on Canvas",
+  "images": [
+         {
+           "src": "/assets/works/web/p2011-11.jpg",
+           "alt": "청와대-국회의사당-촛불 그리고 연꽃 — Oil on Canvas, 2011",
+           "width": 941,
+           "height": 1400
+         }
+       ],
+  "caption": "청와대-국회의사당-촛불 그리고 연꽃 2011 Oil on Canvas 193.9x130.3cm",
+  "order": 132,
+  "dimensions": "193.9x130.3cm",
+  "manualReview": true,
+  "reviewNotes": [
+            "NOT in cross-reference spreadsheet - verify with artist"
+          ]
+}

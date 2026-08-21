@@ -1,0 +1,19 @@
+{
+  "slug": "p2009-06",
+  "series": "paintings",
+  "titleKo": "달과새",
+  "titleEn": "달과새",
+  "year": 2009,
+  "medium": "Oil on Canvas",
+  "images": [
+         {
+           "src": "/assets/works/web/p2009-06.jpg",
+           "alt": "달과새 — Oil on Canvas, 2009",
+           "width": 1057,
+           "height": 1400
+         }
+       ],
+  "caption": "달과새 2009 Oil on Canvas 119.7x90.5cm",
+  "order": 118,
+  "dimensions": "119.7x90.5cm"
+}

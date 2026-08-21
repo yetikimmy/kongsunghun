@@ -1,0 +1,19 @@
+{
+  "slug": "p2011-08",
+  "series": "paintings",
+  "titleKo": "폭포가는길",
+  "titleEn": "폭포가는길",
+  "year": 2011,
+  "medium": "Oil on Canvas",
+  "images": [
+         {
+           "src": "/assets/works/web/p2011-08.jpg",
+           "alt": "폭포가는길 — Oil on Canvas, 2011",
+           "width": 1086,
+           "height": 1400
+         }
+       ],
+  "caption": "폭포가는길 2011 Oil on Canvas 116.8x91cm",
+  "order": 129,
+  "dimensions": "116.8x91cm"
+}

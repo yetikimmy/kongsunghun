@@ -1,0 +1,23 @@
+{
+  "slug": "p2009-05",
+  "series": "paintings",
+  "titleKo": "바닷가의소녀",
+  "titleEn": "바닷가의소녀",
+  "year": 2009,
+  "medium": "Oil on Canvas",
+  "images": [
+         {
+           "src": "/assets/works/web/p2009-05.jpg",
+           "alt": "바닷가의소녀 — Oil on Canvas, 2009",
+           "width": 1200,
+           "height": 918
+         }
+       ],
+  "caption": "바닷가의소녀 2009 Oil on Canvas 130.3x162.2cm",
+  "order": 117,
+  "dimensions": "130.3x162.2cm",
+  "manualReview": true,
+  "reviewNotes": [
+            "title spacing per master"
+          ]
+}

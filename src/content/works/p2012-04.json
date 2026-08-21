@@ -1,0 +1,19 @@
+{
+  "slug": "p2012-04",
+  "series": "paintings",
+  "titleKo": "노을",
+  "titleEn": "노을",
+  "year": 2012,
+  "medium": "Oil on Canvas",
+  "images": [
+         {
+           "src": "/assets/works/web/p2012-04.jpg",
+           "alt": "노을 — Oil on Canvas, 2012",
+           "width": 1200,
+           "height": 958
+         }
+       ],
+  "caption": "노을 2012 Oil on Canvas 120x150cm",
+  "order": 136,
+  "dimensions": "120x150cm"
+}

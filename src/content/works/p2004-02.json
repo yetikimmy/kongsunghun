@@ -1,0 +1,19 @@
+{
+  "slug": "p2004-02",
+  "series": "paintings",
+  "titleKo": "화장터 나무",
+  "titleEn": "화장터 나무",
+  "year": 2004,
+  "medium": "Oil on Canvas",
+  "images": [
+         {
+           "src": "/assets/works/web/p2004-02.jpg",
+           "alt": "화장터 나무 — Oil on Canvas, 2004",
+           "width": 1077,
+           "height": 1400
+         }
+       ],
+  "caption": "화장터 나무 2004 Oil on Canvas 145.5x112.1cm",
+  "order": 91,
+  "dimensions": "145.5x112.1cm"
+}

@@ -1,0 +1,23 @@
+{
+  "slug": "p2005-03",
+  "series": "paintings",
+  "titleKo": "개",
+  "titleEn": "A Dog",
+  "year": 2005,
+  "medium": "Acrylic on Canvas",
+  "images": [
+         {
+           "src": "/assets/works/web/p2005-03.jpg",
+           "alt": "A Dog — Acrylic on Canvas, 2005",
+           "width": 1056,
+           "height": 1054
+         }
+       ],
+  "caption": "개 A Dog 2005 Acrylic on Canvas 120x120cm",
+  "order": 94,
+  "dimensions": "120x120cm",
+  "manualReview": true,
+  "reviewNotes": [
+            "distinct master row from \u0027A Dog\u0027 above (same size, two rows)"
+          ]
+}

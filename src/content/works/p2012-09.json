@@ -1,0 +1,19 @@
+{
+  "slug": "p2012-09",
+  "series": "paintings",
+  "titleKo": "돌쌓기",
+  "titleEn": "돌쌓기",
+  "year": 2012,
+  "medium": "Acrylic on Canvas",
+  "images": [
+         {
+           "src": "/assets/works/web/p2012-09.jpg",
+           "alt": "돌쌓기 — Acrylic on Canvas, 2012",
+           "width": 1200,
+           "height": 630
+         }
+       ],
+  "caption": "돌쌓기 2012 Acrylic on Canvas 115x219cm",
+  "order": 141,
+  "dimensions": "115x219cm"
+}

@@ -1,0 +1,19 @@
+{
+  "slug": "p2008-09",
+  "series": "paintings",
+  "titleKo": "꽃의 도시",
+  "titleEn": "꽃의 도시",
+  "year": 2008,
+  "medium": "Acrylic on Canvas",
+  "images": [
+         {
+           "src": "/assets/works/web/p2008-09.jpg",
+           "alt": "꽃의 도시 — Acrylic on Canvas, 2008",
+           "width": 1200,
+           "height": 916
+         }
+       ],
+  "caption": "꽃의 도시 2008 Acrylic on Canvas 112.1x145.5cm",
+  "order": 110,
+  "dimensions": "112.1x145.5cm"
+}

@@ -1,0 +1,23 @@
+{
+  "slug": "p2014-07",
+  "series": "paintings",
+  "titleKo": "겨울나무",
+  "titleEn": "겨울나무",
+  "year": 2014,
+  "medium": "Acrylic on Canvas",
+  "images": [
+         {
+           "src": "/assets/works/web/p2014-07.jpg",
+           "alt": "겨울나무 — Acrylic on Canvas, 2014",
+           "width": 1119,
+           "height": 1400
+         }
+       ],
+  "caption": "겨울나무 2014 Acrylic on Canvas 227.3x181.1cm",
+  "order": 165,
+  "dimensions": "227.3x181.1cm",
+  "manualReview": true,
+  "reviewNotes": [
+            "title spacing per master"
+          ]
+}

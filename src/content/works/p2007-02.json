@@ -1,0 +1,19 @@
+{
+  "slug": "p2007-02",
+  "series": "paintings",
+  "titleKo": "낚시",
+  "titleEn": "낚시",
+  "year": 2007,
+  "medium": "Oil on Canvas",
+  "images": [
+         {
+           "src": "/assets/works/web/p2007-02.jpg",
+           "alt": "낚시 — Oil on Canvas, 2007",
+           "width": 1200,
+           "height": 805
+         }
+       ],
+  "caption": "낚시 2007 Oil on Canvas 130.3x193.9cm",
+  "order": 96,
+  "dimensions": "130.3x193.9cm"
+}

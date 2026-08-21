@@ -1,0 +1,19 @@
+{
+  "slug": "p2012-05",
+  "series": "paintings",
+  "titleKo": "구름과 머리카락",
+  "titleEn": "구름과 머리카락",
+  "year": 2012,
+  "medium": "Oil on Canvas",
+  "images": [
+         {
+           "src": "/assets/works/web/p2012-05.jpg",
+           "alt": "구름과 머리카락 — Oil on Canvas, 2012",
+           "width": 1121,
+           "height": 1400
+         }
+       ],
+  "caption": "구름과 머리카락 2012 Oil on Canvas 152x122cm",
+  "order": 137,
+  "dimensions": "152x122cm"
+}

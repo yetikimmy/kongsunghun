@@ -1,0 +1,19 @@
+{
+  "slug": "p2008-03",
+  "series": "paintings",
+  "titleKo": "밤 산책",
+  "titleEn": "밤 산책",
+  "year": 2008,
+  "medium": "Oil on Canvas",
+  "images": [
+         {
+           "src": "/assets/works/web/p2008-03.jpg",
+           "alt": "밤 산책 — Oil on Canvas, 2008",
+           "width": 1121,
+           "height": 1400
+         }
+       ],
+  "caption": "밤 산책 2008 Oil on Canvas 227.3x181.8cm",
+  "order": 104,
+  "dimensions": "227.3x181.8cm"
+}

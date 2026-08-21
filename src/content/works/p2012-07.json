@@ -1,0 +1,19 @@
+{
+  "slug": "p2012-07",
+  "series": "paintings",
+  "titleKo": "흰머리",
+  "titleEn": "흰머리",
+  "year": 2012,
+  "medium": "Acrylic on Canvas",
+  "images": [
+         {
+           "src": "/assets/works/web/p2012-07.jpg",
+           "alt": "흰머리 — Acrylic on Canvas, 2012",
+           "width": 1126,
+           "height": 1400
+         }
+       ],
+  "caption": "흰머리 2012 Acrylic on Canvas 150x120cm",
+  "order": 139,
+  "dimensions": "150x120cm"
+}

@@ -1,0 +1,23 @@
+{
+  "slug": "p2009-02",
+  "series": "paintings",
+  "titleKo": "저기를봐",
+  "titleEn": "Look over There",
+  "year": 2009,
+  "medium": "Oil on Canvas",
+  "images": [
+         {
+           "src": "/assets/works/web/p2009-02.jpg",
+           "alt": "Look over There — Oil on Canvas, 2009",
+           "width": 1076,
+           "height": 1400
+         }
+       ],
+  "caption": "저기를봐 Look over There 2009 Oil on Canvas 91x116.8cm",
+  "order": 114,
+  "dimensions": "91x116.8cm",
+  "manualReview": true,
+  "reviewNotes": [
+            "title spacing per master"
+          ]
+}

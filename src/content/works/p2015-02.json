@@ -1,0 +1,19 @@
+{
+  "slug": "p2015-02",
+  "series": "paintings",
+  "titleKo": "점프",
+  "titleEn": "점프",
+  "year": 2015,
+  "medium": "Oil on Canvas",
+  "images": [
+         {
+           "src": "/assets/works/web/p2015-02.jpg",
+           "alt": "점프 — Oil on Canvas, 2015",
+           "width": 1121,
+           "height": 1400
+         }
+       ],
+  "caption": "점프 2015 Oil on Canvas 227.3x181.8cm",
+  "order": 167,
+  "dimensions": "227.3x181.8cm"
+}

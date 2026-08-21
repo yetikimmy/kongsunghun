@@ -1,0 +1,19 @@
+{
+  "slug": "p2015-05",
+  "series": "paintings",
+  "titleKo": "버드나무2",
+  "titleEn": "버드나무2",
+  "year": 2015,
+  "medium": "Oil on Canvas",
+  "images": [
+         {
+           "src": "/assets/works/web/p2015-05.jpg",
+           "alt": "버드나무2 — Oil on Canvas, 2015",
+           "width": 999,
+           "height": 1400
+         }
+       ],
+  "caption": "버드나무2 2015 Oil on Canvas 227.3x181.8cm",
+  "order": 170,
+  "dimensions": "227.3x181.8cm"
+}

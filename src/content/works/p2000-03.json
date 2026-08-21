@@ -1,0 +1,23 @@
+{
+  "slug": "p2000-03",
+  "series": "paintings",
+  "titleKo": "개",
+  "titleEn": "Two Dogs",
+  "year": 2000,
+  "medium": "Oil on Canvas",
+  "images": [
+         {
+           "src": "/assets/works/web/p2000-03.jpg",
+           "alt": "Two Dogs — Oil on Canvas, 2000",
+           "width": 1200,
+           "height": 960
+         }
+       ],
+  "caption": "개 Two Dogs 2000 Oil on Canvas 181.8x227.3cm",
+  "order": 89,
+  "dimensions": "181.8x227.3cm",
+  "manualReview": true,
+  "reviewNotes": [
+            "master dims 181.3x227.2 vs file 181.8x227.3 (rounding)"
+          ]
+}

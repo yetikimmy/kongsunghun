@@ -1,0 +1,19 @@
+{
+  "slug": "p2007-05",
+  "series": "paintings",
+  "titleKo": "호수공원",
+  "titleEn": "호수공원",
+  "year": 2007,
+  "medium": "Oil on Canvas",
+  "images": [
+         {
+           "src": "/assets/works/web/p2007-05.jpg",
+           "alt": "호수공원 — Oil on Canvas, 2007",
+           "width": 1200,
+           "height": 810
+         }
+       ],
+  "caption": "호수공원 2007 Oil on Canvas 130.3x193.9cm",
+  "order": 99,
+  "dimensions": "130.3x193.9cm"
+}

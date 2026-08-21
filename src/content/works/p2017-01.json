@@ -1,0 +1,19 @@
+{
+  "slug": "p2017-01",
+  "series": "paintings",
+  "titleKo": "촛불",
+  "titleEn": "촛불",
+  "year": 2017,
+  "medium": "Oil on Canvas",
+  "images": [
+         {
+           "src": "/assets/works/web/p2017-01.jpg",
+           "alt": "촛불 — Oil on Canvas, 2017",
+           "width": 999,
+           "height": 1400
+         }
+       ],
+  "caption": "촛불 2017 Oil on Canvas 90.9x65.1cm",
+  "order": 172,
+  "dimensions": "90.9x65.1cm"
+}

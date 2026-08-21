@@ -1,0 +1,19 @@
+{
+  "slug": "p2007-06",
+  "series": "paintings",
+  "titleKo": "호수공원",
+  "titleEn": "호수공원",
+  "year": 2007,
+  "medium": "Acrylic on Canvas",
+  "images": [
+         {
+           "src": "/assets/works/web/p2007-06.jpg",
+           "alt": "호수공원 — Acrylic on Canvas, 2007",
+           "width": 1200,
+           "height": 594
+         }
+       ],
+  "caption": "호수공원 2007 Acrylic on Canvas 60x120cm",
+  "order": 100,
+  "dimensions": "60x120cm"
+}

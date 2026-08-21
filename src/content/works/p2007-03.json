@@ -1,0 +1,19 @@
+{
+  "slug": "p2007-03",
+  "series": "paintings",
+  "titleKo": "필리핀군참전기념비",
+  "titleEn": "필리핀군참전기념비",
+  "year": 2007,
+  "medium": "Acrylic on Canvas",
+  "images": [
+         {
+           "src": "/assets/works/web/p2007-03.jpg",
+           "alt": "필리핀군참전기념비 — Acrylic on Canvas, 2007",
+           "width": 1200,
+           "height": 963
+         }
+       ],
+  "caption": "필리핀군참전기념비 2007 Acrylic on Canvas 181.8x227.3cm",
+  "order": 97,
+  "dimensions": "181.8x227.3cm"
+}

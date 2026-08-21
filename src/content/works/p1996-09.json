@@ -1,0 +1,18 @@
+{
+  "slug": "p1996-09",
+  "series": "paintings",
+  "titleKo": "먼지그림(1)",
+  "titleEn": "Dust Painting",
+  "year": 1996,
+  "medium": "Dust and Acrylic on Canvas",
+  "images": [
+         {
+           "src": "/assets/works/web/p1996-09.jpg",
+           "alt": "Dust Painting — Dust and Acrylic on Canvas, 1996",
+           "width": 1200,
+           "height": 832
+         }
+       ],
+  "caption": "먼지그림(1) Dust Painting 1996 Dust and Acrylic on Canvas",
+  "order": 0.09
+}

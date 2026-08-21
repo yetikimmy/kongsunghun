@@ -1,0 +1,23 @@
+{
+  "slug": "p2005-01",
+  "series": "paintings",
+  "titleKo": "호수공원",
+  "titleEn": "호수공원",
+  "year": 2005,
+  "medium": "Acrylic on Canvas",
+  "images": [
+         {
+           "src": "/assets/works/web/p2005-01.jpg",
+           "alt": "호수공원 — Acrylic on Canvas, 2005",
+           "width": 1087,
+           "height": 834
+         }
+       ],
+  "caption": "호수공원 2005 Acrylic on Canvas 145.5x112.1cm",
+  "order": 92,
+  "dimensions": "145.5x112.1cm",
+  "manualReview": true,
+  "reviewNotes": [
+            "source was .tif"
+          ]
+}

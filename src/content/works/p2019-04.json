@@ -1,0 +1,23 @@
+{
+  "slug": "p2019-04",
+  "series": "paintings",
+  "titleKo": "웅덩이7",
+  "titleEn": "웅덩이7",
+  "year": 2019,
+  "medium": "Acrylic on Canvas",
+  "images": [
+         {
+           "src": "/assets/works/web/p2019-04.jpg",
+           "alt": "웅덩이7 — Acrylic on Canvas, 2019",
+           "width": 998,
+           "height": 1400
+         }
+       ],
+  "caption": "웅덩이7 2019 Acrylic on Canvas 227.3x162.1cm",
+  "order": 180,
+  "dimensions": "227.3x162.1cm",
+  "manualReview": true,
+  "reviewNotes": [
+            "NOT in cross-reference spreadsheet - verify with artist"
+          ]
+}

@@ -1,0 +1,19 @@
+{
+  "slug": "p2012-06",
+  "series": "paintings",
+  "titleKo": "기러기",
+  "titleEn": "기러기",
+  "year": 2012,
+  "medium": "Acrylic on Canvas",
+  "images": [
+         {
+           "src": "/assets/works/web/p2012-06.jpg",
+           "alt": "기러기 — Acrylic on Canvas, 2012",
+           "width": 936,
+           "height": 1400
+         }
+       ],
+  "caption": "기러기 2012 Acrylic on Canvas 193.9x130.3cm",
+  "order": 138,
+  "dimensions": "193.9x130.3cm"
+}

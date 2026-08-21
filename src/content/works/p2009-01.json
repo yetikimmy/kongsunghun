@@ -1,0 +1,23 @@
+{
+  "slug": "p2009-01",
+  "series": "paintings",
+  "titleKo": "낚시",
+  "titleEn": "낚시",
+  "year": 2009,
+  "medium": "Oil on Canvas",
+  "images": [
+         {
+           "src": "/assets/works/web/p2009-01.jpg",
+           "alt": "낚시 — Oil on Canvas, 2009",
+           "width": 1200,
+           "height": 821
+         }
+       ],
+  "caption": "낚시 2009 Oil on Canvas 130.3x193.9cm",
+  "order": 113,
+  "dimensions": "130.3x193.9cm",
+  "manualReview": true,
+  "reviewNotes": [
+            "source was .tif"
+          ]
+}

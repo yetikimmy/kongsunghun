@@ -1,0 +1,19 @@
+{
+  "slug": "p2009-04",
+  "series": "paintings",
+  "titleKo": "황혼, 비행기구름",
+  "titleEn": "황혼, 비행기구름",
+  "year": 2009,
+  "medium": "Oil on Canvas",
+  "images": [
+         {
+           "src": "/assets/works/web/p2009-04.jpg",
+           "alt": "황혼, 비행기구름 — Oil on Canvas, 2009",
+           "width": 851,
+           "height": 1400
+         }
+       ],
+  "caption": "황혼, 비행기구름 2009 Oil on Canvas 145.5x89.4cm",
+  "order": 116,
+  "dimensions": "145.5x89.4cm"
+}

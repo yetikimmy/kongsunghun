@@ -1,0 +1,23 @@
+{
+  "slug": "p2012-18",
+  "series": "paintings",
+  "titleKo": "부표",
+  "titleEn": "부표",
+  "year": 2012,
+  "medium": "Oil on Canvas",
+  "images": [
+         {
+           "src": "/assets/works/web/p2012-18.jpg",
+           "alt": "부표 — Oil on Canvas, 2012",
+           "width": 1200,
+           "height": 965
+         }
+       ],
+  "caption": "부표 2012 Oil on Canvas 130.3x162.2cm",
+  "order": 150,
+  "dimensions": "130.3x162.2cm",
+  "manualReview": true,
+  "reviewNotes": [
+            "NOT in cross-reference spreadsheet - verify with artist"
+          ]
+}

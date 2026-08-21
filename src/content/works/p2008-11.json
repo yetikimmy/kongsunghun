@@ -1,0 +1,19 @@
+{
+  "slug": "p2008-11",
+  "series": "paintings",
+  "titleKo": "인공절벽",
+  "titleEn": "인공절벽",
+  "year": 2008,
+  "medium": "Acrylic on Canvas",
+  "images": [
+         {
+           "src": "/assets/works/web/p2008-11.jpg",
+           "alt": "인공절벽 — Acrylic on Canvas, 2008",
+           "width": 1121,
+           "height": 1400
+         }
+       ],
+  "caption": "인공절벽 2008 Acrylic on Canvas 227.3x181.8cm",
+  "order": 112,
+  "dimensions": "227.3x181.8cm"
+}

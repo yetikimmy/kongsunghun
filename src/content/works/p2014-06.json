@@ -1,0 +1,19 @@
+{
+  "slug": "p2014-06",
+  "series": "paintings",
+  "titleKo": "나무1",
+  "titleEn": "나무1",
+  "year": 2014,
+  "medium": "Oil on Canvas",
+  "images": [
+         {
+           "src": "/assets/works/web/p2014-06.jpg",
+           "alt": "나무1 — Oil on Canvas, 2014",
+           "width": 968,
+           "height": 1400
+         }
+       ],
+  "caption": "나무1 2014 Oil on Canvas 162.2x112.1cm",
+  "order": 164,
+  "dimensions": "162.2x112.1cm"
+}

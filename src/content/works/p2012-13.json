@@ -1,0 +1,19 @@
+{
+  "slug": "p2012-13",
+  "series": "paintings",
+  "titleKo": "바위1",
+  "titleEn": "바위1",
+  "year": 2012,
+  "medium": "Oil on Canvas",
+  "images": [
+         {
+           "src": "/assets/works/web/p2012-13.jpg",
+           "alt": "바위1 — Oil on Canvas, 2012",
+           "width": 1097,
+           "height": 1400
+         }
+       ],
+  "caption": "바위1 2012 Oil on Canvas 116.8x91cm",
+  "order": 145,
+  "dimensions": "116.8x91cm"
+}

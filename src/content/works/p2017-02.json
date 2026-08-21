@@ -1,0 +1,19 @@
+{
+  "slug": "p2017-02",
+  "series": "paintings",
+  "titleKo": "돌던지기",
+  "titleEn": "돌던지기",
+  "year": 2017,
+  "medium": "Oil on Canvas",
+  "images": [
+         {
+           "src": "/assets/works/web/p2017-02.jpg",
+           "alt": "돌던지기 — Oil on Canvas, 2017",
+           "width": 938,
+           "height": 1400
+         }
+       ],
+  "caption": "돌던지기 2017 Oil on Canvas 193.9x130.3cm",
+  "order": 173,
+  "dimensions": "193.9x130.3cm"
+}

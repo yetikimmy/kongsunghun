@@ -1,0 +1,23 @@
+{
+  "slug": "p2010-01",
+  "series": "paintings",
+  "titleKo": "담배피는 남자(계곡)",
+  "titleEn": "담배피는 남자(계곡)",
+  "year": 2010,
+  "medium": "Oil on Canvas",
+  "images": [
+         {
+           "src": "/assets/works/web/p2010-01.jpg",
+           "alt": "담배피는 남자(계곡) — Oil on Canvas, 2010",
+           "width": 939,
+           "height": 1400
+         }
+       ],
+  "caption": "담배피는 남자(계곡) 2010 Oil on Canvas 190.9x130.3cm",
+  "order": 121,
+  "dimensions": "190.9x130.3cm",
+  "manualReview": true,
+  "reviewNotes": [
+            "NOT in cross-reference spreadsheet - verify with artist"
+          ]
+}

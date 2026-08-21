@@ -1,0 +1,19 @@
+{
+  "slug": "p2009-03",
+  "series": "paintings",
+  "titleKo": "밤산책",
+  "titleEn": "밤산책",
+  "year": 2009,
+  "medium": "Oil on Canvas",
+  "images": [
+         {
+           "src": "/assets/works/web/p2009-03.jpg",
+           "alt": "밤산책 — Oil on Canvas, 2009",
+           "width": 1200,
+           "height": 1209
+         }
+       ],
+  "caption": "밤산책 2009 Oil on Canvas 120x120cm",
+  "order": 115,
+  "dimensions": "120x120cm"
+}

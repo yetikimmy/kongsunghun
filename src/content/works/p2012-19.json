@@ -1,0 +1,23 @@
+{
+  "slug": "p2012-19",
+  "series": "paintings",
+  "titleKo": "모닥불",
+  "titleEn": "모닥불",
+  "year": 2012,
+  "medium": "Oil on Canvas",
+  "images": [
+         {
+           "src": "/assets/works/web/p2012-19.jpg",
+           "alt": "모닥불 — Oil on Canvas, 2012",
+           "width": 1121,
+           "height": 1400
+         }
+       ],
+  "caption": "모닥불 2012 Oil on Canvas 227.3x181.8cm",
+  "order": 151,
+  "dimensions": "227.3x181.8cm",
+  "manualReview": true,
+  "reviewNotes": [
+            "NOT in cross-reference spreadsheet - verify with artist"
+          ]
+}

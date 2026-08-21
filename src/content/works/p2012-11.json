@@ -1,0 +1,19 @@
+{
+  "slug": "p2012-11",
+  "series": "paintings",
+  "titleKo": "돌던지기",
+  "titleEn": "돌던지기",
+  "year": 2012,
+  "medium": "Oil on Canvas",
+  "images": [
+         {
+           "src": "/assets/works/web/p2012-11.jpg",
+           "alt": "돌던지기 — Oil on Canvas, 2012",
+           "width": 1200,
+           "height": 825
+         }
+       ],
+  "caption": "돌던지기 2012 Oil on Canvas 89.4x130.3cm",
+  "order": 143,
+  "dimensions": "89.4x130.3cm"
+}

@@ -1,0 +1,19 @@
+{
+  "slug": "p2015-03",
+  "series": "paintings",
+  "titleKo": "버드나무3",
+  "titleEn": "버드나무3",
+  "year": 2015,
+  "medium": "Oil on Canvas",
+  "images": [
+         {
+           "src": "/assets/works/web/p2015-03.jpg",
+           "alt": "버드나무3 — Oil on Canvas, 2015",
+           "width": 1001,
+           "height": 1400
+         }
+       ],
+  "caption": "버드나무3 2015 Oil on Canvas 227.3x181.8cm",
+  "order": 168,
+  "dimensions": "227.3x181.8cm"
+}

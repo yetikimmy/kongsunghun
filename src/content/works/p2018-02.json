@@ -1,0 +1,19 @@
+{
+  "slug": "p2018-02",
+  "series": "paintings",
+  "titleKo": "바닷가의 남자",
+  "titleEn": "바닷가의 남자",
+  "year": 2018,
+  "medium": "Oil on Canvas",
+  "images": [
+         {
+           "src": "/assets/works/web/p2018-02.jpg",
+           "alt": "바닷가의 남자 — Oil on Canvas, 2018",
+           "width": 964,
+           "height": 1400
+         }
+       ],
+  "caption": "바닷가의 남자 2018 Oil on Canvas 116.8x80.3cm",
+  "order": 176,
+  "dimensions": "116.8x80.3cm"
+}

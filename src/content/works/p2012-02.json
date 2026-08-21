@@ -1,0 +1,19 @@
+{
+  "slug": "p2012-02",
+  "series": "paintings",
+  "titleKo": "낚시",
+  "titleEn": "낚시",
+  "year": 2012,
+  "medium": "Oil on Canvas",
+  "images": [
+         {
+           "src": "/assets/works/web/p2012-02.jpg",
+           "alt": "낚시 — Oil on Canvas, 2012",
+           "width": 1200,
+           "height": 628
+         }
+       ],
+  "caption": "낚시 2012 Oil on Canvas 115x219cm",
+  "order": 134,
+  "dimensions": "115x219cm"
+}

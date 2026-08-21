@@ -1,0 +1,19 @@
+{
+  "slug": "p2008-08",
+  "series": "paintings",
+  "titleKo": "개 밥주는 남자",
+  "titleEn": "개 밥주는 남자",
+  "year": 2008,
+  "medium": "Acrylic on Canvas",
+  "images": [
+         {
+           "src": "/assets/works/web/p2008-08.jpg",
+           "alt": "개 밥주는 남자 — Acrylic on Canvas, 2008",
+           "width": 1200,
+           "height": 1193
+         }
+       ],
+  "caption": "개 밥주는 남자 2008 Acrylic on Canvas 150x150cm",
+  "order": 109,
+  "dimensions": "150x150cm"
+}

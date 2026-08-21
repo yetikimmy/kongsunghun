@@ -1,0 +1,19 @@
+{
+  "slug": "p2015-01",
+  "series": "paintings",
+  "titleKo": "아침바다",
+  "titleEn": "아침바다",
+  "year": 2015,
+  "medium": "Oil on Canvas",
+  "images": [
+         {
+           "src": "/assets/works/web/p2015-01.jpg",
+           "alt": "아침바다 — Oil on Canvas, 2015",
+           "width": 1116,
+           "height": 1400
+         }
+       ],
+  "caption": "아침바다 2015 Oil on Canvas 227.3x181.8cm",
+  "order": 166,
+  "dimensions": "227.3x181.8cm"
+}

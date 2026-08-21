@@ -1,0 +1,19 @@
+{
+  "slug": "p2011-05",
+  "series": "paintings",
+  "titleKo": "파도(3)",
+  "titleEn": "파도(3)",
+  "year": 2011,
+  "medium": "Oil on Canvas",
+  "images": [
+         {
+           "src": "/assets/works/web/p2011-05.jpg",
+           "alt": "파도(3) — Oil on Canvas, 2011",
+           "width": 1200,
+           "height": 594
+         }
+       ],
+  "caption": "파도(3) 2011 Oil on Canvas 100x200cm",
+  "order": 126,
+  "dimensions": "100x200cm"
+}
