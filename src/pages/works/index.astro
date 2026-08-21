@@ -11,6 +11,39 @@ const blocks = [
   { lang: "ko" as const, body: overview.ko },
   { lang: "en" as const, body: overview.en },
 ];
+
+// 본문 속 꺾쇠 제목(<호수공원> 등)이 줄바꿈으로 쪼개지지 않도록, 해당 토큰만
+// 분리해 nowrap 으로 감싸고 앞에 줄바꿈 기회(ZWSP)를 둔다.
+const segmentBrackets = (text: string) => text.split(/(<[^>]+>)/).filter((s) => s !== "");
+const isBracket = (s: string) => /^<[^>]+>$/.test(s);
+
+// 이미지 크기/배치 힌트: 특정 이미지는 크게, 특정 이미지들은 2열로 나란히.
+const WIDE_FIGS = ["boy02"]; // Camera Obscura → 전체 폭의 80%
+const LARGE_FIGS = ["boy01", "boy05"]; // Blind-Work / Rolling My Head → 1.5배
+const PAIR_FIGS = ["boy03", "boy04"]; // 개 / 눈오는 밤 → 좌우 2열 배치
+const figName = (img?: string) => (img ?? "").split("/").pop()?.replace(/\.\w+$/, "") ?? "";
+const isWideFig = (b: any) => b.kind === "figure" && WIDE_FIGS.includes(figName(b.img));
+const isLargeFig = (b: any) => b.kind === "figure" && LARGE_FIGS.includes(figName(b.img));
+const isPairFig = (b: any) => b.kind === "figure" && PAIR_FIGS.includes(figName(b.img));
+
+// 블록 전처리: 연속 signature 를 한 문단으로 합치고, 연속 pair 이미지를 한 행으로 묶는다.
+const groupBlocks = (arr: any[]) => {
+  const out: any[] = [];
+  for (const b of arr) {
+    const last = out[out.length - 1];
+    if (b.kind === "signature" && last && last.kind === "signature") {
+      last.lines.push(b.text);
+    } else if (b.kind === "signature") {
+      out.push({ kind: "signature", lines: [b.text] });
+    } else if (isPairFig(b)) {
+      if (last && last.kind === "figure-pair") last.figures.push(b);
+      else out.push({ kind: "figure-pair", figures: [b] });
+    } else {
+      out.push(b);
+    }
+  }
+  return out;
+};
 ---
 
 <BaseLayout title="WORKS — KONG,SUNG-HUN" current="/works/">
@@ -31,18 +64,47 @@ const blocks = [
           data-lang={lang}
           hidden={lang !== "ko"}
         >
-          {body.map((b) =>
+          {groupBlocks(body).map((b) =>
             b.kind === "heading" ? (
               <h2 class="body-heading">{b.text}</h2>
+            ) : b.kind === "figure-pair" ? (
+              <div class="figure-row">
+                {b.figures.map((f: any) => (
+                  <figure class="body-figure body-figure--pair">
+                    {f.img && <img src={f.img} alt={f.caption} loading="lazy" />}
+                    <figcaption class="body-caption">{f.caption}</figcaption>
+                  </figure>
+                ))}
+              </div>
             ) : b.kind === "figure" ? (
-              <figure class="body-figure">
+              <figure class:list={["body-figure", { "body-figure--large": isLargeFig(b), "body-figure--wide": isWideFig(b) }]}>
                 {b.img && <img src={b.img} alt={b.caption} loading="lazy" />}
                 <figcaption class="body-caption">{b.caption}</figcaption>
               </figure>
             ) : b.kind === "signature" ? (
-              <p class="body-signature">{b.text}</p>
+              <p class="body-signature">
+                {b.lines.map((l: string, i: number) =>
+                  i === 0 ? l : (
+                    <>
+                      <br />
+                      {l}
+                    </>
+                  ),
+                )}
+              </p>
             ) : (
-              <p class="body-para">{b.text}</p>
+              <p class="body-para">
+                {segmentBrackets(b.text).map((seg) =>
+                  isBracket(seg) ? (
+                    <>
+                      {"​"}
+                      <span class="nowrap">{seg}</span>
+                    </>
+                  ) : (
+                    seg
+                  ),
+                )}
+              </p>
             ),
           )}
         </div>
@@ -82,22 +144,32 @@ const blocks = [
   .overview-body {
     margin: var(--space-6) 0 0;
     max-width: 1000px;
-    color: #a0a0a0;
-    font-size: var(--fs-body);
-    line-height: var(--lh-body);
+    color: #8c8c8c;
+    font-size: 13px;
+    line-height: calc(var(--lh-body) + 1px);
+    word-break: keep-all;
+    overflow-wrap: break-word;
   }
   .body-heading {
-    font-family: var(--font-display);
-    font-size: 16px;
-    color: var(--color-fg);
-    margin: var(--space-5) 0 var(--space-3);
+    /* 넘버링을 본문 텍스트와 동일한 타이포그래피로 */
+    font-family: var(--font-body);
+    font-size: 13px;
+    font-weight: 400;
+    line-height: calc(var(--lh-body) + 1px);
+    color: #8c8c8c;
+    margin: var(--space-5) 0 calc(var(--space-3) - 4px);
+  }
+  /* 새 넘버 문단 시작 시 한 줄 더 띄움 (첫 넘버는 제외) */
+  .body-heading:not(:first-child) {
+    margin-top: calc(var(--space-5) + 25px);
   }
   .body-para + .body-para,
   .body-para + .body-caption {
     margin-top: var(--space-3);
   }
   .body-figure {
-    margin: var(--space-5) 0;
+    /* 작품(이미지+캡션) 위·아래 간격 (40px + 34px) */
+    margin: calc(var(--space-5) + 34px) 0;
   }
   .body-figure img {
     width: 100%;
@@ -105,18 +177,61 @@ const blocks = [
     height: auto;
     display: block;
   }
+  /* Blind-Work / Rolling My Head → 1.5배 */
+  .body-figure--large img {
+    max-width: 744px;
+  }
+  /* Camera Obscura → 전체 폭의 92% (기존 80%에서 15% 더 키움) */
+  .body-figure--wide img {
+    max-width: 92%;
+  }
+  /* 나란히 있는 pair 를 제외한 단일 사진은 사진·캡션을 중앙 정렬 */
+  .body-figure:not(.body-figure--pair) img {
+    margin-inline: auto;
+  }
+  .body-figure:not(.body-figure--pair) .body-caption {
+    text-align: center;
+  }
+  /* 개 / 눈오는 밤 → 좌우 2열 배치 (세로 스크롤 절약), 동일한 정방형으로 라인업 */
+  .figure-row {
+    display: flex;
+    gap: var(--space-4);
+    margin: calc(var(--space-5) + 34px) 0;
+    align-items: flex-start;
+  }
+  .figure-row .body-figure--pair {
+    flex: 1;
+    min-width: 0;
+    margin: 0;
+  }
+  .figure-row .body-figure--pair img {
+    width: 100%;
+    max-width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+  }
+  /* 개 / 눈오는 밤 캡션을 각 이미지에 중앙 정렬 */
+  .figure-row .body-figure--pair .body-caption {
+    text-align: center;
+  }
   .body-caption {
     color: var(--color-muted);
-    font-style: italic;
+    font-style: normal;
+    font-size: 11px;
+    /* Blind Work 캡션과 동일하게 타이트한 행간으로 사진과 붙임 */
+    line-height: 14px;
     margin-top: var(--space-2);
   }
   .body-signature {
-    margin-top: var(--space-2);
+    /* 마지막 문단과 서명 사이 세 줄 정도 간격 */
+    margin-top: 72px;
     text-align: right;
     color: var(--color-muted);
+    line-height: 18px;
   }
-  .body-signature:first-of-type {
-    margin-top: var(--space-5);
+  /* 꺾쇠 제목(<호수공원> 등)이 중간에 잘리지 않도록 */
+  .nowrap {
+    white-space: nowrap;
   }
 
   @media (max-width: 768px) {

@@ -14,6 +14,12 @@ const rel = (p: string) => relativeHref(p, here);
 const slides = group.slides;
 const total = slides.length;
 const multiple = total > 1;
+
+// 특정 상세 제목의 줄바꿈 위치 지정 (\n 위치에서 개행, white-space: pre-line).
+const TITLE_BREAKS: Record<string, string> = {
+  "미술관에서는 감전과 추락에 주의합시다": "미술관에서는\n감전과 추락에 주의합시다",
+};
+const breakTitle = (t: string) => TITLE_BREAKS[t] ?? t;
 ---
 
 <article class="detail" data-total={total}>
@@ -24,8 +30,7 @@ const multiple = total > 1;
          Title shown as "BLIND WORK"; no per-slide meta line, description directly below. */
       <div class="info-panel">
         <h1 class="title">
-          <span class="title-ko-line">개념 간의 교집합</span>
-          <span class="title-en-line">INTERSECTION OF CONCEPTS</span>
+          <span class="title-line">BLIND WORK</span>
         </h1>
         {(slides[0]?.descriptionKo || slides[0]?.descriptionEn) && (
           <div class="body-text">
@@ -38,7 +43,7 @@ const multiple = total > 1;
       <>
         {/* Group title is fixed — does not change when advancing slides */}
         <h1 class="title">
-          {group.titleKo && <span class="title-line">{group.titleKo}</span>}
+          {group.titleKo && <span class="title-line">{breakTitle(group.titleKo)}</span>}
           {group.titleEn && group.titleEn !== group.titleKo && <span class="title-line">{group.titleEn}</span>}
         </h1>
         {slides.map((s, i) => (
@@ -53,15 +58,14 @@ const multiple = total > 1;
         ))}
       </>
     )}
+    <a class="back-link" href={rel(backHref)}><span class="back-chevron" aria-hidden="true"></span>목록으로</a>
   </div>
 
   <!-- 우측: 이미지 carousel -->
   <div class="detail-media">
     {multiple && (
       <div class="pager">
-        <button class="pager-btn prev" aria-label="이전 이미지" disabled>Back</button>
-        <span class="pager-pos"><span class="pager-current">1</span> / {total}</span>
-        <button class="pager-btn next" aria-label="다음 이미지">Next</button>
+        <span class="pager-pos"><span class="pager-current">1</span><span class="pager-slash">/</span>{total}</span>
       </div>
     )}
 
@@ -74,7 +78,8 @@ const multiple = total > 1;
               alt={s.alt}
               width={s.width}
               height={s.height}
-              loading={i === 0 ? "eager" : "lazy"}
+              loading="eager"
+              fetchpriority={i === 0 ? "high" : "low"}
               onerror="this.closest('figure').classList.add('img-missing')"
             />
           ) : (
@@ -97,14 +102,16 @@ const multiple = total > 1;
     ))}
   </div>
 
-  <a class="back-link" href={rel(backHref)}>← 목록으로</a>
 </article>
 
 <style>
   .detail {
     display: grid;
-    grid-template-columns: minmax(0, 410px) minmax(0, calc(496 / 1440 * 100vw));
+    /* 고정 폭 컬럼 — 뷰포트에 따라 변하지 않도록 vw 대신 px 사용 */
+    grid-template-columns: minmax(0, 410px) minmax(0, 496px);
     gap: var(--space-6);
+    /* 이미지를 콘텐츠 열 오른쪽 끝에 정렬 (Figma: 이미지 우측 = 콘텐츠 우측) */
+    justify-content: space-between;
     align-items: start;
   }
 
@@ -124,6 +131,7 @@ const multiple = total > 1;
     font-size: clamp(18px, 2.4vw, 28px);
     font-weight: 600;
     font-family: var(--font-display);
+    white-space: pre-line;
   }
   .meta {
     font-size: var(--fs-caption);
@@ -132,8 +140,12 @@ const multiple = total > 1;
   }
   .body-text {
     margin-top: var(--space-4);
-    color: #a0a0a0;
-    line-height: var(--lh-body);
+    color: #8c8c8c;
+    font-size: 13px;
+    line-height: calc(var(--lh-body) + 1px);
+    /* 한글 어절(단어)이 줄바꿈으로 잘리지 않도록; 긴 영문 단어만 예외적으로 분리 */
+    word-break: keep-all;
+    overflow-wrap: break-word;
   }
   .body-text p + p {
     margin-top: var(--space-3);
@@ -147,10 +159,11 @@ const multiple = total > 1;
   .pager {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    margin-bottom: var(--space-3);
+    /* 인디케이터(00/00)를 이미지 왼쪽에 정렬 */
+    justify-content: flex-start;
+    margin-bottom: 4px;
     font-family: var(--font-mono);
-    font-size: var(--fs-nav);
+    font-size: calc(var(--fs-nav) - 2.5px);
   }
   .pager-btn {
     background: none;
@@ -158,9 +171,16 @@ const multiple = total > 1;
     cursor: pointer;
     font-family: inherit;
     font-size: inherit;
-    color: var(--color-nav-default);
+    /* Prev / Next 자간을 더 좁게 */
+    letter-spacing: -0.04em;
+    /* 활성 버튼이 비활성처럼 보이지 않도록 조금 더 진한 회색으로 통일 */
+    color: #999999;
     padding: 0;
     transition: color 0.15s;
+  }
+  /* 모노스페이스라 넓어 보이는 Next 의 x–t 간격만 추가로 좁힘 (색은 버튼에서 상속) */
+  .kern-xt {
+    margin-left: -0.12em;
   }
   .pager-btn:hover:not(:disabled) {
     color: var(--color-nav-pressed);
@@ -170,7 +190,13 @@ const multiple = total > 1;
     cursor: default;
   }
   .pager-pos {
-    color: var(--color-muted);
+    /* 본문 텍스트와 동일한 회색, 페이저보다 1px 작게 */
+    color: #8c8c8c;
+    font-size: calc(var(--fs-nav) - 3px);
+  }
+  /* "/" 양옆 간격을 일반 스페이스보다 약간 줄임 */
+  .pager-slash {
+    margin: 0 2px;
   }
 
   .frame {
@@ -209,20 +235,54 @@ const multiple = total > 1;
     cursor: pointer;
     padding: 0;
   }
-  .zone-prev { left: 0; cursor: w-resize; }
-  .zone-next { right: 0; cursor: e-resize; }
+  /* 좌우 화살표 커서 — 각진(miter) 흰 chevron + 어두운 헤일로(가독성). 라운드/원 제거,
+     이전보다 약 50% 작게 (40 → 20px) */
+  .zone-prev {
+    left: 0;
+    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20'%3E%3Cpath d='M12 5 7 10 12 15' fill='none' stroke='black' stroke-opacity='0.5' stroke-width='3.4'/%3E%3Cpath d='M12 5 7 10 12 15' fill='none' stroke='white' stroke-width='1.6'/%3E%3C/svg%3E") 10 10, w-resize;
+  }
+  .zone-next {
+    right: 0;
+    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20'%3E%3Cpath d='M8 5 13 10 8 15' fill='none' stroke='black' stroke-opacity='0.5' stroke-width='3.4'/%3E%3Cpath d='M8 5 13 10 8 15' fill='none' stroke='white' stroke-width='1.6'/%3E%3C/svg%3E") 10 10, e-resize;
+  }
+  /* 터치 기기: 좌우 탭 영역 비활성화 → 스와이프(슬라이드)로만 넘김 */
+  @media (hover: none) and (pointer: coarse) {
+    .zone {
+      pointer-events: none;
+    }
+  }
 
   .media-caption {
-    margin-top: var(--space-3);
-    line-height: 1.5;
+    margin-top: 8px;
+    font-family: var(--font-body);
+    font-size: 11px;
+    font-weight: 500;
+    font-style: normal;
+    line-height: 14px;
+    color: #9e9e9e;
+    word-break: break-word;
   }
 
   .back-link {
-    grid-column: 1 / -1;
-    margin-top: var(--space-6);
+    /* 좌측 본문 텍스트 끝에서 80px 아래 (이미지 높이와 무관) */
+    margin-top: 80px;
+    display: flex;
+    width: fit-content;
+    align-items: center;
+    gap: 5px;
     font-family: var(--font-mono);
-    font-size: var(--fs-nav);
-    color: var(--color-nav-default);
+    font-size: calc(var(--fs-nav) - 1px);
+    /* 이미지 네비게이션 버튼과 동일한 진한 회색 */
+    color: #999999;
+    transition: color 0.15s;
+  }
+  /* 왼쪽 꺾쇠(chevron) 아이콘 — 글자 획과 비슷하게 얇게 */
+  .back-chevron {
+    width: 6px;
+    height: 6px;
+    border-left: 1px solid currentColor;
+    border-bottom: 1px solid currentColor;
+    transform: rotate(45deg);
   }
   .back-link:hover {
     color: var(--color-nav-pressed);
@@ -245,6 +305,12 @@ const multiple = total > 1;
   document.querySelectorAll<HTMLElement>(".detail").forEach((detail) => {
     const total = Number(detail.dataset.total || "1");
     if (total <= 1) return;
+
+    // 모든 슬라이드 이미지를 미리 디코드해 두어, 다음 이미지로 넘길 때
+    // 흰 화면이 잠깐 뜨는 로딩 지연을 없앤다.
+    detail.querySelectorAll<HTMLImageElement>(".media-slide img").forEach((img) => {
+      if (img.decode) img.decode().catch(() => {});
+    });
 
     const groups = {
       info: detail.querySelectorAll<HTMLElement>(".info-slide"),
@@ -281,6 +347,31 @@ const multiple = total > 1;
     detail.addEventListener("keydown", (e) => {
       if (e.key === "ArrowLeft") show(current - 1);
       if (e.key === "ArrowRight") show(current + 1);
+    });
+
+    // 터치: 좌우 스와이프로 넘기기 (모바일)
+    const frame = detail.querySelector<HTMLElement>(".frame");
+    let startX = 0;
+    let startY = 0;
+    let swiping = false;
+    frame?.addEventListener(
+      "touchstart",
+      (e) => {
+        startX = e.touches[0].clientX;
+        startY = e.touches[0].clientY;
+        swiping = true;
+      },
+      { passive: true },
+    );
+    frame?.addEventListener("touchend", (e) => {
+      if (!swiping) return;
+      swiping = false;
+      const dx = e.changedTouches[0].clientX - startX;
+      const dy = e.changedTouches[0].clientY - startY;
+      // 수평 이동이 충분하고 세로보다 클 때만 슬라이드로 인식
+      if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) {
+        show(dx < 0 ? current + 1 : current - 1);
+      }
     });
   });
 </script>

@@ -5,6 +5,7 @@ import WorkGrid from "../../../components/WorkGrid.astro";
 import WorkDetail from "../../../components/WorkDetail.astro";
 import LangToggle from "../../../components/LangToggle.astro";
 import { WORK_CATEGORIES } from "../../../lib/nav";
+import { relativeHref } from "../../../lib/href";
 import { groupWorks, mergeWorks, isSinglePageSeries } from "../../../lib/works";
 
 export async function getStaticPaths() {
@@ -19,8 +20,17 @@ export async function getStaticPaths() {
   };
   const SERIES_LANG_TOGGLE: Record<string, boolean> = {
     "installation-work": true,
+    "paintings": true,
   };
   const all = await getCollection("works");
+  // paintings: 작품이 존재하는 연도 목록 (연도별 페이지 링크용)
+  const paintingYears = [
+    ...new Set(
+      all
+        .filter((w) => w.data.series === "paintings" && w.data.year)
+        .map((w) => w.data.year as number),
+    ),
+  ].sort((a, b) => a - b);
   return WORK_CATEGORIES.map((cat) => {
     const entries = all.filter((w) => w.data.series === cat.series);
     const single = isSinglePageSeries(cat.series);
@@ -35,12 +45,18 @@ export async function getStaticPaths() {
         showLangToggle: SERIES_LANG_TOGGLE[cat.series] ?? false,
         groups: single ? [] : groupWorks(entries),
         merged: single ? mergeWorks(entries, cat.series) : null,
+        years: cat.series === "paintings" ? paintingYears : [],
       },
     };
   });
 }
 
-const { label, single, groups, merged, columns, layout, showLangToggle } = Astro.props;
+const { label, series, single, groups, merged, columns, layout, showLangToggle, years } =
+  Astro.props;
+const here = Astro.url.pathname;
+// 연도 나열 범위 (1990–2019). 작품이 있는 연도만 링크로 활성화.
+const YEAR_RANGE = Array.from({ length: 2019 - 1990 + 1 }, (_, i) => 1990 + i);
+const yearSet = new Set<number>(years ?? []);
 ---
 
 <BaseLayout title={`${label} — KONG,SUNG-HUN`} current="/works/">
@@ -58,6 +74,20 @@ const { label, single, groups, merged, columns, layout, showLangToggle } = Astro
             <WorkGrid groups={groups} columns={columns} layout={layout} showLangToggle={showLangToggle} />
           ) : (
             <p class="caption empty">아직 등록된 작업이 없습니다.</p>
+          )}
+
+          {series === "paintings" && (
+            <nav class="year-nav" aria-label="연도별 작품">
+              {YEAR_RANGE.map((y) =>
+                yearSet.has(y) ? (
+                  <a class="year-link" href={relativeHref(`/works/paintings/year/${y}/`, here)}>
+                    {y}
+                  </a>
+                ) : (
+                  <span class="year-link year-link--empty">{y}</span>
+                ),
+              )}
+            </nav>
           )}
         </div>
       )
@@ -83,5 +113,31 @@ const { label, single, groups, merged, columns, layout, showLangToggle } = Astro
   }
   .empty {
     margin-top: var(--space-5);
+  }
+
+  /* 연도별 작품 네비게이션 (썸네일 리스트 아래) */
+  .year-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.55em 0.9em;
+    margin-top: var(--space-7);
+  }
+  .year-link {
+    /* 본문 제목(PAINTINGS)과 동일한 폰트·굵기 */
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(15px, 2.4vw, 22px);
+    line-height: 1.2;
+    color: var(--color-fg);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+  a.year-link:hover {
+    color: var(--color-nav-hover);
+  }
+  /* 작품이 없는 연도는 흐리게(비활성) */
+  .year-link--empty {
+    color: #d0d0d0;
+    pointer-events: none;
   }
 </style>

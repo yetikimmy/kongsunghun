@@ -5,9 +5,15 @@
 //   Pretendard  -> Korean + body + caption (dynamic Korean subsets, swap)
 import "@fontsource-variable/geist";
 import "@fontsource-variable/geist-mono";
-import "pretendard/dist/web/variable/pretendardvariable-dynamic-subset.css";
+// 진행형(동적 서브셋) 로딩으로 인한 폰트 전환을 없애기 위해 단일 파일 Pretendard 사용.
+import "pretendard/dist/web/variable/pretendardvariable.css";
 import "../styles/global.css";
 import Header from "../components/Header.astro";
+
+// 첫 페인트 전에 준비되도록 주요 폰트 파일을 preload → 로드 시 폰트가 바뀌는 현상 제거.
+import geistUrl from "@fontsource-variable/geist/files/geist-latin-wght-normal.woff2?url";
+import geistMonoUrl from "@fontsource-variable/geist-mono/files/geist-mono-latin-wght-normal.woff2?url";
+import pretendardUrl from "pretendard/dist/web/variable/woff2/PretendardVariable.woff2?url";
 
 interface Props {
   title: string;
@@ -33,12 +39,15 @@ const {
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
+    <link rel="preload" href={geistUrl} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={geistMonoUrl} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={pretendardUrl} as="font" type="font/woff2" crossorigin />
   </head>
   <body>
     <a class="visually-hidden" href="#main">본문 바로가기</a>
     <div class="page">
       {!bare && <Header current={current} invert={invertHeader} />}
-      <main id="main" class="main">
+      <main id="main" class:list={["main", { "main--headered": !bare }]}>
         <slot />
       </main>
     </div>
@@ -48,5 +57,9 @@ const {
 <style>
   .main {
     flex: 1;
+  }
+  /* 헤더가 있는 모든 페이지 본문(제목 포함)을 아래로 (랜딩은 bare 라 제외) */
+  .main--headered {
+    padding-top: 24px;
   }
 </style>

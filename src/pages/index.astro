@@ -1,6 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { LOGO_LABEL } from "../lib/nav";
+import Logo from "../components/Logo.astro";
 import { relativeHref } from "../lib/href";
 
 const here = Astro.url.pathname;
@@ -9,7 +9,7 @@ const here = Astro.url.pathname;
 <BaseLayout title="KONG,SUNG-HUN" bare>
   <section class="landing">
     <header class="landing-header">
-      <a class="landing-logo" href={relativeHref("/works/", here)}>{LOGO_LABEL}</a>
+      <a class="landing-logo" href={relativeHref("/works/", here)}><Logo /></a>
     </header>
     <div class="landing-media" aria-hidden="true">
       <video
@@ -36,16 +36,18 @@ const here = Astro.url.pathname;
   .landing-header {
     position: relative;
     z-index: 10;
-    padding: 90px var(--space-5, 40px) var(--space-4, 24px);
+    padding: 112px var(--space-5, 40px) var(--space-4, 24px);
     flex-shrink: 0;
     text-align: center;
   }
   .landing-logo {
     display: inline-block;
-    font-family: var(--font-mono, ui-monospace, monospace);
-    font-size: 28px;
-    font-weight: 400;
+    /* 헤더 로고(.logo)와 완전히 동일한 형태 (크기·자간·굵기·폰트) */
+    font-family: var(--font-display);
+    font-size: 26px;
+    font-weight: 500;
     letter-spacing: 0.12em;
+    white-space: nowrap;
     color: #fff;
     text-decoration: none;
   }
@@ -63,5 +65,30 @@ const here = Astro.url.pathname;
     width: auto;
     height: auto;
     display: block;
+  }
+
+  /* 모바일: 로고 상단 고정, 영상은 화면 세로 중앙으로 */
+  @media (max-width: 768px) {
+    .landing {
+      position: relative;
+    }
+    .landing-header {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      /* 로고 살짝 아래로 */
+      padding-top: 130px;
+    }
+    .landing-logo {
+      /* 헤더 로고와 동일한 모바일 크기 */
+      font-size: clamp(16px, 5vw, 22px);
+    }
+    .landing-media {
+      position: absolute;
+      inset: 0;
+      /* 영상을 화면 세로 중앙보다 살짝 위로 */
+      transform: translateY(-24px);
+    }
   }
 </style>

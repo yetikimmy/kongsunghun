@@ -23,12 +23,13 @@
   --color-tab-text-active: #ffffff;
 
   /* Typography families (self-hosted, see BaseLayout font imports) */
-  --font-mono: "Geist Mono Variable", ui-monospace, "SFMono-Regular", Menlo, monospace;
-  /* Latin labels in Geist Mono, but Korean glyphs (which Geist Mono lacks)
-     fall back to Pretendard instead of the system 굴림. */
-  --font-mono-label: "Geist Mono Variable", ui-monospace, "SFMono-Regular", Menlo,
-    "Pretendard Variable", "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic", monospace;
-  --font-display: "Geist Variable", system-ui, -apple-system, "Segoe UI", sans-serif;
+  /* PREVIEW: 모든 패밀리를 Pretendard로 통일 */
+  --font-mono: "Pretendard Variable", "Pretendard", system-ui, -apple-system,
+    "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  --font-mono-label: "Pretendard Variable", "Pretendard", system-ui, -apple-system,
+    "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  --font-display: "Pretendard Variable", "Pretendard", system-ui, -apple-system,
+    "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
   --font-body: "Pretendard Variable", "Pretendard", system-ui, -apple-system,
     "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
 
@@ -54,7 +55,7 @@
   --page-top: clamp(60px, 9vw, 84px);
 
   /* Layout */
-  --content-max: 1400px;   /* content area on 1440 desktop */
+  --content-max: 1000px;   /* content column on 1440 desktop → 220px margins each side */
   --page-gutter: 8px;      /* 12-col gutter feel */
   --columns: 12;
 

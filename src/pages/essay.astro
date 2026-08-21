@@ -17,6 +17,15 @@ const blocks = [
   { lang: "ko" as const, essay: ko },
   { lang: "en" as const, essay: en },
 ];
+
+// 문단 시작 넘버링("1.", "2." …)에서 뒤의 "." 기호를 제거해 "1", "2" 로 표시.
+const stripNumberDot = (t: string) => t.replace(/^(\s*\d+)\.\s*$/, "$1");
+
+// 대화 문단("* 공을 : …", "* 공갑 : …")에서 앞의 "*" 를 떼고 화자 이름을 분리한다.
+const dialogue = (text: string) => {
+  const m = text.match(/^\*\s*([^:]+?)\s*:\s*([\s\S]*)$/);
+  return m ? { speaker: m[1], rest: m[2] } : null;
+};
 ---
 
 <BaseLayout title="ESSAY — KONG,SUNG-HUN" current="/essay/">
@@ -45,15 +54,20 @@ const blocks = [
           data-lang={lang}
           hidden={lang !== "ko"}
         >
-          {essay.paragraphs.map((p) =>
-            p.kind === "heading" ? (
-              <h2 class="essay-heading">{p.text}</h2>
-            ) : p.kind === "signature" ? (
-              <p class="essay-signature">{p.text}</p>
+          {essay.paragraphs.map((p) => {
+            if (p.kind === "heading")
+              return <h2 class="essay-heading">{stripNumberDot(p.text)}</h2>;
+            if (p.kind === "signature")
+              return <p class="essay-signature">{p.text}</p>;
+            const d = dialogue(p.text);
+            return d ? (
+              <p class="essay-para">
+                <strong class="speaker">{d.speaker}</strong>{d.rest}
+              </p>
             ) : (
               <p class="essay-para">{p.text}</p>
-            ),
-          )}
+            );
+          })}
         </article>
       ))
     }
@@ -91,28 +105,46 @@ const blocks = [
   .essay-block {
     margin-top: var(--space-6);
     max-width: 1000px;
-    color: #a0a0a0;
-    font-size: var(--fs-body);
-    line-height: var(--lh-body);
+    color: #8c8c8c;
+    font-size: 13px;
+    line-height: calc(var(--lh-body) + 1px);
+    word-break: keep-all;
+    overflow-wrap: break-word;
   }
   .essay-heading {
     font-family: var(--font-display);
     font-size: 16px;
     color: var(--color-fg);
     margin-top: var(--space-5);
-    margin-bottom: var(--space-3);
+    margin-bottom: calc(var(--space-3) - 4px);
+  }
+  /* 앞 문단 뒤에 오는 다음 넘버 문단 간격 (첫 넘버는 제외) */
+  .essay-para + .essay-heading {
+    margin-top: calc(var(--space-5) + 51px);
   }
   .essay-para {
     margin: var(--space-3) 0;
   }
+  /* 대화 화자(공을 / 공갑 …) 볼드 + ":" 대신 살짝 넓힌 간격으로 내용과 분리 */
+  .essay-para .speaker {
+    font-weight: 700;
+    margin-right: 14px;
+  }
   .essay-signature {
-    margin-top: var(--space-5);
+    /* 본문 마지막 문장과 작가 이름 사이 2줄 더 띄움 */
+    margin-top: calc(var(--space-5) + 50px);
     color: var(--color-muted);
     text-align: right;
+    white-space: pre-line;
+    /* Works 페이지 작가명(.body-signature)과 행간 통일 */
+    font-size: 13px;
+    line-height: 18px;
   }
 
   @media (max-width: 768px) {
     .essay-page {
+      /* 본문 시작을 18px 위로 (드롭다운은 열릴 때 별도로 공간을 확보하므로 겹치지 않음) */
+      padding-top: calc(var(--page-top) - 18px);
       padding-bottom: var(--space-5);
     }
   }

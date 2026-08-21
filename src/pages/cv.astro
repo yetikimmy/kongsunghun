@@ -9,6 +9,12 @@ const blocks = [
   { lang: "ko" as const, cv: ko },
   { lang: "en" as const, cv: en },
 ];
+
+// 항목이 4자리 연도로 시작하면 연도와 내용을 분리해 사이 간격(15px)을 준다.
+const splitYear = (item: string) => {
+  const m = item.match(/^(\d{4})\s+([\s\S]*)$/);
+  return m ? { year: m[1], desc: m[2] } : null;
+};
 ---
 
 <BaseLayout title="C.V. — KONG,SUNG-HUN" current="/cv/">
@@ -20,14 +26,33 @@ const blocks = [
         {
           blocks.map(({ lang, cv }) => (
             <div class="cv-block" lang={lang === "ko" ? "ko" : "en"} data-lang={lang} hidden={lang !== "ko"}>
-              {cv.intro && <p class="bio">{cv.intro}</p>}
+              {cv.intro &&
+                (() => {
+                  const p = splitYear(cv.intro);
+                  return p ? (
+                    <p class="bio">
+                      <span class="cv-year">{p.year}</span>
+                      <span class="cv-desc">{p.desc}</span>
+                    </p>
+                  ) : (
+                    <p class="bio">{cv.intro}</p>
+                  );
+                })()}
               {cv.sections.map((s) => (
                 <section class="cv-section">
                   <h2 class="cv-heading">{s.heading}</h2>
                   <ul class="cv-list" role="list">
-                    {s.items.map((item) => (
-                      <li class="cv-item">{item}</li>
-                    ))}
+                    {s.items.map((item) => {
+                      const p = splitYear(item);
+                      return p ? (
+                        <li class="cv-item">
+                          <span class="cv-year">{p.year}</span>
+                          <span class="cv-desc">{p.desc}</span>
+                        </li>
+                      ) : (
+                        <li class="cv-item cv-item--plain">{item}</li>
+                      );
+                    })}
                   </ul>
                 </section>
               ))}
@@ -73,11 +98,14 @@ const blocks = [
     line-height: 1.25;
   }
   .bio {
+    display: flex;
     color: var(--color-muted);
     font-family: var(--font-body);
-    font-size: var(--fs-body);
-    line-height: 18px;
+    font-size: 12.5px;
+    line-height: 21px;
     margin: 0;
+    word-break: keep-all;
+    overflow-wrap: break-word;
   }
   .cv-block {
     display: flex;
@@ -87,13 +115,14 @@ const blocks = [
   .cv-section {
     display: flex;
     flex-direction: column;
-    gap: 2px;
+    /* 섹션 제목 ↔ 본문(연도 항목) 사이 간격 */
+    gap: 6px;
   }
   .cv-heading {
     font-family: var(--font-body);
-    font-size: var(--fs-body);
-    font-weight: 400;
-    line-height: 18px;
+    font-size: 12.5px;
+    font-weight: 700;
+    line-height: 21px;
     color: var(--color-muted);
   }
   .cv-list {
@@ -105,10 +134,27 @@ const blocks = [
     gap: 2px;
   }
   .cv-item {
+    display: flex;
     font-family: var(--font-body);
-    font-size: var(--fs-body);
-    line-height: 18px;
+    font-size: 12.5px;
+    line-height: 21px;
     color: var(--color-muted);
+    word-break: keep-all;
+    overflow-wrap: break-word;
+  }
+  .cv-item--plain {
+    display: block;
+  }
+  /* 연도와 내용 사이 간격 15px (내용이 여러 줄이면 연도 기준 hanging indent) */
+  .cv-year {
+    flex: none;
+    margin-right: 15px;
+    /* 모든 연도가 4자리이므로 등폭 숫자로 폭을 통일 → 내용 시작점 일직선 정렬 */
+    font-variant-numeric: tabular-nums;
+  }
+  .cv-desc {
+    flex: 1;
+    min-width: 0;
   }
 
   @media (max-width: 1024px) {
@@ -120,12 +166,23 @@ const blocks = [
     }
   }
   @media (max-width: 768px) {
+    .cv-page {
+      /* 본문 시작을 18px 위로 (드롭다운은 열릴 때 별도로 공간 확보 → 겹치지 않음) */
+      padding-top: calc(var(--page-top) - 18px);
+    }
     .cv-layout {
       flex-direction: column;
       gap: var(--space-4);
+      /* 토글 절대배치 기준 */
+      position: relative;
     }
+    /* Korean|English 토글을 페이지 타이틀 윗선에 맞춰 우상단 정렬 (essay 참고) */
     .cv-toggle {
-      justify-content: flex-start;
+      position: absolute;
+      top: 0;
+      right: 0;
+      padding-top: 0;
+      justify-content: flex-end;
     }
   }
 </style>

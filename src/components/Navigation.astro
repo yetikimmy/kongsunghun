@@ -8,26 +8,24 @@ interface Props {
 const { current } = Astro.props;
 const here = Astro.url.pathname;
 const currentSeries = WORK_CATEGORIES.find((c) => here.startsWith(c.href))?.series;
+// 특정 시리즈(블라인드/설치/멀티슬라이드/회화) 및 그 상세 페이지에서만 드롭다운을
+// 고정으로 펼쳐 현재 시리즈를 강조한다. Works 개요("20세기, 라는 소년" = /works/)는
+// 예외로 currentSeries 가 없어 드롭다운이 접힌 상태가 기본이다.
+const onWorks = !!currentSeries;
 ---
 
-<!-- 햄버거 버튼: 모바일에서만 표시 -->
-<button class="hamburger" aria-label="메뉴 열기" aria-expanded="false" aria-controls="nav-menu">
-  ☰
-</button>
-
-<nav class="nav" id="nav-menu" aria-label="주 메뉴">
-  <!-- 모바일 닫기 버튼 -->
-  <button class="nav-close" aria-label="메뉴 닫기">✕</button>
+<nav class="nav" aria-label="주 메뉴">
   <ul>
     {
       MAIN_NAV.map((item) => {
         const isCurrent = current && item.href.startsWith(current);
         const hasDropdown = item.label === "WORKS";
         return (
-          <li class:list={["nav-item", { "has-dropdown": hasDropdown }]}>
+          <li class:list={["nav-item", { "has-dropdown": hasDropdown, pinned: hasDropdown && onWorks }]}>
             <a
               href={relativeHref(item.href, here)}
               aria-current={isCurrent ? "page" : undefined}
+              aria-expanded={hasDropdown ? "false" : undefined}
             >
               {item.label}
             </a>
@@ -54,29 +52,16 @@ const currentSeries = WORK_CATEGORIES.find((c) => here.startsWith(c.href))?.seri
   </ul>
 </nav>
 
-<!-- 모바일 오버레이 배경 -->
-<div class="nav-overlay" aria-hidden="true"></div>
-
 <style>
-  /* ── 데스크탑 기본 ── */
-  .hamburger {
-    display: none;
-  }
-  .nav-close {
-    display: none;
-  }
-  .nav-overlay {
-    display: none;
-  }
-
   .nav ul {
     display: flex;
     gap: 36px;
     list-style: none;
     margin: 0;
     padding: 0;
-    font-family: var(--font-mono);
-    font-size: var(--fs-nav);
+    font-family: var(--font-display);
+    font-size: calc(var(--fs-nav) + 0.5px);
+    font-weight: 500;
   }
   .nav-item {
     position: relative;
@@ -101,16 +86,23 @@ const currentSeries = WORK_CATEGORIES.find((c) => here.startsWith(c.href))?.seri
     position: absolute;
     top: 100%;
     left: 0;
-    padding-top: var(--space-2);
+    /* 드롭다운 상단 오프셋 */
+    padding-top: 7px;
+    padding-bottom: var(--space-2);
+    /* 스크롤 시 드롭다운 뒤 흰 배경이 중간에 끊겨 보이지 않도록, 드롭다운
+       자체에 흰 배경을 주어 헤더 배경과 이어지고 드롭다운 아래에서 끝나게 함 */
+    background: var(--color-bg);
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
-    transition: opacity 0.15s ease;
+    /* 전환 없이 즉시 표시/숨김 → 전체 폭 흰 프레임과 타이밍 완전 일치 */
     white-space: nowrap;
     z-index: 100;
   }
   .nav-item.has-dropdown:hover .dropdown,
-  .nav-item.has-dropdown:focus-within .dropdown {
+  .nav-item.has-dropdown:focus-within .dropdown,
+  .nav-item.has-dropdown.open .dropdown,
+  .nav-item.has-dropdown.pinned .dropdown {
     opacity: 1;
     visibility: visible;
     pointer-events: auto;
@@ -121,7 +113,7 @@ const currentSeries = WORK_CATEGORIES.find((c) => here.startsWith(c.href))?.seri
   }
   .dropdown ul {
     display: flex;
-    gap: 6px;
+    gap: 3px;
     list-style: none;
     margin: 0;
     padding: 0;
@@ -132,12 +124,14 @@ const currentSeries = WORK_CATEGORIES.find((c) => here.startsWith(c.href))?.seri
     justify-content: flex-start;
     width: 160px;
     height: 18px;
-    padding: 0 0 0 4px;
+    /* 좌우 내부 패딩 각 +1px (좌 4→5, 우 0→1) */
+    padding: 0 1px 0 5px;
     background: var(--color-tab-bg);
     color: var(--color-tab-text);
     font-family: var(--font-display);
-    font-weight: 500;
-    font-size: var(--fs-tab);
+    /* 현재보다 1px 작게 + 아주 약간 얇게 */
+    font-weight: 450;
+    font-size: calc(var(--fs-tab) - 1px);
     letter-spacing: normal;
     transition: background 0.1s, color 0.1s;
     white-space: nowrap;
@@ -152,82 +146,30 @@ const currentSeries = WORK_CATEGORIES.find((c) => here.startsWith(c.href))?.seri
     color: var(--color-tab-text-active);
   }
 
-  /* ── 모바일 (768px 미만) ── */
+  /* ── 모바일 (768px 이하): 로고 아래 인라인 네비게이션 ── */
   @media (max-width: 768px) {
-    .hamburger {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: none;
-      border: none;
-      cursor: pointer;
-      font-size: 20px;
-      color: var(--color-nav-default);
-      padding: var(--space-1);
-      line-height: 1;
-      margin-left: auto;
-    }
-
     .nav {
-      position: fixed;
-      top: 0;
-      right: 0;
-      width: 240px;
-      height: 100vh;
-      background: var(--color-bg);
-      z-index: 200;
-      padding: var(--space-5) var(--space-4);
-      transform: translateX(100%);
-      transition: transform 0.25s ease;
-      box-shadow: -4px 0 24px rgba(0,0,0,0.08);
-    }
-    .nav.open {
-      transform: translateX(0);
-    }
-
-    .nav-close {
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
       width: 100%;
-      background: none;
-      border: none;
-      cursor: pointer;
-      font-size: 18px;
-      color: var(--color-nav-default);
-      padding: 0;
-      margin-bottom: var(--space-5);
     }
-
-    .nav-overlay {
-      display: block;
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.3);
-      z-index: 150;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.25s ease;
-    }
-    .nav-overlay.open {
-      opacity: 1;
-      pointer-events: auto;
-    }
-
     .nav ul {
-      flex-direction: column;
       gap: var(--space-4);
-      font-size: 16px;
+      font-size: 13px;
+      flex-wrap: wrap;
     }
 
-    /* 모바일에서 WORKS 드롭다운: 항상 표시 */
+    /* WORKS 드롭다운: 탭하면 아래로 펼쳐지되, absolute 로 띄워 나머지 nav 항목
+       (ESSAY/C.V./CONTACT) 위치가 밀리지 않도록 한다. (position/배경은 기본값 상속) */
     .dropdown {
-      position: static;
-      opacity: 1;
-      visibility: visible;
-      pointer-events: auto;
       padding-top: var(--space-2);
-      transition: none;
+      white-space: normal;
+    }
+    /* 기본은 접힘, WORKS 항목을 탭해 .open이 되면 펼쳐짐 */
+    .nav-item.has-dropdown .dropdown {
+      display: none;
+    }
+    .nav-item.has-dropdown.open .dropdown,
+    .nav-item.has-dropdown.pinned .dropdown {
+      display: block;
     }
     .nav-item.has-dropdown > a {
       padding-bottom: 0;
@@ -236,42 +178,105 @@ const currentSeries = WORK_CATEGORIES.find((c) => here.startsWith(c.href))?.seri
     .dropdown ul {
       flex-direction: column;
       gap: var(--space-2);
+      padding-top: var(--space-2);
     }
     .dropdown .tab {
       width: auto;
       height: auto;
       padding: var(--space-1) var(--space-2);
-      font-size: 14px;
-      justify-content: flex-start;
+      font-size: 13px;
     }
   }
 </style>
 
 <script>
-  const hamburger = document.querySelector<HTMLButtonElement>('.hamburger');
-  const navMenu = document.querySelector<HTMLElement>('#nav-menu');
-  const navClose = document.querySelector<HTMLButtonElement>('.nav-close');
-  const overlay = document.querySelector<HTMLElement>('.nav-overlay');
+  // WORKS 탭을 클릭하면 hover 상태가 아니어도 드롭다운이 펼쳐진 채 유지된다.
+  // (모바일·데스크탑 공통) 첫 클릭은 링크 이동 대신 드롭다운을 열고, 이미 열려
+  // 있으면 그대로 WORKS 인덱스로 이동한다.
+  const CLOSE_DELAY = 800; // hover 후 마우스가 벗어나도 유지되는 시간(ms)
+  const MOBILE = "(max-width: 768px)";
+  const navEl = document.querySelector<HTMLElement>(".nav");
 
-  function openMenu() {
-    navMenu?.classList.add('open');
-    overlay?.classList.add('open');
-    hamburger?.setAttribute('aria-expanded', 'true');
-    document.body.style.overflow = 'hidden';
-  }
-  function closeMenu() {
-    navMenu?.classList.remove('open');
-    overlay?.classList.remove('open');
-    hamburger?.setAttribute('aria-expanded', 'false');
-    document.body.style.overflow = '';
-  }
+  // 모바일: 드롭다운은 absolute 라 흐름을 밀지 않으므로, 열린 동안 그 높이만큼
+  // .nav 아래 여백을 만들어 본문이 드롭다운 아래로 내려가 겹치지 않게 한다.
+  const reserveSpace = (item: HTMLElement) => {
+    if (!navEl) return;
+    const dd = item.querySelector<HTMLElement>(".dropdown");
+    if (window.matchMedia(MOBILE).matches && item.classList.contains("open") && dd) {
+      navEl.style.marginBottom = `${dd.offsetHeight}px`;
+    } else {
+      navEl.style.marginBottom = "";
+    }
+  };
 
-  hamburger?.addEventListener('click', openMenu);
-  navClose?.addEventListener('click', closeMenu);
-  overlay?.addEventListener('click', closeMenu);
+  document.querySelectorAll<HTMLElement>(".nav-item.has-dropdown").forEach((item) => {
+    const trigger = item.querySelector<HTMLAnchorElement>(":scope > a");
+    if (!trigger) return;
 
-  // ESC 키로 닫기
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') closeMenu();
+    const open = () => {
+      item.classList.add("open");
+      trigger.setAttribute("aria-expanded", "true");
+      reserveSpace(item);
+    };
+    const close = () => {
+      item.classList.remove("open");
+      trigger.setAttribute("aria-expanded", "false");
+      reserveSpace(item);
+    };
+
+    trigger.addEventListener("click", (e) => {
+      if (!item.classList.contains("open")) {
+        e.preventDefault();
+        open();
+      }
+    });
+
+    // hover 진입 시 즉시 열고, 벗어나면 CLOSE_DELAY 후 닫아 Paintings 까지
+    // 이동할 여유를 준다. 다시 진입하면 닫힘을 취소한다.
+    let closeTimer: number | undefined;
+    item.addEventListener("mouseenter", () => {
+      clearTimeout(closeTimer);
+      open();
+    });
+    item.addEventListener("mouseleave", () => {
+      clearTimeout(closeTimer);
+      closeTimer = window.setTimeout(close, CLOSE_DELAY);
+    });
   });
+
+  // 바깥 영역을 클릭하면 드롭다운 닫기
+  document.addEventListener("click", (e) => {
+    document.querySelectorAll<HTMLElement>(".nav-item.has-dropdown.open").forEach((item) => {
+      if (!item.contains(e.target as Node)) {
+        item.classList.remove("open");
+        item.querySelector<HTMLAnchorElement>(":scope > a")?.setAttribute("aria-expanded", "false");
+        reserveSpace(item);
+      }
+    });
+  });
+
+  // 화면 크기가 바뀌면 예약 여백을 다시 계산 (데스크탑 전환 시 제거)
+  window.addEventListener("resize", () => {
+    document.querySelectorAll<HTMLElement>(".nav-item.has-dropdown").forEach(reserveSpace);
+  });
+
+  // 시리즈 페이지에서 고정으로 펼쳐진(pinned) 드롭다운은, 본문을 보기 위해
+  // 아래로 스크롤하면 접히고 다시 맨 위로 스크롤하면 나타난다.
+  // (pinned 클래스를 스크롤 위치에 따라 토글 → hover/클릭 동작은 그대로 유지)
+  const pinnedItem = document.querySelector<HTMLElement>(".nav-item.has-dropdown.pinned");
+  if (pinnedItem) {
+    const SCROLL_THRESHOLD = 8; // px, 맨 위에서 이만큼 벗어나면 접힘
+    const trigger = pinnedItem.querySelector<HTMLAnchorElement>(":scope > a");
+    const syncPinned = () => {
+      const atTop = window.scrollY <= SCROLL_THRESHOLD;
+      pinnedItem.classList.toggle("pinned", atTop);
+      // 스크롤로 접힐 때는 hover로 임시로 열린 상태(open)도 정리
+      if (!atTop && !pinnedItem.matches(":hover")) {
+        pinnedItem.classList.remove("open");
+        trigger?.setAttribute("aria-expanded", "false");
+      }
+    };
+    syncPinned();
+    window.addEventListener("scroll", syncPinned, { passive: true });
+  }
 </script>
