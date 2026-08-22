@@ -86,25 +86,17 @@ const withBreaks = (t: string) => TITLE_BREAKS[t] ?? t;
               <div class="paint-title-group">
                 {showLangToggle ? (
                   <>
-                    <p class="paint-title" data-lang="ko">
-                      {group.titleKo}
-                      {group.year && <span class="paint-year">{group.year}</span>}
-                    </p>
-                    <p class="paint-title" data-lang="en" hidden>
-                      {group.titleEn}
-                      {group.year && <span class="paint-year">{group.year}</span>}
-                    </p>
+                    <p class="paint-title" data-lang="ko">{group.titleKo}</p>
+                    <p class="paint-title" data-lang="en" hidden>{group.titleEn}</p>
                   </>
                 ) : (
                   <>
-                    <p class="paint-title">
-                      {group.titleKo}
-                      {group.year && <span class="paint-year">{group.year}</span>}
-                    </p>
+                    <p class="paint-title">{group.titleKo}</p>
                     {group.titleKo !== group.titleEn && <p class="paint-title">{group.titleEn}</p>}
                   </>
                 )}
               </div>
+              {group.year && <p class="paint-year">{group.year}</p>}
               {showLangToggle ? (
                 <div class="paint-meta-group">
                   <p class="paint-meta" data-lang="ko">{group.locationKo ?? group.location}</p>
@@ -269,8 +261,7 @@ const withBreaks = (t: string) => TITLE_BREAKS[t] ?? t;
     flex: 1;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    height: 158px;
+    justify-content: flex-start;
     min-width: 0;
   }
   .paint-title-group {
@@ -286,11 +277,12 @@ const withBreaks = (t: string) => TITLE_BREAKS[t] ?? t;
     margin: 0;
     transition: color 0.25s ease;
   }
-  /* 제목 옆 연도 — 제목보다 20% 작게 */
+  /* 제목 아랫줄 연도 — 제목보다 20% 작게 */
   .paint-year {
-    margin-left: 0.7em;
     font-size: 0.8em;
+    line-height: 18px;
     color: #8a8a8a;
+    margin: 0;
   }
   .paint-meta {
     font-family: var(--font-body);
