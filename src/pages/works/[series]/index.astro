@@ -32,7 +32,11 @@ export async function getStaticPaths() {
     ),
   ].sort((a, b) => a - b);
   return WORK_CATEGORIES.map((cat) => {
-    const entries = all.filter((w) => w.data.series === cat.series);
+    // paintings 목록(썸네일 그리드)은 큐레이션된 레거시 항목만 표시한다.
+    // 연도별 폴더에서 새로 추가된 작품(legacyFile 없음)은 /works/paintings/year/[year]/ 에서만 노출.
+    const entries = all.filter(
+      (w) => w.data.series === cat.series && (cat.series !== "paintings" || w.data.legacyFile),
+    );
     const single = isSinglePageSeries(cat.series);
     return {
       params: { series: cat.series },
