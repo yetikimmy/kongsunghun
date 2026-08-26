@@ -31,11 +31,13 @@ const rel = (p: string) => relativeHref(p, here);
     <ul class="year-grid" role="list">
       {works.map((w) => (
         <li class="year-item">
-          {w.images?.[0]?.src && (
-            <div class="year-thumb">
+          <div class="year-thumb">
+            {w.images?.[0]?.src ? (
               <img src={rel(w.images[0].src)} alt={w.images[0].alt} loading="lazy" />
-            </div>
-          )}
+            ) : (
+              <span class="year-thumb-empty" aria-hidden="true" />
+            )}
+          </div>
           {w.caption && <p class="caption year-caption">{w.caption}</p>}
         </li>
       ))}
@@ -73,6 +75,13 @@ const rel = (p: string) => relativeHref(p, here);
     width: 100%;
     height: auto;
     display: block;
+  }
+  /* 이미지가 아직 없는 작품: 회색 자리(placeholder) */
+  .year-thumb-empty {
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    background: #f2f2f2;
   }
   .year-caption {
     margin-top: 10px;
