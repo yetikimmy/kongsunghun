@@ -32,7 +32,8 @@ export async function getStaticPaths() {
     ),
   ].sort((a, b) => a - b);
   return WORK_CATEGORIES.map((cat) => {
-    const entries = all.filter((w) => w.data.series === cat.series);
+    // listHidden 엔트리는 썸네일 리스트에서 제외 (연도별 페이지에는 그대로 표시)
+    const entries = all.filter((w) => w.data.series === cat.series && !w.data.listHidden);
     const single = isSinglePageSeries(cat.series);
     return {
       params: { series: cat.series },

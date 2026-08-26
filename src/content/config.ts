@@ -39,6 +39,8 @@ const works = defineCollection({
     legacyFile: z.string().optional(),
     /** Heuristic extractor warnings carried over from the import pipeline. */
     extractionWarnings: z.array(z.string()).optional(),
+    /** Hide this entry from the series thumbnail list (still shown on year pages). */
+    listHidden: z.boolean().optional(),
     /** True when an auto-imported entry should be checked by a human. */
     manualReview: z.boolean().optional(),
     /** Human-readable reasons an entry was flagged for manual review. */
