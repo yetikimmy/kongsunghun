@@ -1,0 +1,19 @@
+{
+  "slug": "paint03_16",
+  "series": "paintings",
+  "titleKo": "비 오는 밤의 능소화",
+  "titleEn": "Flowers at a Rainy Night",
+  "year": 2003,
+  "images": [
+    {
+      "src": "/assets/works/web/paint03_16.jpg",
+      "alt": "비 오는 밤의 능소화, 2003"
+    }
+  ],
+  "caption": "비 오는 밤의 능소화 Flowers at a Rainy Night, 2003",
+  "order": 101,
+  "legacyFile": "paint03_16.htm",
+  "location": "",
+  "locationKo": "",
+  "locationEn": ""
+}

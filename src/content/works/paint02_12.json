@@ -1,0 +1,19 @@
+{
+  "slug": "paint02_12",
+  "series": "paintings",
+  "titleKo": "푸른 밤",
+  "titleEn": "A Blue Night",
+  "year": 2001,
+  "images": [
+    {
+      "src": "/assets/works/web/paint02_12.jpg",
+      "alt": "푸른 밤, 2001"
+    }
+  ],
+  "caption": "푸른 밤 A Blue Night, 2001, Oil on canvas, 130.3x162.2cm",
+  "order": 100,
+  "legacyFile": "paint02_12.htm",
+  "location": "",
+  "locationKo": "",
+  "locationEn": ""
+}

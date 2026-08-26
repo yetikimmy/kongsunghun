@@ -1,0 +1,19 @@
+{
+  "slug": "paint04_08",
+  "series": "paintings",
+  "titleKo": "모텔",
+  "titleEn": "Motel",
+  "year": 2006,
+  "images": [
+    {
+      "src": "/assets/works/web/paint04_08.jpg",
+      "alt": "모텔, 2006"
+    }
+  ],
+  "caption": "모텔 Motel, 2006",
+  "order": 105,
+  "legacyFile": "paint04_08.htm",
+  "location": "",
+  "locationKo": "",
+  "locationEn": ""
+}
