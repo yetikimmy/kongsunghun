@@ -1,0 +1,20 @@
+{
+  "slug": "p2012_11",
+  "series": "paintings",
+  "titleKo": "기러기",
+  "titleEn": "기러기",
+  "year": 2012,
+  "images": [
+    {
+      "src": "/assets/works/web/p2012_11.jpg",
+      "alt": "기러기, 2012"
+    }
+  ],
+  "caption": "기러기, 2012, Acrylic on canvas, 193.9x130.3cm",
+  "order": 221,
+  "legacyFile": "p2012.htm",
+  "listHidden": true,
+  "location": "",
+  "locationKo": "",
+  "locationEn": ""
+}

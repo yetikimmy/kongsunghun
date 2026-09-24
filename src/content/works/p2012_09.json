@@ -1,0 +1,20 @@
+{
+  "slug": "p2012_09",
+  "series": "paintings",
+  "titleKo": "노을",
+  "titleEn": "노을",
+  "year": 2012,
+  "images": [
+    {
+      "src": "/assets/works/web/p2012_09.jpg",
+      "alt": "노을, 2012"
+    }
+  ],
+  "caption": "노을, 2012, Oil on canvas, 120x150cm",
+  "order": 219,
+  "legacyFile": "p2012.htm",
+  "listHidden": true,
+  "location": "",
+  "locationKo": "",
+  "locationEn": ""
+}

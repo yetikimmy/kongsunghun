@@ -1,0 +1,20 @@
+{
+  "slug": "p2012_12",
+  "series": "paintings",
+  "titleKo": "촛불",
+  "titleEn": "촛불",
+  "year": 2012,
+  "images": [
+    {
+      "src": "/assets/works/web/p2012_12.jpg",
+      "alt": "촛불, 2012"
+    }
+  ],
+  "caption": "촛불, 2012, Acrylic on canvas, 170x150cm",
+  "order": 222,
+  "legacyFile": "p2012.htm",
+  "listHidden": true,
+  "location": "",
+  "locationKo": "",
+  "locationEn": ""
+}

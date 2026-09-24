@@ -1,0 +1,20 @@
+{
+  "slug": "p2012_10",
+  "series": "paintings",
+  "titleKo": "불꽃놀이",
+  "titleEn": "불꽃놀이",
+  "year": 2012,
+  "images": [
+    {
+      "src": "/assets/works/web/p2012_10.jpg",
+      "alt": "불꽃놀이, 2012"
+    }
+  ],
+  "caption": "불꽃놀이, 2012, Oil on canvas, 152x122cm",
+  "order": 220,
+  "legacyFile": "p2012.htm",
+  "listHidden": true,
+  "location": "",
+  "locationKo": "",
+  "locationEn": ""
+}

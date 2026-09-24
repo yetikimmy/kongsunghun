@@ -1,0 +1,20 @@
+{
+  "slug": "p2011_11",
+  "series": "paintings",
+  "titleKo": "돌던지기",
+  "titleEn": "돌던지기",
+  "year": 2011,
+  "images": [
+    {
+      "src": "/assets/works/web/p2011_11.jpg",
+      "alt": "돌던지기, 2011"
+    }
+  ],
+  "caption": "돌던지기, 2011, Oil on canvas, 130.3x97cm",
+  "order": 210,
+  "legacyFile": "p2011.htm",
+  "listHidden": true,
+  "location": "",
+  "locationKo": "",
+  "locationEn": ""
+}

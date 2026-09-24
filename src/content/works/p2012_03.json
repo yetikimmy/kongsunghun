@@ -1,0 +1,20 @@
+{
+  "slug": "p2012_03",
+  "series": "paintings",
+  "titleKo": "낚시",
+  "titleEn": "낚시",
+  "year": 2012,
+  "images": [
+    {
+      "src": "/assets/works/web/p2012_03.jpg",
+      "alt": "낚시, 2012"
+    }
+  ],
+  "caption": "낚시, 2012, Oil on canvas, 115x219cm",
+  "order": 213,
+  "legacyFile": "p2012.htm",
+  "listHidden": true,
+  "location": "",
+  "locationKo": "",
+  "locationEn": ""
+}

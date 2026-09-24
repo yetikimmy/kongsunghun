@@ -1,0 +1,20 @@
+{
+  "slug": "p2012_02",
+  "series": "paintings",
+  "titleKo": "돌쌓기",
+  "titleEn": "돌쌓기",
+  "year": 2012,
+  "images": [
+    {
+      "src": "/assets/works/web/p2012_02.jpg",
+      "alt": "돌쌓기, 2012"
+    }
+  ],
+  "caption": "돌쌓기, 2012, Acrylic on canvas, 115x219cm",
+  "order": 212,
+  "legacyFile": "p2012.htm",
+  "listHidden": true,
+  "location": "",
+  "locationKo": "",
+  "locationEn": ""
+}

@@ -1,0 +1,20 @@
+{
+  "slug": "p2011_02",
+  "series": "paintings",
+  "titleKo": "눈바람",
+  "titleEn": "눈바람",
+  "year": 2011,
+  "images": [
+    {
+      "src": "/assets/works/web/p2011_02.jpg",
+      "alt": "눈바람, 2011"
+    }
+  ],
+  "caption": "눈바람, 2011, Oil on canvas, 227.3x181.8cm",
+  "order": 201,
+  "legacyFile": "p2011.htm",
+  "listHidden": true,
+  "location": "",
+  "locationKo": "",
+  "locationEn": ""
+}

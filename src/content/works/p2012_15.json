@@ -1,0 +1,20 @@
+{
+  "slug": "p2012_15",
+  "series": "paintings",
+  "titleKo": "폭포",
+  "titleEn": "폭포",
+  "year": 2012,
+  "images": [
+    {
+      "src": "/assets/works/web/p2012_15.jpg",
+      "alt": "폭포, 2012"
+    }
+  ],
+  "caption": "폭포, 2012, Oil on canvas, 154x163cm",
+  "order": 225,
+  "legacyFile": "p2012.htm",
+  "listHidden": true,
+  "location": "",
+  "locationKo": "",
+  "locationEn": ""
+}

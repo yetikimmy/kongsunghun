@@ -1,0 +1,20 @@
+{
+  "slug": "p2012_19",
+  "series": "paintings",
+  "titleKo": "바위2",
+  "titleEn": "바위2",
+  "year": 2012,
+  "images": [
+    {
+      "src": "/assets/works/web/p2012_19.jpg",
+      "alt": "바위2, 2012"
+    }
+  ],
+  "caption": "바위2, 2012, Oil on canvas, 116.8x91cm",
+  "order": 229,
+  "legacyFile": "p2012.htm",
+  "listHidden": true,
+  "location": "",
+  "locationKo": "",
+  "locationEn": ""
+}

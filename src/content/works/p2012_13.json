@@ -1,0 +1,20 @@
+{
+  "slug": "p2012_13",
+  "series": "paintings",
+  "titleKo": "모닥불",
+  "titleEn": "모닥불",
+  "year": 2012,
+  "images": [
+    {
+      "src": "/assets/works/web/p2012_13.jpg",
+      "alt": "모닥불, 2012"
+    }
+  ],
+  "caption": "모닥불, 2012, Oil on canvas, 227.3x181.8cm",
+  "order": 223,
+  "legacyFile": "p2012.htm",
+  "listHidden": true,
+  "location": "",
+  "locationKo": "",
+  "locationEn": ""
+}

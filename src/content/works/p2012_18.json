@@ -1,0 +1,20 @@
+{
+  "slug": "p2012_18",
+  "series": "paintings",
+  "titleKo": "바위1",
+  "titleEn": "바위1",
+  "year": 2012,
+  "images": [
+    {
+      "src": "/assets/works/web/p2012_18.jpg",
+      "alt": "바위1, 2012"
+    }
+  ],
+  "caption": "바위1, 2012, Oil on canvas, 116.8x91cm",
+  "order": 228,
+  "legacyFile": "p2012.htm",
+  "listHidden": true,
+  "location": "",
+  "locationKo": "",
+  "locationEn": ""
+}

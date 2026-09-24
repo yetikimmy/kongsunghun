@@ -1,0 +1,20 @@
+{
+  "slug": "p2012_04",
+  "series": "paintings",
+  "titleKo": "흰머리",
+  "titleEn": "흰머리",
+  "year": 2012,
+  "images": [
+    {
+      "src": "/assets/works/web/p2012_04.jpg",
+      "alt": "흰머리, 2012"
+    }
+  ],
+  "caption": "흰머리, 2012, Acrylic on canvas, 150x120cm",
+  "order": 214,
+  "legacyFile": "p2012.htm",
+  "listHidden": true,
+  "location": "",
+  "locationKo": "",
+  "locationEn": ""
+}
