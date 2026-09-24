@@ -1,0 +1,20 @@
+{
+  "slug": "p2015_03",
+  "series": "paintings",
+  "titleKo": "아침바다",
+  "titleEn": "아침바다",
+  "year": 2015,
+  "images": [
+    {
+      "src": "/assets/works/web/p2015_03.jpg",
+      "alt": "아침바다, 2015"
+    }
+  ],
+  "caption": "아침바다, 2015, Oil on canvas, 227.3x181.8cm",
+  "order": 323,
+  "legacyFile": "p2015.htm",
+  "listHidden": true,
+  "location": "",
+  "locationKo": "",
+  "locationEn": ""
+}

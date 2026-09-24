@@ -1,0 +1,20 @@
+{
+  "slug": "p2016_01",
+  "series": "paintings",
+  "titleKo": "두 노인",
+  "titleEn": "두 노인",
+  "year": 2016,
+  "images": [
+    {
+      "src": "/assets/works/web/p2016_01.jpg",
+      "alt": "두 노인, 2016"
+    }
+  ],
+  "caption": "두 노인, 2016, Oil on canvas, 120x120cm",
+  "order": 327,
+  "legacyFile": "p2016.htm",
+  "listHidden": true,
+  "location": "",
+  "locationKo": "",
+  "locationEn": ""
+}

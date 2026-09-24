@@ -1,0 +1,20 @@
+{
+  "slug": "p2013_06",
+  "series": "paintings",
+  "titleKo": "흐린 하늘",
+  "titleEn": "흐린 하늘",
+  "year": 2013,
+  "images": [
+    {
+      "src": "/assets/works/web/p2013_06.jpg",
+      "alt": "흐린 하늘, 2013"
+    }
+  ],
+  "caption": "흐린 하늘, 2013, Oil on canvas, 227.3x181.8cm",
+  "order": 305,
+  "legacyFile": "p2013.htm",
+  "listHidden": true,
+  "location": "",
+  "locationKo": "",
+  "locationEn": ""
+}

@@ -1,0 +1,20 @@
+{
+  "slug": "p2015_01",
+  "series": "paintings",
+  "titleKo": "버드나무 (Installation View)",
+  "titleEn": "버드나무 (Installation View)",
+  "year": 2015,
+  "images": [
+    {
+      "src": "/assets/works/web/p2015_01.jpg",
+      "alt": "버드나무 (Installation View), 2015"
+    }
+  ],
+  "caption": "버드나무 (Installation View), 2015",
+  "order": 321,
+  "legacyFile": "p2015.htm",
+  "listHidden": true,
+  "location": "",
+  "locationKo": "",
+  "locationEn": ""
+}

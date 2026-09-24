@@ -1,0 +1,20 @@
+{
+  "slug": "p2015_02",
+  "series": "paintings",
+  "titleKo": "버드나무3",
+  "titleEn": "버드나무3",
+  "year": 2015,
+  "images": [
+    {
+      "src": "/assets/works/web/p2015_02.jpg",
+      "alt": "버드나무3, 2015"
+    }
+  ],
+  "caption": "버드나무3, 2015, Oil on canvas, 227.3x181.8cm",
+  "order": 322,
+  "legacyFile": "p2015.htm",
+  "listHidden": true,
+  "location": "",
+  "locationKo": "",
+  "locationEn": ""
+}

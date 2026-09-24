@@ -1,0 +1,20 @@
+{
+  "slug": "p2014_14",
+  "series": "paintings",
+  "titleKo": "나무1",
+  "titleEn": "나무1",
+  "year": 2014,
+  "images": [
+    {
+      "src": "/assets/works/web/p2014_14.jpg",
+      "alt": "나무1, 2014"
+    }
+  ],
+  "caption": "나무1, 2014, Oil on canvas, 162.2x112.1cm",
+  "order": 319,
+  "legacyFile": "p2014.htm",
+  "listHidden": true,
+  "location": "",
+  "locationKo": "",
+  "locationEn": ""
+}

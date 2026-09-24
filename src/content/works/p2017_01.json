@@ -1,0 +1,20 @@
+{
+  "slug": "p2017_01",
+  "series": "paintings",
+  "titleKo": "촛불",
+  "titleEn": "촛불",
+  "year": 2017,
+  "images": [
+    {
+      "src": "/assets/works/web/p2017_01.jpg",
+      "alt": "촛불, 2017"
+    }
+  ],
+  "caption": "촛불, 2017, Oil on canvas, 90.9x65.1cm",
+  "order": 329,
+  "legacyFile": "p2017.htm",
+  "listHidden": true,
+  "location": "",
+  "locationKo": "",
+  "locationEn": ""
+}

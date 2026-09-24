@@ -1,0 +1,20 @@
+{
+  "slug": "p2019_01",
+  "series": "paintings",
+  "titleKo": "웅덩이1",
+  "titleEn": "웅덩이1",
+  "year": 2019,
+  "images": [
+    {
+      "src": "/assets/works/web/p2019_01.jpg",
+      "alt": "웅덩이1, 2019"
+    }
+  ],
+  "caption": "웅덩이1, 2019, Oil on canvas, 227.3x181.8cm",
+  "order": 334,
+  "legacyFile": "p2019.htm",
+  "listHidden": true,
+  "location": "",
+  "locationKo": "",
+  "locationEn": ""
+}

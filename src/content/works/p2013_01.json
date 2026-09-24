@@ -1,0 +1,20 @@
+{
+  "slug": "p2013_01",
+  "series": "paintings",
+  "titleKo": "흰머리",
+  "titleEn": "흰머리",
+  "year": 2013,
+  "images": [
+    {
+      "src": "/assets/works/web/p2013_01.jpg",
+      "alt": "흰머리, 2013"
+    }
+  ],
+  "caption": "흰머리, 2013, Oil on canvas, 227.3x181.8cm",
+  "order": 300,
+  "legacyFile": "p2013.htm",
+  "listHidden": true,
+  "location": "",
+  "locationKo": "",
+  "locationEn": ""
+}
