@@ -4,7 +4,12 @@
   "titleKo": "낚시",
   "titleEn": "낚시",
   "year": 2007,
-  "images": [],
+  "images": [
+    {
+      "src": "/assets/works/web/paint05_18.jpg",
+      "alt": "낚시, 2007"
+    }
+  ],
   "caption": "낚시, 2007, Oil on canvas, 130.3x193.9cm",
   "order": 114,
   "legacyFile": "p2007_09.htm",

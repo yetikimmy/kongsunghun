@@ -4,7 +4,12 @@
   "titleKo": "오리와 해병전우회",
   "titleEn": "오리와 해병전우회",
   "year": 2008,
-  "images": [],
+  "images": [
+    {
+      "src": "/assets/works/web/paint06_14.jpg",
+      "alt": "오리와 해병전우회, 2008"
+    }
+  ],
   "caption": "오리와 해병전우회, 2008, Acrylic on canvas, 100x200cm",
   "order": 117,
   "legacyFile": "p2008_03.htm",

@@ -1,0 +1,20 @@
+{
+  "slug": "m2006_01",
+  "series": "paintings",
+  "titleKo": "개",
+  "titleEn": "개",
+  "year": 2006,
+  "images": [
+    {
+      "src": "/assets/works/web/m2006_01.jpg",
+      "alt": "개, 2006"
+    }
+  ],
+  "caption": "개, 2006, Acrylic on canvas, 72.7x90.9cm",
+  "order": 401,
+  "legacyFile": "p2006.htm",
+  "listHidden": true,
+  "location": "",
+  "locationKo": "",
+  "locationEn": ""
+}

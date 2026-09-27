@@ -1,0 +1,20 @@
+{
+  "slug": "m2004_01",
+  "series": "paintings",
+  "titleKo": "눈오는 밤",
+  "titleEn": "눈오는 밤",
+  "year": 2004,
+  "images": [
+    {
+      "src": "/assets/works/web/m2004_01.jpg",
+      "alt": "눈오는 밤, 2004"
+    }
+  ],
+  "caption": "눈오는 밤, 2004",
+  "order": 400,
+  "legacyFile": "p2004.htm",
+  "listHidden": true,
+  "location": "",
+  "locationKo": "",
+  "locationEn": ""
+}

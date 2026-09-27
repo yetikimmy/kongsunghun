@@ -4,7 +4,12 @@
   "titleKo": "개 밥주는 남자",
   "titleEn": "개 밥주는 남자",
   "year": 2008,
-  "images": [],
+  "images": [
+    {
+      "src": "/assets/works/web/paint06_19.jpg",
+      "alt": "개 밥주는 남자, 2008"
+    }
+  ],
   "caption": "개 밥주는 남자, 2008, Acrylic on canvas, 150x150cm",
   "order": 122,
   "legacyFile": "p2008_08.htm",

@@ -4,7 +4,12 @@
   "titleKo": "오리와 연꽃",
   "titleEn": "오리와 연꽃",
   "year": 2008,
-  "images": [],
+  "images": [
+    {
+      "src": "/assets/works/web/paint06_18.jpg",
+      "alt": "오리와 연꽃, 2008"
+    }
+  ],
   "caption": "오리와 연꽃, 2008, Oil on canvas, 227.3x181.8cm",
   "order": 121,
   "legacyFile": "p2008_07.htm",

@@ -4,7 +4,12 @@
   "titleKo": "청와대, 국회의사당 그리고 연꽃",
   "titleEn": "The Blue House, The National Assembly Building and Lotus Flowers",
   "year": 2008,
-  "images": [],
+  "images": [
+    {
+      "src": "/assets/works/web/paint06_22.jpg",
+      "alt": "청와대, 국회의사당 그리고 연꽃, 2008"
+    }
+  ],
   "caption": "청와대, 국회의사당 그리고 연꽃 The Blue House, The National Assembly Building and Lotus Flowers, 2008, Oil on canvas, 193.9x130.3cm",
   "order": 125,
   "legacyFile": "p2008_11.htm",

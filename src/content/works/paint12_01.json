@@ -4,7 +4,12 @@
   "titleKo": "텅",
   "titleEn": "텅",
   "year": 1998,
-  "images": [],
+  "images": [
+    {
+      "src": "/assets/works/web/paint12_01.jpg",
+      "alt": "텅, 1998"
+    }
+  ],
   "caption": "텅, 1998",
   "order": 12,
   "legacyFile": "paint12_01.htm",

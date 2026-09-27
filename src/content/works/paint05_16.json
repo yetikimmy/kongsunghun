@@ -4,7 +4,12 @@
   "titleKo": "자유로",
   "titleEn": "자유로",
   "year": 2007,
-  "images": [],
+  "images": [
+    {
+      "src": "/assets/works/web/paint05_16.jpg",
+      "alt": "자유로, 2007"
+    }
+  ],
   "caption": "자유로, 2007, Oil on canvas, 65.1x90.9cm",
   "order": 112,
   "legacyFile": "p2007_07.htm",

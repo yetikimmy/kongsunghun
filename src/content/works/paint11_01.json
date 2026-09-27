@@ -4,11 +4,21 @@
   "titleKo": "더블 블라인드",
   "titleEn": "Double Blind",
   "year": 2026,
-  "images": [],
+  "images": [
+    {
+      "src": "/assets/works/web/paint11_01.jpg",
+      "alt": "더블 블라인드, 2026"
+    },
+    {
+      "src": "/assets/works/web/paint11_02.jpg",
+      "alt": "더블 블라인드, 2026"
+    }
+  ],
   "order": 87,
   "legacyFile": "paint11_01.htm",
   "location": "",
   "locationKo": "",
   "locationEn": "",
-  "listHidden": true
+  "listHidden": false,
+  "caption": "더블 블라인드 Double Blind, 2026, 금호미술관"
 }

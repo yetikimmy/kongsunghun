@@ -4,7 +4,12 @@
   "titleKo": "호수공원",
   "titleEn": "호수공원",
   "year": 2007,
-  "images": [],
+  "images": [
+    {
+      "src": "/assets/works/web/paint05_10.jpg",
+      "alt": "호수공원, 2007"
+    }
+  ],
   "caption": "호수공원, 2007, Acrylic on canvas, 60x120cm",
   "order": 106,
   "legacyFile": "p2007_01.htm",

@@ -1,0 +1,20 @@
+{
+  "slug": "m2009_01",
+  "series": "paintings",
+  "titleKo": "나무",
+  "titleEn": "나무",
+  "year": 2009,
+  "images": [
+    {
+      "src": "/assets/works/web/m2009_01.jpg",
+      "alt": "나무, 2009"
+    }
+  ],
+  "caption": "나무, 2009",
+  "order": 402,
+  "legacyFile": "p2009.htm",
+  "listHidden": true,
+  "location": "",
+  "locationKo": "",
+  "locationEn": ""
+}

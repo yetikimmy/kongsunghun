@@ -4,7 +4,12 @@
   "titleKo": "빨간얼굴",
   "titleEn": "빨간얼굴",
   "year": 2000,
-  "images": [],
+  "images": [
+    {
+      "src": "/assets/works/web/paint13_03.jpg",
+      "alt": "빨간얼굴, 2000"
+    }
+  ],
   "caption": "빨간얼굴, 2000, 국립현대미술관",
   "order": 17,
   "legacyFile": "paint13_03.htm",

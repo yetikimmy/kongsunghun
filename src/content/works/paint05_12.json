@@ -4,7 +4,12 @@
   "titleKo": "모텔",
   "titleEn": "Motel",
   "year": 2007,
-  "images": [],
+  "images": [
+    {
+      "src": "/assets/works/web/paint05_12.jpg",
+      "alt": "모텔, 2007"
+    }
+  ],
   "caption": "모텔 Motel, 2007, Acrylic on canvas, 130.3x193.9cm, 국립현대미술관",
   "order": 108,
   "legacyFile": "p2007_03.htm",
