@@ -14,6 +14,17 @@ const rel = (p: string) => relativeHref(p, here);
 const slides = group.slides;
 const total = slides.length;
 const multiple = total > 1;
+// 영상: Drive 파일 ID / 링크 / YouTube → 임베드 URL, 그 외 http → 그대로, 로컬은 <video>
+const video = group.video;
+const videoEmbed = (() => {
+  if (!video) return null;
+  const drive = video.match(/(?:drive\.google\.com\/file\/d\/|^)([\w-]{25,})/);
+  if (video.includes("drive.google.com") && drive) return `https://drive.google.com/file/d/${drive[1]}/preview`;
+  const yt = video.match(/(?:youtu\.be\/|v=)([\w-]{11})/);
+  if (yt) return `https://www.youtube.com/embed/${yt[1]}`;
+  if (/^https?:\/\//.test(video)) return video;
+  return null; // 로컬 경로
+})();
 
 // 특정 상세 제목의 줄바꿈 위치 지정 (\n 위치에서 개행, white-space: pre-line).
 const TITLE_BREAKS: Record<string, string> = {
@@ -100,6 +111,22 @@ const breakTitle = (t: string) => TITLE_BREAKS[t] ?? t;
         <p class="caption media-caption" data-index={i} hidden={i !== 0}>{s.caption}</p>
       )
     ))}
+
+    {video && (
+      <div class="media-video">
+        {videoEmbed ? (
+          <iframe
+            src={videoEmbed}
+            title="전시 영상"
+            allow="autoplay; encrypted-media; fullscreen"
+            allowfullscreen
+            loading="lazy"
+          ></iframe>
+        ) : (
+          <video src={rel(video)} controls playsinline preload="metadata"></video>
+        )}
+      </div>
+    )}
   </div>
 
 </article>
@@ -149,6 +176,19 @@ const breakTitle = (t: string) => TITLE_BREAKS[t] ?? t;
   }
   .body-text p + p {
     margin-top: var(--space-3);
+  }
+
+  /* 전시 영상 임베드 */
+  .media-video {
+    margin-top: var(--space-4);
+  }
+  .media-video iframe,
+  .media-video video {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border: 0;
+    background: #000;
   }
 
   /* ── 우측 이미지 carousel ── */

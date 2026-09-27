@@ -41,6 +41,8 @@ const works = defineCollection({
     extractionWarnings: z.array(z.string()).optional(),
     /** Hide this entry from the series thumbnail list (still shown on year pages). */
     listHidden: z.boolean().optional(),
+    /** Optional embedded video: Google Drive/YouTube URL or local /assets path. */
+    video: z.string().optional(),
     /** True when an auto-imported entry should be checked by a human. */
     manualReview: z.boolean().optional(),
     /** Human-readable reasons an entry was flagged for manual review. */

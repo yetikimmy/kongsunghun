@@ -44,6 +44,8 @@ export interface WorkGroup {
   locationEn?: string;
   /** Cover image for index grids. */
   cover?: { src: string; alt: string };
+  /** Optional embedded video (Google Drive/YouTube URL or local /assets path). */
+  video?: string;
   slides: WorkSlide[];
 }
 
@@ -88,10 +90,12 @@ export function groupWorks(entries: CollectionEntry<"works">[]): WorkGroup[] {
         cover: d.images[0]
           ? { src: d.images[0].src, alt: d.images[0].alt }
           : undefined,
+        video: (d as { video?: string }).video,
         slides: [],
       };
       groups.set(key, group);
     }
+    if (!group.video && (d as { video?: string }).video) group.video = (d as { video?: string }).video;
     group.slides.push(...entryToSlides(d));
   }
 
