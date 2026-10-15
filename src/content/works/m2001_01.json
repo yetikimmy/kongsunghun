@@ -1,0 +1,20 @@
+{
+  "slug": "m2001_01",
+  "series": "paintings",
+  "titleKo": "개",
+  "titleEn": "개",
+  "year": 2001,
+  "images": [
+    {
+      "src": "/assets/works/web/m2001_01.jpg",
+      "alt": "개, 2001"
+    }
+  ],
+  "caption": "개, 2001",
+  "order": 420,
+  "legacyFile": "p2001.htm",
+  "listHidden": true,
+  "location": "",
+  "locationKo": "",
+  "locationEn": ""
+}
